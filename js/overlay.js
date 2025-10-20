@@ -228,7 +228,9 @@ export function Overlay({
 
           <div class="p-6 bg-white">
             <p class="${titleClasses} text-vis-text-primary">Partners</p>
-            <div class="flex flex-row gap-8 items-center h-12 overflow-y-auto">
+            <div
+              class="flex flex-row gap-8 items-center h-12 overflow-y-hidden"
+            >
               ${place.partners && place.partners.length > 0
                 ? place.partners.map((partner) => {
                     const partnerData = partners.find(
