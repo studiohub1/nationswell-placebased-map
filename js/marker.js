@@ -14,6 +14,8 @@ export function Marker({
   y,
   zoom = 1,
   height,
+  width,
+  pan = { x: 0, y: 0 },
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [cityNameLength, setCityNameLength] = useState(0);
@@ -37,6 +39,28 @@ export function Marker({
 
   // Calculate inverse scale to maintain constant size
   const inverseScale = 1 / zoom;
+
+  // Calculate tooltip positioning based on current transform
+  const tooltipWidth = cityNameLength + 20;
+  const tooltipMargin = 33 + 2; // Distance from marker center to tooltip
+
+  // Calculate the effective screen position within the SVG viewport
+  // The SVG is centered and scaled, so we need to account for the transform
+  const svgCenterX = width / 2;
+  const svgCenterY = height / 2;
+
+  // Apply the current transform to get the effective position
+  const effectiveX = svgCenterX + (x - svgCenterX) * zoom + pan.x / zoom;
+  const effectiveRightEdge = effectiveX + tooltipMargin + tooltipWidth;
+  const effectiveLeftEdge = effectiveX - tooltipMargin - tooltipWidth;
+
+  // Check if tooltip would overflow on either side
+  const wouldOverflowRight = effectiveRightEdge > width;
+  const wouldOverflowLeft = effectiveLeftEdge < 0;
+
+  // Position left if it would overflow right, unless that would also overflow left
+  const shouldPositionLeft =
+    cityName === "Pine Bluff" ? true : wouldOverflowRight && !wouldOverflowLeft;
 
   const focusAreaIconPositions = [];
   switch (markerGroupFocusAreas.length) {
@@ -108,6 +132,7 @@ export function Marker({
         class="marker-hovered ${isHovered
           ? "opacity-100"
           : "opacity-0"} transition-opacity duration-300"
+        style="pointer-events: none;"
       >
         <circle
           cx=${x}
@@ -119,11 +144,17 @@ export function Marker({
         />
         <circle cx=${x} cy=${y} r="${14 / 2}" class="fill-white" />
         ${!isMobile &&
-        html` <g class="tooltip-layer" transform="translate(${33 + 2}, 1)">
+        html` <g
+          class="tooltip-layer"
+          transform="translate(${shouldPositionLeft
+            ? -(33 + 2 + tooltipWidth)
+            : 33 + 2}, 1)"
+          style="pointer-events: none;"
+        >
           <rect
             x="${x}"
             y="${y - 15}"
-            width="${cityNameLength + 20}"
+            width="${tooltipWidth}"
             height="26"
             fill="black"
             rx="4"
@@ -131,19 +162,24 @@ export function Marker({
           />
 
           <path
-            d="M1.06 7.06a1.5 1.5 0 0 1 0-2.12L6 0v12L1.06 7.06Z"
+            d="${shouldPositionLeft
+              ? "M5.94 7.06a1.5 1.5 0 0 0 0-2.12L1 0v12l4.94-4.94Z"
+              : "M1.06 7.06a1.5 1.5 0 0 1 0-2.12L6 0v12L1.06 7.06Z"}"
             fill="black"
             stroke="black"
-            transform="translate(${x - 6}, ${y - 13 + 6})"
+            transform="translate(${shouldPositionLeft
+              ? x + tooltipWidth - 1
+              : x - 6}, ${y - 13 + 6})"
           />
           <text
-            x="${x + 10}"
+            x="${x + (shouldPositionLeft ? tooltipWidth - 10 : 10)}"
             y="${y - 2}"
             dy="1"
             fill="white"
             font-size="14px"
             font-family="system-ui, sans-serif"
             dominant-baseline="middle"
+            text-anchor="${shouldPositionLeft ? "end" : "start"}"
             id="marker-city-name-${cityName.replaceAll(" ", "-")}"
           >
             ${cityName}

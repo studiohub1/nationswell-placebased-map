@@ -411,6 +411,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       <svg
         class="map-svg absolute top-0 left-0 w-full h-full object-contain block"
         viewBox="0 0 ${width} ${height}"
+        style="overflow: visible;"
       >
         <g class="states-layer">
           ${statesArray.map((state) => {
@@ -443,8 +444,10 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
               x=${x}
               y=${y}
               zoom=${zoom}
+              pan=${pan}
               handleMarkerClick=${handleMarkerClick}
               height=${height}
+              width=${width}
               numberOfMarkers=${placesGroup.length}
               allFocusAreas=${allFocusAreas}
             />`;
