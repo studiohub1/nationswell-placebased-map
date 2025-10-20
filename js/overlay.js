@@ -204,7 +204,9 @@ export function Overlay({
         </div>
         <div class="col-span-3">
           <div class="p-6 bg-vis-main-blue">
-            <p class="${titleClasses} text-vis-text-inverted">Focus area(s)</p>
+            <p class="${titleClasses} text-vis-text-inverted">
+              Focus area${place.focusAreas.length > 1 ? "s" : ""}
+            </p>
             <div class="flex flex-wrap gap-2">
               ${place.focusAreas && place.focusAreas.length > 0
                 ? place.focusAreas.map((focusArea) => {

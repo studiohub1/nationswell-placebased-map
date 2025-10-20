@@ -12,19 +12,23 @@ import { MarkerDetails } from "./markerDetails.js";
 import { FocusAreaGroupLegend } from "./focusAreas.js";
 
 export function Map({ usGeoData, places, partners, allFocusAreas }) {
-  console.log(
-    "Rendering Map with usGeoData:",
-    usGeoData,
-    "and placesData:",
-    places,
-    "and partnersData:",
-    partners,
-    "and allFocusAreas:",
-    allFocusAreas
-  );
+  // console.log(
+  //   "Rendering Map with usGeoData:",
+  //   usGeoData,
+  //   "and placesData:",
+  //   places,
+  //   "and partnersData:",
+  //   partners,
+  //   "and allFocusAreas:",
+  //   allFocusAreas
+  // );
 
   // map state
-  const [zoom, setZoom] = useState(1);
+  const ZOOM_STEP = 0.3;
+  const MIN_ZOOM = 0.9;
+  const MAX_ZOOM = 5;
+
+  const [zoom, setZoom] = useState(MIN_ZOOM);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -72,10 +76,6 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   // dimensions
   const width = 975;
   const height = 610;
-
-  const ZOOM_STEP = 0.3;
-  const MIN_ZOOM = 1;
-  const MAX_ZOOM = 5;
 
   // Helper function to zoom toward a specific point
   function zoomToPoint(newZoom, clientX, clientY) {

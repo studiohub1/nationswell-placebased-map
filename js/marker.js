@@ -58,7 +58,7 @@ export function Marker({
 
   return html`
     <g
-      class="marker pointer-events-auto cursor-pointer transition-transform duration-300"
+      class="marker pointer-events-auto cursor-pointer"
       transform="translate(${x}, ${y}) scale(${inverseScale}) translate(${-x}, ${-y})"
       onclick=${(event) => handleMarkerClick(event, markerGroup)}
       onMouseEnter=${() => setIsHovered(true)}
