@@ -154,7 +154,6 @@ function renderContent(focusAreas, placesData) {
 
 function Content({ focusAreas, placesData }) {
   const [usGeoData, setUsGeoData] = useState(null);
-  // const [placesData, setPlacesData] = useState(null);
   const [partnersData, setPartnersData] = useState(null);
 
   const [statusShowInactiveFilter, setStatusShowInactiveFilter] =
