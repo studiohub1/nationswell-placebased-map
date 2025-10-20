@@ -3,7 +3,7 @@ import {
   getFocusAreaGroupIcon,
   getFocusAreaGroupFromArea,
 } from "./focusAreas.js";
-import { REPO_URL } from "./helper.js";
+import { isMobile, REPO_URL } from "./helper.js";
 
 export function Overlay({
   place,
@@ -38,7 +38,7 @@ export function Overlay({
   const titleClasses = "font-sora text-sm uppercase mb-4 font-bold";
   return html`<div class="map-details-overlay fixed inset-0 z-[10001]">
     <div
-      class="map-details-content absolute bg-white rounded-lg shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[11] w-[90%] max-w-[1200px] max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
+      class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
       data-lenis-prevent
     >
       <svg
@@ -59,8 +59,10 @@ export function Overlay({
         />
       </svg>
       <div
-        class="flex flex-row items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
-        style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header.png');"
+        class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
+        style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
+          ? "_mobile"
+          : ""}.png');"
       >
         <div class="flex flex-col items-start">
           <p
@@ -81,10 +83,10 @@ export function Overlay({
           href=${place.projectLink}
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-[#0F100F] flex flex-row justify-between px-4 py-[10px] mt-4"
+          class="bg-[#0F100F] flex flex-row justify-between px-4 py-[10px] mt-4 items-center"
         >
           <span class="font-sora text-sm uppercase text-vis-text-inverted pr-6"
-            >Learn more</span
+            >${isMobile ? "See project website" : "Learn more"}</span
           >
           <svg
             width="17"
