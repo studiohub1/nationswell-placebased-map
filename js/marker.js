@@ -1,4 +1,5 @@
 import { html, useState } from "./preact-htm.js";
+import { isMobile } from "./helper.js";
 import {
   getFocusAreaGroupIcon,
   getAllFocusAreaGroupsForMultipleProjects,
@@ -21,6 +22,8 @@ export function Marker({
     markerGroup,
     allFocusAreas
   );
+
+  const cityName = markerGroup[0].city;
 
   // Calculate inverse scale to maintain constant size
   const inverseScale = 1 / zoom;
@@ -105,6 +108,29 @@ export function Marker({
           stroke-width="2"
         />
         <circle cx=${x} cy=${y} r="${14 / 2}" class="fill-white" />
+        ${!isMobile &&
+        html` <g class="tooltip-layer" transform="translate(24, 1)">
+          <rect
+            x="${x + 15}"
+            y="${y - 15}"
+            width="${cityName.length * 7 + 24}"
+            height="26"
+            fill="black"
+            rx="4"
+            ry="4"
+          />
+          <text
+            x="${x + 27}"
+            y="${y - 2}"
+            dy="1"
+            fill="white"
+            font-size="14px"
+            font-family="system-ui, sans-serif"
+            dominant-baseline="middle"
+          >
+            ${cityName}
+          </text>
+        </g>`}
         <g transform="translate(${x - 7}, ${-height / 2 + y})">
           ${markerGroupFocusAreas.length > 0 &&
           markerGroupFocusAreas.map((group, index) => {

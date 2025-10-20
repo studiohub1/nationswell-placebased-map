@@ -77,3 +77,5 @@ export function getTouchCenter(touch1, touch2) {
     y: (touch1.clientY + touch2.clientY) / 2,
   };
 }
+
+export const isMobile = window.innerWidth <= 992;
