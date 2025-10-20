@@ -1,6 +1,6 @@
 import { html, renderComponent, useEffect, useState } from "./js/preact-htm.js";
 import { Map } from "./js/map.js";
-import { REPO_URL } from "./js/helper.js";
+import { isMobile, REPO_URL } from "./js/helper.js";
 import { getAllFocusAreaGroupsForProject } from "./js/focusAreas.js";
 import { FocusAreaDropdown } from "./js/focusAreaDropdown.js";
 
@@ -100,37 +100,80 @@ function main() {
   });
 }
 
+function positionDropdown(focusAreas, placesData) {
+  const triggerElement = document.getElementById(
+    "focus-areas-dropdown-trigger"
+  );
+  const triggerRightX = triggerElement.getBoundingClientRect().right;
+  const triggerLeftX = triggerElement.getBoundingClientRect().left;
+  const triggerTopY = triggerElement.getBoundingClientRect().top;
+  const triggerBottomY = triggerElement.getBoundingClientRect().bottom;
+
+  let containerTop = triggerTopY;
+  let containerLeft = triggerRightX + 10;
+  let containerWidth = 311;
+  let containerHeight = 388;
+
+  if (isMobile) {
+    console.log(
+      "Mobile device detected, adjusting dropdown position",
+      triggerLeftX,
+      triggerTopY,
+      triggerBottomY
+    );
+    containerLeft = triggerLeftX;
+    containerTop = triggerBottomY;
+    containerWidth = triggerRightX - triggerLeftX;
+    containerHeight = 300;
+  }
+  const containerElement = document.getElementById(
+    "focus-areas-dropdown-container"
+  );
+  if (containerElement) {
+    containerElement.style.top = `${containerTop}px`;
+    containerElement.style.left = `${containerLeft}px`;
+    containerElement.style.width = `${containerWidth}px`;
+    containerElement.style.height = `${containerHeight}px`;
+
+    if (containerElement.style.display !== "block") {
+      containerElement.style.display = "block";
+    } else {
+      containerElement.style.display = "none";
+    }
+    renderComponent(
+      html`<${FocusAreaDropdown}
+        focusAreas=${focusAreas}
+        placesData=${placesData}
+      />`,
+      containerElement
+    );
+  }
+}
+
 function renderFocusAreasDropdown(focusAreas, placesData) {
   // get trigger element and add event listener to toggle visibility of container
   const triggerElement = document.getElementById(
     "focus-areas-dropdown-trigger"
   );
   if (triggerElement) {
-    const triggerRightX = triggerElement.getBoundingClientRect().right;
-    const triggerY = triggerElement.getBoundingClientRect().top;
-
     triggerElement.addEventListener("click", () => {
-      const containerElement = document.getElementById(
-        "focus-areas-dropdown-container"
-      );
-      if (containerElement) {
-        containerElement.style.top = `${triggerY}px`;
-        containerElement.style.left = `${triggerRightX + 10}px`;
-        if (containerElement.style.display !== "block") {
-          containerElement.style.display = "block";
-        } else {
+      positionDropdown(focusAreas, placesData);
+    });
+
+    // for mobile, add event listener to close button in drawer to hide dropdown container as well
+    const filterDrawerCloseButton = document.querySelector(
+      ".map-filters_drawer-close"
+    );
+    if (filterDrawerCloseButton) {
+      filterDrawerCloseButton.addEventListener("click", () => {
+        const containerElement = document.getElementById(
+          "focus-areas-dropdown-container"
+        );
+        if (containerElement) {
           containerElement.style.display = "none";
         }
-
-        renderComponent(
-          html`<${FocusAreaDropdown}
-            focusAreas=${focusAreas}
-            placesData=${placesData}
-          />`,
-          containerElement
-        );
-      }
-    });
+      });
+    }
   }
 }
 

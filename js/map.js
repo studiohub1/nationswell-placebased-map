@@ -67,7 +67,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   places
     .filter((p) => p.lat !== 0 && p.lon !== 0)
     .forEach((place) => {
-      const key = `${place.lat.toFixed(4)}_${place.lon.toFixed(4)}`; // Group by lat/lon rounded to 4 decimal places, TODO: make clustering zoom dependent
+      const key = `${place.lat.toFixed(4)}_${place.lon.toFixed(4)}`; // Group by lat/lon rounded to 4 decimal places
       if (!groupedPlaces[key]) {
         groupedPlaces[key] = [];
       }
