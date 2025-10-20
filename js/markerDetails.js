@@ -78,10 +78,14 @@ export function MarkerDetails({
 function MarkerDetailsItem({ markerDetails, viewProjectDetails }) {
   return html`<div class="bg-[#F3F0E9] py-4 px-6 flex flex-col items-start">
     <div class="flex flex-row gap-4 items-center">
-      <p class="font-libre text-lg font-italic text-vis-text-secondary italic">
-        ${markerDetails.startYear}${" "}–${" "}
-        ${markerDetails.endYear ? markerDetails.endYear : "present"}
-      </p>
+      ${markerDetails.startYear && markerDetails.startYear !== ""
+        ? html` <p
+            class="font-libre text-lg font-italic text-vis-text-secondary italic"
+          >
+            ${markerDetails.startYear}${" "}–${" "}
+            ${markerDetails.endYear ? markerDetails.endYear : "present"}
+          </p>`
+        : null}
       <div class="flex flex-row gap-2">
         ${markerDetails.focusAreaGroups.length > 0
           ? markerDetails.focusAreaGroups.map(
@@ -102,7 +106,7 @@ function MarkerDetailsItem({ markerDetails, viewProjectDetails }) {
     <p
       class="font-authentic font-md line-height-[155%] text-vis-text-primary mt-1"
     >
-      ${markerDetails.previewDescription || "TODO"}
+      ${markerDetails.previewDescription || ""}
     </p>
     <button
       onclick=${() => viewProjectDetails(markerDetails.id)}

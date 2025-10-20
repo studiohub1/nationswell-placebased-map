@@ -14,8 +14,8 @@ function main() {
       // "./data/focusAreasData.csv"
     ),
     d3.csv(
-      REPO_URL + "/data/places_with_id.csv"
-      // "./data/places_with_id.csv"
+      REPO_URL + "/data/places.csv"
+      // "./data/places.csv"
     ),
   ]).then(([focusAreaData, placesData]) => {
     // process focus area data
@@ -32,16 +32,16 @@ function main() {
     }));
 
     // preprocess places data as needed
-    placesData.forEach((d) => {
+    placesData.forEach((d, i) => {
+      d["id"] = i + 1;
       d["approved"] =
         d["Approval?"] && d["Approval?"].trim() === "Approved" ? true : false;
-      d["id"] = +d["Id"];
       d["lat"] = +d["Latitude"];
       d["lon"] = +d["Longitude"];
       d["gini"] = +d["Gini Coefficient"];
       d["name"] = d["Project Name"];
       d["startYear"] =
-        d["Start Year"] && d["Start Year"] !== "" ? d["Start Year"] : "20xx";
+        d["Start Year"] && d["Start Year"] !== "" ? d["Start Year"] : null;
       d["endYear"] = d["End Year"];
       d["previewDescription"] =
         d["Project Preview Description"] &&
@@ -148,7 +148,7 @@ function renderContent(focusAreas, placesData) {
       );
     })();
   } else {
-    console.error(`Could not find container element for ${vis.id}`);
+    console.error(`Could not find container element for content`);
   }
 }
 

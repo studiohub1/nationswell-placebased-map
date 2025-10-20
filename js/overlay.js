@@ -66,12 +66,18 @@ export function Overlay({
           <p
             class="font-libre italic text-lg font-italic text-vis-text-inverted"
           >
-            ${place.startYear}${" "}–${" "}
-            ${place.endYear ? place.endYear : "present"}
+            ${place.startYear && place.startYear !== ""
+              ? html`<span>
+                  ${place.startYear}${" "}–${" "}
+                  ${place.endYear ? place.endYear : "present"}
+                </span>`
+              : null}
           </p>
           <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
         </div>
-        <a
+        ${place.projectLink &&
+        place.projectLink !== "" &&
+        html` <a
           href=${place.projectLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -92,7 +98,7 @@ export function Overlay({
               fill="#FBF9F4"
             />
           </svg>
-        </a>
+        </a>`}
       </div>
       <div class="grid grid-cols-5">
         <div
