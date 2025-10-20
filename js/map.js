@@ -5,6 +5,7 @@ import {
   getTouchDistance,
   getTouchCenter,
   REPO_URL,
+  isMobile,
 } from "./helper.js";
 import { Marker } from "./marker.js";
 import { Overlay } from "./overlay.js";
@@ -374,7 +375,9 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   return html`<div
     class="inner-map"
     ref=${mapContainerRef}
-    class="position-relative w-full h-full overflow-hidden"
+    class="position-relative w-full h-full overflow-hidden ${isMobile
+      ? "is-mobile"
+      : ""}"
   >
     <div
       class="map-content relative w-full h-full select-none"

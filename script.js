@@ -232,6 +232,6 @@ function Content({ focusAreas, placesData }) {
           partners=${partnersData}
           allFocusAreas=${focusAreas}
         />`
-      : "Loading..."}
+      : null}
   `;
 }

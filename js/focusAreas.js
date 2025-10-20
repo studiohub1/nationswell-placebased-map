@@ -4,7 +4,7 @@ export function FocusAreaGroupLegend({ allFocusAreas }) {
   const allGroups = groupFocusAreasByGroup(allFocusAreas);
 
   return html`<div
-    class="absolute top-0 left-0 right-0 bg-[#E9FBAE] flex justify-around px-4 py-2 gap-2"
+    class="absolute top-0 left-0 right-0 bg-[#E9FBAE] flex  px-4 py-2 md:py-0  min-h-[2.5rem] flex-wrap justify-start gap-x-4 gap-y-2 md:justify-around"
   >
     ${allGroups.map((areaGroup) => {
       return html`<div class="flex items-center gap-2">
