@@ -1,5 +1,5 @@
 import { html } from "./preact-htm.js";
-import { REPO_URL } from "./helper.js";
+import { isMobile, REPO_URL } from "./helper.js";
 import { getFocusAreaGroupIcon } from "./focusAreas.js";
 
 export function MarkerDetails({
@@ -9,11 +9,20 @@ export function MarkerDetails({
   handleCloseDetails,
 }) {
   // console.log("Rendering MarkerDetails with:", markerDetails);
+  let markerDetailsPositionY = position ? position.y : 0;
+  let markerDetailsPositionX = position ? position.x : 0;
+
+  if (isMobile) {
+    markerDetailsPositionX = null;
+    markerDetailsPositionY = window.innerHeight / 2 - 200;
+  }
+
   return html`<div
-    className="marker-details absolute bg-white p-6 rounded-xl shadow-lg flex flex-col items-start gap-4 max-w-md z-[101]"
-    style="top: ${position ? position.y : 0}px; left: ${position
-      ? position.x
-      : 0}px;"
+    className="marker-details absolute bg-white p-6 rounded-xl shadow-lg flex flex-col items-start gap-4 max-w-md z-[101] w-[90%] md:w-unset left-[5%] md:left-unset"
+    style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${isMobile &&
+    markerDetails.markerGroup.length > 2
+      ? "height: 390px;"
+      : ""}"
   >
     <svg
       class="close-icon absolute top-2 right-2 cursor-pointer h-8 w-8"
@@ -61,7 +70,7 @@ export function MarkerDetails({
     </div>
     <div
       data-lenis-prevent
-      class="max-h-[550px] overflow-y-auto flex flex-col gap-6"
+      class="max-h-[550px] overflow-y-auto flex flex-col gap-6 w-full"
     >
       ${markerDetails.markerGroup &&
       markerDetails.markerGroup.length > 0 &&
@@ -69,13 +78,19 @@ export function MarkerDetails({
         return html` <${MarkerDetailsItem}
           markerDetails=${marker}
           viewProjectDetails=${viewProjectDetails}
+          showPreviewDescription=${markerDetails.markerGroup.length === 1 ||
+          (markerDetails.markerGroup.length > 1 && !isMobile)}
         />`;
       })}
     </div>
   </div>`;
 }
 
-function MarkerDetailsItem({ markerDetails, viewProjectDetails }) {
+function MarkerDetailsItem({
+  markerDetails,
+  viewProjectDetails,
+  showPreviewDescription = true,
+}) {
   return html`<div class="bg-[#F3F0E9] py-4 px-6 flex flex-col items-start">
     <div class="flex flex-row gap-4 items-center">
       ${markerDetails.startYear && markerDetails.startYear !== ""
@@ -103,11 +118,12 @@ function MarkerDetailsItem({ markerDetails, viewProjectDetails }) {
     <p class="font-sora text-sm text-vis-text-primary font-bold uppercase mt-2">
       ${markerDetails.name}
     </p>
-    <p
+    ${showPreviewDescription &&
+    html` <p
       class="font-authentic font-md line-height-[155%] text-vis-text-primary mt-1"
     >
       ${markerDetails.previewDescription || ""}
-    </p>
+    </p>`}
     <button
       onclick=${() => viewProjectDetails(markerDetails.id)}
       class="bg-vis-main-blue w-full flex flex-row justify-between px-4 py-2 mt-4 bg-cover bg-center"
