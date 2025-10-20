@@ -184,7 +184,7 @@ export function Overlay({
           class="${place.gini && place.gini !== 0
             ? "col-span-1"
             : "col-span-2"} col-span-1 bg-cover bg-center bg-no-repeat"
-          style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-right: -3px;"
+          style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
         ></div>
         <${GiniCoefficientChart}
           gini=${place.gini}
