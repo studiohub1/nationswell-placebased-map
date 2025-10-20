@@ -1,4 +1,4 @@
-import { html, useState } from "./preact-htm.js";
+import { html, useState, useEffect } from "./preact-htm.js";
 import { isMobile } from "./helper.js";
 import {
   getFocusAreaGroupIcon,
@@ -16,14 +16,24 @@ export function Marker({
   height,
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [cityNameLength, setCityNameLength] = useState(0);
 
-  // const markerGroupFocusAreas = markerGroup[0].focusAreaGroups; // TODO: adapt to show all focus areas in group
   const markerGroupFocusAreas = getAllFocusAreaGroupsForMultipleProjects(
     markerGroup,
     allFocusAreas
   );
 
   const cityName = markerGroup[0].city;
+
+  useEffect(() => {
+    // get bounding box to calculate length of city name
+    const textEl = document.querySelector(
+      `#marker-city-name-${cityName.replaceAll(" ", "-")}`
+    );
+    if (textEl) {
+      setCityNameLength(textEl.getBBox().width);
+    }
+  }, [cityName]);
 
   // Calculate inverse scale to maintain constant size
   const inverseScale = 1 / zoom;
@@ -109,24 +119,32 @@ export function Marker({
         />
         <circle cx=${x} cy=${y} r="${14 / 2}" class="fill-white" />
         ${!isMobile &&
-        html` <g class="tooltip-layer" transform="translate(24, 1)">
+        html` <g class="tooltip-layer" transform="translate(${33 + 2}, 1)">
           <rect
-            x="${x + 15}"
+            x="${x}"
             y="${y - 15}"
-            width="${cityName.length * 7 + 24}"
+            width="${cityNameLength + 20}"
             height="26"
             fill="black"
             rx="4"
             ry="4"
           />
+
+          <path
+            d="M1.06 7.06a1.5 1.5 0 0 1 0-2.12L6 0v12L1.06 7.06Z"
+            fill="black"
+            stroke="black"
+            transform="translate(${x - 6}, ${y - 13 + 6})"
+          />
           <text
-            x="${x + 27}"
+            x="${x + 10}"
             y="${y - 2}"
             dy="1"
             fill="white"
             font-size="14px"
             font-family="system-ui, sans-serif"
             dominant-baseline="middle"
+            id="marker-city-name-${cityName.replaceAll(" ", "-")}"
           >
             ${cityName}
           </text>
