@@ -41,7 +41,8 @@ export function Overlay({
       class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
       data-lenis-prevent
     >
-      <svg
+      ${!isMobile &&
+      html`<svg
         class="close-icon absolute top-2 right-2 cursor-pointer h-8 w-8"
         onclick=${handleCloseOverlay}
         width="34"
@@ -57,7 +58,7 @@ export function Overlay({
           stroke-linecap="round"
           stroke-linejoin="round"
         />
-      </svg>
+      </svg>`}
       <div
         class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
         style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
@@ -109,78 +110,7 @@ export function Overlay({
           ${place.description}
         </div>
         <div class="col-span-1 p-6 bg-vis-surface-primary-tonal">
-          <p class="${titleClasses} text-vis-text-primary">location</p>
-          <div
-            class="flex flex-col space-y-2 font-authentic text-[16px] leading-[155%] text-vis-text-primary"
-          >
-            <div class="flex flex-row space-x-1">
-              <svg width="21" height="21" fill="none" viewBox="0 0 21 21">
-                <g>
-                  <path
-                    stroke="#000"
-                    stroke-width="1.25"
-                    d="M16.898 8.833c0 3.682-6.667 10-6.667 10s-6.667-6.318-6.667-10a6.667 6.667 0 1 1 13.334 0Z"
-                  />
-                  <path
-                    fill="#000"
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.25"
-                    d="M10.23 9.667a.833.833 0 1 0 0-1.667.833.833 0 0 0 0 1.667Z"
-                  />
-                </g></svg
-              ><span>${place.city}, ${place.state}</span>
-            </div>
-            <div class="flex flex-row space-x-1">
-              <svg width="21" height="21" fill="none" viewBox="0 0 21 21">
-                <g>
-                  <path
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.25"
-                    d="M6.064 8.008 6.073 8m3.323.008L9.405 8m-3.341 3.342.009-.01m3.323.01.009-.01m-3.341 3.343.009-.009m3.323.009.009-.009M12.73 18h-9.5a.5.5 0 0 1-.5-.5V5.167a.5.5 0 0 1 .5-.5h4.5V3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5V8m0 10h4.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-4.5m0 10v-3.333m0-6.667v3.333m0 3.334v-3.334m0 3.334h1.667m-1.667-3.334h1.667"
-                  />
-                </g>
-              </svg>
-              <span>${place.areaType}</span>
-            </div>
-            ${place.populationSize &&
-            place.populationSize &&
-            html` <div class="flex flex-row space-x-1">
-              <svg width="21" height="21" fill="none" viewBox="0 0 21 21">
-                <defs>
-                  <clipPath id="a" class="a">
-                    <path fill="#fff" d="M.23.5h20v20h-20z" />
-                  </clipPath>
-                </defs>
-                <g clip-path="url(#a)">
-                  <path
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.25"
-                    d="M6.064 15.5v-.833a4.167 4.167 0 1 1 8.334 0v.833m-13.334 0v-.834a2.5 2.5 0 0 1 2.5-2.5M19.396 15.5v-.834a2.5 2.5 0 0 0-2.5-2.5"
-                  />
-                  <path
-                    stroke="#000"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.25"
-                    d="M10.23 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-6.667 1.667a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Zm13.334 0a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Z"
-                  />
-                </g>
-              </svg>
-              <div>
-                <span>${place.populationSize}</span>
-                <span
-                  class="block font-libre italic text-[14px] leading-[135%] text-vis-text-secondary"
-                  >as of ${place.populationDataYear}</span
-                >
-              </div>
-            </div>`}
-          </div>
+          <${LocationSection} place=${place} titleClasses=${titleClasses} />
         </div>
         <div
           class="${place.gini && place.gini !== 0
@@ -188,7 +118,7 @@ export function Overlay({
             : "col-span-2"} col-span-1 bg-cover bg-center bg-no-repeat"
           style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
         ></div>
-        <${GiniCoefficientChart}
+        <${GiniCoefficientSection}
           gini=${place.gini}
           titleClasses=${titleClasses}
         />
@@ -205,57 +135,17 @@ export function Overlay({
           >
         </div>
         <div class="col-span-3">
-          <div class="p-6 bg-vis-main-blue">
-            <p class="${titleClasses} text-vis-text-inverted">
-              Focus area${place.focusAreas.length > 1 ? "s" : ""}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              ${place.focusAreas && place.focusAreas.length > 0
-                ? place.focusAreas.map((focusArea) => {
-                    return html`<div
-                      class="flex flex-row space-x-2 items-center text-vis-text-primary px-3 py-1 rounded-full text-sm font-sora uppercase bg-vis-surface-primary-tonal"
-                    >
-                      <div class="w-[10px] h-[10px]">
-                        ${getFocusAreaGroupIcon(
-                          getFocusAreaGroupFromArea(focusArea, allFocusAreas),
-                          "#0F100F"
-                        )}
-                      </div>
-                      <span>${focusArea}</span>
-                    </div>`;
-                  })
-                : null}
-            </div>
-          </div>
+          <${FocusAreaSection}
+            place=${place}
+            allFocusAreas=${allFocusAreas}
+            titleClasses=${titleClasses}
+          />
 
-          <div class="p-6 bg-white">
-            <p class="${titleClasses} text-vis-text-primary">Partners</p>
-            <div
-              class="flex flex-row gap-8 items-center h-12 overflow-y-hidden"
-            >
-              ${place.partners && place.partners.length > 0
-                ? place.partners.map((partner) => {
-                    const partnerData = partners.find(
-                      (p) => p.partnerName === partner
-                    );
-                    if (!partnerData || !partnerData.partnerLink)
-                      return html`<img
-                        src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
-                        alt="${partner} logo"
-                        class="h-12 object-contain"
-                      />`;
-                    return html`<a
-                      href=${partnerData.partnerLink}
-                      target="_blank"
-                      ><img
-                        src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
-                        alt="${partner} logo"
-                        class="h-12 min-w-12 object-contain"
-                    /></a>`;
-                  })
-                : null}
-            </div>
-          </div>
+          <${PartnerSection}
+            place=${place}
+            partners=${partners}
+            titleClasses=${titleClasses}
+          />
         </div>
       </div>
     </div>
@@ -266,7 +156,152 @@ export function Overlay({
   </div>`;
 }
 
-function GiniCoefficientChart({ gini, titleClasses }) {
+function PartnerSection({ place, partners, titleClasses }) {
+  return html`<div class="p-6 bg-white">
+    <p class="${titleClasses} text-vis-text-primary">Partners</p>
+    <div class="flex flex-row gap-8 items-center h-12 overflow-y-hidden">
+      ${place.partners && place.partners.length > 0
+        ? place.partners.map((partner) => {
+            const partnerData = partners.find((p) => p.partnerName === partner);
+            if (!partnerData || !partnerData.partnerLink)
+              return html`<img
+                src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
+                alt="${partner} logo"
+                class="h-12 object-contain"
+              />`;
+            return html`<a href=${partnerData.partnerLink} target="_blank"
+              ><img
+                src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
+                alt="${partner} logo"
+                class="h-12 min-w-12 object-contain"
+            /></a>`;
+          })
+        : null}
+    </div>
+  </div>`;
+}
+
+function FocusAreaSection({ place, allFocusAreas, titleClasses }) {
+  return html`<div class="p-6 bg-vis-main-blue">
+    <p class="${titleClasses} text-vis-text-inverted">
+      Focus area${place.focusAreas.length > 1 ? "s" : ""}
+    </p>
+    <div class="flex flex-wrap gap-2">
+      ${place.focusAreas && place.focusAreas.length > 0
+        ? place.focusAreas.map((focusArea) => {
+            return html`<div
+              class="flex flex-row space-x-2 items-center text-vis-text-primary px-3 py-1 rounded-full text-sm font-sora uppercase bg-vis-surface-primary-tonal"
+            >
+              <div class="w-[10px] h-[10px] shrink-0">
+                ${getFocusAreaGroupIcon(
+                  getFocusAreaGroupFromArea(focusArea, allFocusAreas),
+                  "#0F100F"
+                )}
+              </div>
+              <span>${focusArea}</span>
+            </div>`;
+          })
+        : null}
+    </div>
+  </div>`;
+}
+
+function LocationSection({ place, titleClasses }) {
+  return html`<div>
+    <p class="${titleClasses} text-vis-text-primary">location</p>
+    <div
+      class="flex flex-col space-y-2 font-authentic text-[16px] leading-[155%] text-vis-text-primary"
+    >
+      <div class="flex flex-row space-x-1">
+        <svg
+          width="21"
+          height="21"
+          fill="none"
+          viewBox="0 0 21 21"
+          class="shrink-0"
+        >
+          <g>
+            <path
+              stroke="#000"
+              stroke-width="1.25"
+              d="M16.898 8.833c0 3.682-6.667 10-6.667 10s-6.667-6.318-6.667-10a6.667 6.667 0 1 1 13.334 0Z"
+            />
+            <path
+              fill="#000"
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.25"
+              d="M10.23 9.667a.833.833 0 1 0 0-1.667.833.833 0 0 0 0 1.667Z"
+            />
+          </g></svg
+        ><span>${place.city}, ${place.state}</span>
+      </div>
+      <div class="flex flex-row space-x-1">
+        <svg
+          width="21"
+          height="21"
+          fill="none"
+          viewBox="0 0 21 21"
+          class="shrink-0"
+        >
+          <g>
+            <path
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.25"
+              d="M6.064 8.008 6.073 8m3.323.008L9.405 8m-3.341 3.342.009-.01m3.323.01.009-.01m-3.341 3.343.009-.009m3.323.009.009-.009M12.73 18h-9.5a.5.5 0 0 1-.5-.5V5.167a.5.5 0 0 1 .5-.5h4.5V3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5V8m0 10h4.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-4.5m0 10v-3.333m0-6.667v3.333m0 3.334v-3.334m0 3.334h1.667m-1.667-3.334h1.667"
+            />
+          </g>
+        </svg>
+        <span>${place.areaType}</span>
+      </div>
+      ${place.populationSize &&
+      place.populationSize &&
+      html` <div class="flex flex-row space-x-1">
+        <svg
+          width="21"
+          height="21"
+          fill="none"
+          viewBox="0 0 21 21"
+          class="shrink-0"
+        >
+          <defs>
+            <clipPath id="a" class="a">
+              <path fill="#fff" d="M.23.5h20v20h-20z" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#a)">
+            <path
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.25"
+              d="M6.064 15.5v-.833a4.167 4.167 0 1 1 8.334 0v.833m-13.334 0v-.834a2.5 2.5 0 0 1 2.5-2.5M19.396 15.5v-.834a2.5 2.5 0 0 0-2.5-2.5"
+            />
+            <path
+              stroke="#000"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.25"
+              d="M10.23 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-6.667 1.667a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Zm13.334 0a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Z"
+            />
+          </g>
+        </svg>
+        <div>
+          <span>${place.populationSize}</span>
+          <span
+            class="block font-libre italic text-[14px] leading-[135%] text-vis-text-secondary"
+            >as of ${place.populationDataYear}</span
+          >
+        </div>
+      </div>`}
+    </div>
+  </div>`;
+}
+
+function GiniCoefficientSection({ gini, titleClasses }) {
   if (!gini) {
     return null;
   }
