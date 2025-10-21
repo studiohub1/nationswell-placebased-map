@@ -106,12 +106,28 @@ export function Marker({
           ? "opacity-0"
           : "opacity-100"} transition-opacity duration-300"
       >
+        <defs>
+          <filter
+            id="marker-shadow"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="6"
+              flood-color="rgba(11, 41, 148, 0.79)"
+            />
+          </filter>
+        </defs>
         <circle
           cx=${x}
           cy=${y}
           r="${24 / 2}"
           class="fill-white"
-          style="filter: drop-shadow(0 0 6px rgba(11, 41, 148, 0.79))"
+          filter="url(#marker-shadow)"
         />
         ${numberOfMarkers > 1 &&
         html` <text
