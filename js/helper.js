@@ -79,3 +79,5 @@ export function getTouchCenter(touch1, touch2) {
 }
 
 export const isMobile = window.innerWidth <= 992;
+export const isTouchDevice =
+  "ontouchstart" in window || navigator.maxTouchPoints > 0;

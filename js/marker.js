@@ -1,5 +1,5 @@
 import { html, useState, useEffect } from "./preact-htm.js";
-import { isMobile } from "./helper.js";
+import { isMobile, isTouchDevice } from "./helper.js";
 import {
   getFocusAreaGroupIcon,
   getAllFocusAreaGroupsForMultipleProjects,
@@ -160,6 +160,7 @@ export function Marker({
         />
         <circle cx=${x} cy=${y} r="${14 / 2}" class="fill-white" />
         ${!isMobile &&
+        !isTouchDevice &&
         html` <g
           class="tooltip-layer"
           transform="translate(${shouldPositionLeft
