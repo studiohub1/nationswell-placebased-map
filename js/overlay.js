@@ -466,15 +466,26 @@ function GiniCoefficientSection({ gini, titleClasses }) {
         onmouseleave="${() => setShowTooltip(false)}"
       />
       <div
-        class="bg-[#0F100F] px-4 py-2 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 ${showTooltip
+        class="bg-[#0F100F] px-4 py-2 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 shadow-lg ${showTooltip
           ? ""
           : "hidden"}"
       >
-        The Gini coefficient measures inequality on a scale ranging from${" "}
-        <span class="font-bold">0%</span>
-        (complete equality: everyone has the same income) to${" "}
-        <span class="font-bold">100%</span> (complete inequality: one person has
-        all the income).
+        <span
+          >The Gini coefficient measures inequality on a scale ranging
+          from${" "}
+          <span class="font-bold">0%</span>
+          (complete equality: everyone has the same income) to${" "}
+          <span class="font-bold">100%</span> (complete inequality: one person
+          has all the income).</span
+        >
+        <span
+          class="absolute top-0 left-[137px]"
+          style="transform: rotate(180deg) translate(0, 15px);"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <polygon points="0,0 16,0 8,8" fill="#0F100F" stroke="#0F100F" />
+          </svg>
+        </span>
       </div>
     </div>
     <div class="relative" id="gini-container">
