@@ -469,16 +469,38 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       class="map-buttons absolute bottom-12 right-4 z-10 flex flex-col space-y-2"
     >
       <button
-        class="map-button border border-solid text-[#2E5AF4] text-xl border-[#2E5AF4] h-[30px] w-[30px] rounded-[50%] bg-[#dfe3f0] hover:bg-[#cdd1e0] transition-colors"
+        class="map-button border border-solid text-[#2E5AF4] text-xl border-[#2E5AF4] h-[30px] w-[30px] rounded-[50%] bg-[#dfe3f0] hover:bg-[#cdd1e0] transition-colors flex items-center justify-center"
         onClick=${handleZoomIn}
       >
-        +
+        <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+          <path
+            stroke="#2E5AF4"
+            stroke-linecap="round"
+            stroke-width="1.5"
+            d="M5 9.994h10"
+            class="Vector 282"
+          />
+          <path
+            stroke="#2E5AF4"
+            stroke-linecap="round"
+            stroke-width="1.5"
+            d="M10.006 5v10"
+            class="Vector 283"
+          />
+        </svg>
       </button>
       <button
-        class="map-button border border-solid text-[#2E5AF4] text-xl border-[#2E5AF4] h-[30px] w-[30px] rounded-[50%] bg-[#dfe3f0] hover:bg-[#cdd1e0] transition-colors"
+        class="map-button border border-solid text-[#2E5AF4] text-xl border-[#2E5AF4] h-[30px] w-[30px] rounded-[50%] bg-[#dfe3f0] hover:bg-[#cdd1e0] transition-colors flex items-center justify-center"
         onClick=${handleZoomOut}
       >
-        -
+        <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+          <path
+            stroke="#2E5AF4"
+            stroke-linecap="round"
+            stroke-width="1.5"
+            d="M5 10h10"
+          />
+        </svg>
       </button>
     </div>
     <${FocusAreaGroupLegend} allFocusAreas=${allFocusAreas} />
