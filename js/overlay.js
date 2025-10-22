@@ -43,7 +43,7 @@ export function Overlay({
     >
       ${!isMobile &&
       html`<svg
-        class="close-icon absolute top-2 right-2 cursor-pointer h-8 w-8"
+        class="absolute top-2 right-2 cursor-pointer h-8 w-8"
         onclick=${handleCloseOverlay}
         width="34"
         height="35"
@@ -59,6 +59,7 @@ export function Overlay({
           stroke-linejoin="round"
         />
       </svg>`}
+
       <div
         class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
         style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
@@ -66,6 +67,27 @@ export function Overlay({
           : ""}.png');"
       >
         <div class="flex flex-col items-start">
+          ${isMobile &&
+          html`
+            <svg
+              class="cursor-pointer h-4 w-4 mb-4"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+              onclick=${handleCloseOverlay}
+            >
+              <g>
+                <path
+                  stroke="#FBF9F4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M10 4 6 8l4 4"
+                />
+              </g>
+            </svg>
+          `}
           <p
             class="font-libre italic text-lg font-italic text-vis-text-inverted"
           >
@@ -103,50 +125,76 @@ export function Overlay({
           </svg>
         </a>`}
       </div>
-      <div class="grid grid-cols-5">
-        <div
-          class="col-span-2 p-6 text-vis-text-primary text-[16px] leading-[155%] font-authentic"
-        >
-          ${place.description}
+      <div>
+        <div class="grid-cols-5 hidden md:grid">
+          <div class="col-span-2"><${DescriptionSection} place=${place} /></div>
+          <div class="col-span-1 ">
+            <${LocationSection} place=${place} titleClasses=${titleClasses} />
+          </div>
+          <div
+            class="${place.gini && place.gini !== 0
+              ? "col-span-1"
+              : "col-span-2"} bg-cover bg-center bg-no-repeat"
+            style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
+          ></div>
+          ${!isMobile &&
+          place.gini &&
+          place.gini !== 0 &&
+          html` <${GiniCoefficientSection}
+            gini=${place.gini}
+            titleClasses=${titleClasses}
+          />`}
         </div>
-        <div class="col-span-1 p-6 bg-vis-surface-primary-tonal">
-          <${LocationSection} place=${place} titleClasses=${titleClasses} />
+        <div class="grid grid-cols-5 hidden md:grid">
+          <div class="col-span-2">
+            <${HightlightSection} place=${place} titleClasses=${titleClasses} />
+          </div>
+          <div class="col-span-3">
+            <${FocusAreaSection}
+              place=${place}
+              allFocusAreas=${allFocusAreas}
+              titleClasses=${titleClasses}
+            />
+
+            <${PartnerSection}
+              place=${place}
+              partners=${partners}
+              titleClasses=${titleClasses}
+            />
+          </div>
         </div>
+      </div>
+      <div class="md:hidden">
+        <${DescriptionSection} place=${place} />
+        <${HightlightSection} place=${place} titleClasses=${titleClasses} />
         <div
-          class="${place.gini && place.gini !== 0
-            ? "col-span-1"
-            : "col-span-2"} col-span-1 bg-cover bg-center bg-no-repeat"
-          style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
+          class="bg-cover bg-center bg-no-repeat w-full h-[218px]"
+          style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}');"
         ></div>
-        <${GiniCoefficientSection}
-          gini=${place.gini}
+        <div class="grid grid-cols-2">
+          <div class="col-span-1">
+            <${LocationSection} place=${place} titleClasses=${titleClasses} />
+          </div>
+          <div class="col-span-1">
+            ${isMobile &&
+            place.gini &&
+            place.gini !== 0 &&
+            html` <${GiniCoefficientSection}
+              gini=${place.gini}
+              titleClasses=${titleClasses}
+            />`}
+          </div>
+        </div>
+        <${FocusAreaSection}
+          place=${place}
+          allFocusAreas=${allFocusAreas}
           titleClasses=${titleClasses}
         />
-      </div>
-      <div class="grid grid-cols-5">
-        <div
-          class="col-span-2 p-6 bg-vis-surface-primary bg-cover bg-center"
-          style="background-image: url('${REPO_URL}/assets/gradient_texture_gray_bg.png');"
-        >
-          <p class="${titleClasses} text-vis-text-primary">highlight</p>
-          <span
-            class="text-vis-text-primary text-[16px] leading-[155%] font-authentic "
-            >${place.highlight}</span
-          >
-        </div>
-        <div class="col-span-3">
-          <${FocusAreaSection}
-            place=${place}
-            allFocusAreas=${allFocusAreas}
-            titleClasses=${titleClasses}
-          />
-
-          <${PartnerSection}
-            place=${place}
-            partners=${partners}
-            titleClasses=${titleClasses}
-          />
-        </div>
+        <${PartnerSection}
+          place=${place}
+          partners=${partners}
+          titleClasses=${titleClasses}
+        />
       </div>
     </div>
     <div
@@ -154,6 +202,29 @@ export function Overlay({
       onclick=${handleCloseOverlay}
     ></div>
   </div>`;
+}
+
+function DescriptionSection({ place }) {
+  return html`<div
+    class="p-6 text-vis-text-primary text-[16px] leading-[155%] font-authentic"
+  >
+    ${place.description}
+  </div>`;
+}
+
+function HightlightSection({ place, titleClasses }) {
+  return html`
+    <div
+      class="p-6 bg-vis-surface-primary bg-cover bg-center"
+      style="background-image: url('${REPO_URL}/assets/gradient_texture_gray_bg.png');"
+    >
+      <p class="${titleClasses} text-vis-text-primary">highlight</p>
+      <span
+        class="text-vis-text-primary text-[16px] leading-[155%] font-authentic "
+        >${place.highlight}</span
+      >
+    </div>
+  `;
 }
 
 function PartnerSection({ place, partners, titleClasses }) {
@@ -207,7 +278,7 @@ function FocusAreaSection({ place, allFocusAreas, titleClasses }) {
 }
 
 function LocationSection({ place, titleClasses }) {
-  return html`<div>
+  return html`<div class="p-4 md:p-6 bg-vis-surface-primary-tonal h-full">
     <p class="${titleClasses} text-vis-text-primary">location</p>
     <div
       class="flex flex-col space-y-2 font-authentic text-[16px] leading-[155%] text-vis-text-primary"
@@ -398,7 +469,7 @@ function GiniCoefficientSection({ gini, titleClasses }) {
   const endX = centerX + lineLength * Math.cos(angle);
   const endY = centerY + lineLength * Math.sin(angle);
 
-  return html` <div class="col-span-1 p-6 bg-vis-surface-primary-tonal">
+  return html` <div class="h-full p-4 md:p-6 bg-vis-surface-primary-tonal">
     <div class="flex flex-row gap-1 items-center relative">
       <span class="${titleClasses} text-vis-text-primary">gini coefficient</span
       ><img
