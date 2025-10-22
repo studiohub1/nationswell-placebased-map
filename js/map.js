@@ -26,7 +26,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
 
   // map state
   const ZOOM_STEP = 0.3;
-  const MIN_ZOOM = 0.9;
+  const MIN_ZOOM = isMobile ? 1 : 0.9;
   const MAX_ZOOM = 5;
 
   const [zoom, setZoom] = useState(MIN_ZOOM);
@@ -446,7 +446,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
               markerGroup=${placesGroup}
               x=${x}
               y=${y}
-              zoom=${zoom}
+              zoom=${isMobile ? zoom / 2 : zoom}
               pan=${pan}
               handleMarkerClick=${handleMarkerClick}
               height=${height}

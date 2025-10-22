@@ -151,23 +151,27 @@ export function Overlay({
         <${DescriptionSection} place=${place} />
         <${HightlightSection} place=${place} titleClasses=${titleClasses} />
         <div
-          class="bg-cover bg-center bg-no-repeat w-full h-[218px]"
+          class="bg-cover bg-center bg-no-repeat w-[102%] h-[218px] ml-[-2px] overflow-hidden"
           style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}');"
         ></div>
-        <div class="grid grid-cols-2">
-          <div class="col-span-1">
-            <${LocationSection} place=${place} titleClasses=${titleClasses} />
-          </div>
-          <div class="col-span-1">
-            ${isMobile &&
-            place.gini &&
-            place.gini !== 0 &&
-            html` <${GiniCoefficientSection}
-              gini=${place.gini}
-              titleClasses=${titleClasses}
-            />`}
-          </div>
-        </div>
+        ${isMobile && place.gini && place.gini !== 0
+          ? html` <div class="grid grid-cols-2">
+              <div class="col-span-1">
+                <${LocationSection}
+                  place=${place}
+                  titleClasses=${titleClasses}
+                />
+              </div>
+              <div class="col-span-1">
+                <${GiniCoefficientSection}
+                  gini=${place.gini}
+                  titleClasses=${titleClasses}
+                />
+              </div>
+            </div>`
+          : html`<div class="p-2 bg-vis-surface-primary-tonal">
+              <${LocationSection} place=${place} titleClasses=${titleClasses} />
+            </div>`}
         <${FocusAreaSection}
           place=${place}
           allFocusAreas=${allFocusAreas}
