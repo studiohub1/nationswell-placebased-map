@@ -4,6 +4,7 @@ import {
   getFocusAreaGroupFromArea,
 } from "./focusAreas.js";
 import { isMobile, REPO_URL } from "./helper.js";
+import { AnimatedButton } from "./animatedButton.js";
 
 export function Overlay({
   place,
@@ -102,28 +103,11 @@ export function Overlay({
         </div>
         ${place.projectLink &&
         place.projectLink !== "" &&
-        html` <a
-          href=${place.projectLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-[#0F100F] flex flex-row justify-between px-4 py-[10px] mt-4 items-center"
-        >
-          <span class="font-sora text-sm uppercase text-vis-text-inverted pr-6"
-            >${isMobile ? "See project website" : "Learn more"}</span
-          >
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4.30859 7.84961C3.96342 7.84961 3.68359 8.12943 3.68359 8.47461C3.68359 8.81979 3.96342 9.09961 4.30859 9.09961L4.30859 8.47461L4.30859 7.84961ZM13.5005 8.91655C13.7446 8.67247 13.7446 8.27675 13.5005 8.03267L9.52306 4.05519C9.27898 3.81111 8.88325 3.81111 8.63918 4.05519C8.3951 4.29927 8.3951 4.695 8.63918 4.93908L12.1747 8.47461L8.63918 12.0101C8.3951 12.2542 8.3951 12.6499 8.63918 12.894C8.88325 13.1381 9.27898 13.1381 9.52306 12.894L13.5005 8.91655ZM4.30859 8.47461L4.30859 9.09961L13.0586 9.09961L13.0586 8.47461L13.0586 7.84961L4.30859 7.84961L4.30859 8.47461Z"
-              fill="#FBF9F4"
-            />
-          </svg>
-        </a>`}
+        html` <${AnimatedButton}
+          onClickAction=${() => window.open(place.projectLink, "_blank")}
+          text="${isMobile ? "See project website" : "Learn more"}"
+          type="black"
+        />`}
       </div>
       <div>
         <div class="grid-cols-5 hidden md:grid">
@@ -137,13 +121,12 @@ export function Overlay({
               : "col-span-2"} bg-cover bg-center bg-no-repeat"
             style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
           ></div>
-          ${!isMobile &&
-          place.gini &&
-          place.gini !== 0 &&
-          html` <${GiniCoefficientSection}
-            gini=${place.gini}
-            titleClasses=${titleClasses}
-          />`}
+          ${!isMobile && place.gini && place.gini !== 0
+            ? html` <${GiniCoefficientSection}
+                gini=${place.gini}
+                titleClasses=${titleClasses}
+              />`
+            : null}
         </div>
         <div class="grid grid-cols-5 hidden md:grid">
           <div class="col-span-2">
@@ -215,7 +198,7 @@ function DescriptionSection({ place }) {
 function HightlightSection({ place, titleClasses }) {
   return html`
     <div
-      class="p-6 bg-vis-surface-primary bg-cover bg-center"
+      class="p-6 bg-vis-surface-primary bg-cover bg-center md:h-full"
       style="background-image: url('${REPO_URL}/assets/gradient_texture_gray_bg.png');"
     >
       <p class="${titleClasses} text-vis-text-primary">highlight</p>

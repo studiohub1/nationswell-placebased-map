@@ -15,3 +15,16 @@
   background-size: cover;
   background-position: center;
 }
+
+.animated-button-wrapper:hover {
+  .animated-button-element-y {
+    transform: translateY(-100%);
+  }
+  .animated-button-element-x {
+    transform: translateX(100%);
+  }
+}
+.animated-button-element-x,
+.animated-button-element-y {
+  transition: transform 0.8s ease;
+}
