@@ -225,9 +225,12 @@ function PartnerSection({ place, partners, titleClasses }) {
               return html`<img
                 src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
                 alt="${partner} logo"
-                class="h-12 object-contain"
+                class="h-12 object-contain shrink-0"
               />`;
-            return html`<a href=${partnerData.partnerLink} target="_blank"
+            return html`<a
+              href=${partnerData.partnerLink}
+              target="_blank"
+              class="shrink-0"
               ><img
                 src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
                 alt="${partner} logo"
