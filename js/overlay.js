@@ -215,30 +215,104 @@ function HightlightSection({ place, titleClasses }) {
 }
 
 function PartnerSection({ place, partners, titleClasses }) {
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [containerRef, setContainerRef] = useState(null);
+
+  useEffect(() => {
+    if (!containerRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Check if content overflows and needs scrolling
+            const scrollWidth = containerRef.scrollWidth;
+            const clientWidth = containerRef.clientWidth;
+            if (scrollWidth > clientWidth) {
+              // Add a small delay before starting the animation
+              // setTimeout(() => {
+              setIsScrolling(true);
+              // }, 800);
+            }
+          } else {
+            setIsScrolling(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    observer.observe(containerRef);
+
+    return () => {
+      observer.unobserve(containerRef);
+    };
+  }, [containerRef]);
+
+  const partnersContent =
+    place.partners && place.partners.length > 0
+      ? place.partners.map((partner) => {
+          const partnerData = partners.find((p) => p.partnerName === partner);
+          if (!partnerData || !partnerData.partnerLink)
+            return html`<img
+              src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
+              alt="${partner} logo"
+              class="h-12 object-contain shrink-0 mr-8"
+            />`;
+          return html`<a
+            href=${partnerData.partnerLink}
+            target="_blank"
+            class="shrink-0 mr-8"
+            ><img
+              src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
+              alt="${partner} logo"
+              class="h-12 min-w-12 object-contain"
+          /></a>`;
+        })
+      : null;
+
   return html`<div class="p-6 bg-white">
     <p class="${titleClasses} text-vis-text-primary">Partners</p>
-    <div class="flex flex-row gap-8 items-center h-12 overflow-y-hidden">
-      ${place.partners && place.partners.length > 0
-        ? place.partners.map((partner) => {
-            const partnerData = partners.find((p) => p.partnerName === partner);
-            if (!partnerData || !partnerData.partnerLink)
-              return html`<img
-                src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
-                alt="${partner} logo"
-                class="h-12 object-contain shrink-0"
-              />`;
-            return html`<a
-              href=${partnerData.partnerLink}
-              target="_blank"
-              class="shrink-0"
-              ><img
-                src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
-                alt="${partner} logo"
-                class="h-12 min-w-12 object-contain"
-            /></a>`;
-          })
+    <div class="relative overflow-hidden h-14">
+      <div
+        ref=${setContainerRef}
+        class="flex flex-row items-center h-14 py-1 ${isScrolling
+          ? "partners-scroll-animation"
+          : ""}"
+      >
+        ${partnersContent} ${isScrolling ? partnersContent : null}
+      </div>
+      <!-- Fade gradients on both sides - only when scrolling is needed -->
+      ${isScrolling
+        ? html`
+            <!-- Left fade gradient -->
+            <div
+              class="absolute top-0 left-0 h-full w-8 bg-gradient-to-r from-white to-transparent pointer-events-none"
+            ></div>
+            <!-- Right fade gradient -->
+            <div
+              class="absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-white to-transparent pointer-events-none"
+            ></div>
+          `
         : null}
     </div>
+
+    <style>
+      @keyframes partnerScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .partners-scroll-animation {
+        animation: partnerScroll 20s linear infinite;
+      }
+    </style>
   </div>`;
 }
 
