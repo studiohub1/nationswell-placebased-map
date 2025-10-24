@@ -259,12 +259,12 @@ function PartnerSection({ place, partners, titleClasses }) {
             return html`<img
               src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
               alt="${partner} logo"
-              class="h-12 object-contain shrink-0 mr-8"
+              class="h-12 object-contain shrink-0"
             />`;
           return html`<a
             href=${partnerData.partnerLink}
             target="_blank"
-            class="shrink-0 mr-8"
+            class="shrink-0"
             ><img
               src="${REPO_URL}/assets/partnerLogos/Partner Name=${partner}.png"
               alt="${partner} logo"
@@ -276,13 +276,14 @@ function PartnerSection({ place, partners, titleClasses }) {
   return html`<div class="p-6 bg-white">
     <p class="${titleClasses} text-vis-text-primary">Partners</p>
     <div class="relative overflow-hidden h-14">
-      <div
-        ref=${setContainerRef}
-        class="flex flex-row items-center h-14 py-1 ${isScrolling
-          ? "partners-scroll-animation"
-          : ""}"
-      >
-        ${partnersContent} ${isScrolling ? partnersContent : null}
+      <div ref=${setContainerRef} class="flex flex-row items-center h-14 py-1">
+        <div
+          class="flex flex-row items-center gap-8 ${isScrolling
+            ? "partners-scroll-content"
+            : ""}"
+        >
+          ${partnersContent} ${isScrolling ? partnersContent : null}
+        </div>
       </div>
       <!-- Fade gradients on both sides - only when scrolling is needed -->
       ${isScrolling
@@ -309,8 +310,9 @@ function PartnerSection({ place, partners, titleClasses }) {
         }
       }
 
-      .partners-scroll-animation {
-        animation: partnerScroll 20s linear infinite;
+      .partners-scroll-content {
+        animation: partnerScroll 25s linear infinite;
+        width: fit-content;
       }
     </style>
   </div>`;
