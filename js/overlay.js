@@ -217,6 +217,7 @@ function HightlightSection({ place, titleClasses }) {
 function PartnerSection({ place, partners, titleClasses }) {
   const [isScrolling, setIsScrolling] = useState(false);
   const [containerRef, setContainerRef] = useState(null);
+  const [animationDistance, setAnimationDistance] = useState(null);
 
   useEffect(() => {
     if (!containerRef) return;
@@ -225,15 +226,29 @@ function PartnerSection({ place, partners, titleClasses }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Check if content overflows and needs scrolling
-            const scrollWidth = containerRef.scrollWidth;
-            const clientWidth = containerRef.clientWidth;
-            if (scrollWidth > clientWidth) {
-              // Add a small delay before starting the animation
-              // setTimeout(() => {
-              setIsScrolling(true);
-              // }, 800);
-            }
+            // Small delay to ensure DOM is fully rendered
+            setTimeout(() => {
+              // Check if content overflows and needs scrolling
+              const contentDiv = containerRef.querySelector("div");
+              if (contentDiv) {
+                const contentWidth = contentDiv.scrollWidth;
+                const containerWidth = containerRef.clientWidth;
+
+                console.log(
+                  "Content width:",
+                  contentWidth,
+                  "Container width:",
+                  containerWidth
+                );
+
+                if (contentWidth > containerWidth) {
+                  setAnimationDistance(contentWidth / 2); // Half because we duplicate content
+                  setTimeout(() => {
+                    setIsScrolling(true);
+                  }, 800);
+                }
+              }
+            }, 100);
           } else {
             setIsScrolling(false);
           }
@@ -300,21 +315,27 @@ function PartnerSection({ place, partners, titleClasses }) {
         : null}
     </div>
 
-    <style>
-      @keyframes partnerScroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
+    ${animationDistance
+      ? html`<style>
+          @keyframes partnerScroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-${animationDistance}px);
+            }
+          }
 
-      .partners-scroll-content {
-        animation: partnerScroll 25s linear infinite;
-        width: fit-content;
-      }
-    </style>
+          .partners-scroll-content {
+            animation: partnerScroll 25s linear infinite;
+            width: fit-content;
+          }
+        </style>`
+      : html`<style>
+          .partners-scroll-content {
+            /* No animation until distance is calculated */
+          }
+        </style>`}
   </div>`;
 }
 
