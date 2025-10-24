@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Oct 13 2025 10:28:59 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Fri Oct 24 2025 08:46:58 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="nationswell-placebased-staging.webflow.io"
   data-wf-page="68dfbdc996d8d8898d743d66"
@@ -9,15 +9,29 @@
   <head>
     <meta charset="utf-8" />
     <title>Place-based Initiatives Map</title>
+    <meta
+      content="From economic mobility to climate resilience, leaders and communities across America are investing in generational change. Filter and explore initiatives to learn more."
+      name="description"
+    />
     <meta content="Place-based Initiatives Map" property="og:title" />
+    <meta
+      content="From economic mobility to climate resilience, leaders and communities across America are investing in generational change. Filter and explore initiatives to learn more."
+      property="og:description"
+    />
     <meta content="Place-based Initiatives Map" property="twitter:title" />
+    <meta
+      content="From economic mobility to climate resilience, leaders and communities across America are investing in generational change. Filter and explore initiatives to learn more."
+      property="twitter:description"
+    />
+    <meta property="og:type" content="website" />
+    <meta content="summary_large_image" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta
       content="06ixG_vPtfI6jgK9CXGQpYdju2AYB1h2ZvDcwUEjGdY"
       name="google-site-verification"
     />
     <link
-      href="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/css/nationswell-placebased-staging.webflow.shared.2be5f3bc8.css"
+      href="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/css/nationswell-placebased-staging.webflow.shared.fd1ec21a1.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -123,6 +137,8 @@
         },
       };
     </script>
+
+    <!-- Custom Code -->
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -655,69 +671,591 @@
       </div>
     </div>
     <div class="w-layout-vflex map-content">
-      <div class="map-nav__spacer"></div>
+      <div class="w-layout-vflex map-mobile__overlay">
+        <div class="max-280 m__sb">
+          Thank you for visiting the Place-based Action Map!<br />
+        </div>
+        <div class="max-280 label__i">
+          Mobile version coming soon—please visit the site on desktop or tablet.
+        </div>
+        <img
+          src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f25a479ec685cc90ca93ba_map-min.png"
+          loading="lazy"
+          sizes="(max-width: 1273px) 100vw, 1273px"
+          srcset="
+            https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f25a479ec685cc90ca93ba_map-min-p-500.png   500w,
+            https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f25a479ec685cc90ca93ba_map-min-p-800.png   800w,
+            https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f25a479ec685cc90ca93ba_map-min-p-1080.png 1080w,
+            https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f25a479ec685cc90ca93ba_map-min.png        1273w
+          "
+          alt="Map of United States"
+          class="max-280"
+        />
+      </div>
+      <div
+        id="focus-areas-dropdown-container"
+        data-lenis-prevent="true"
+        class="filter-form__dropdown-drawer"
+      ></div>
       <div class="w-layout-hflex map-filters__container">
-        <div class="map-filters">
-          <div class="w-form">
-            <form
-              id="email-form"
-              name="email-form"
-              data-name="Email Form"
-              method="get"
-              data-wf-page-id="68dfbdc996d8d8898d743d66"
-              data-wf-element-id="0e991016-928a-f5a1-02b3-65fec8226917"
+        <div data-modal-wrapper="" class="intro-modal">
+          <div data-modal-button="close" class="intro-modal__overlay"></div>
+          <div data-modal-element="not-active" class="intro-modal__modal">
+            <img
+              src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f175e4f2d4cd20b4f8fc90_grid-background.avif"
+              loading="lazy"
+              sizes="(max-width: 1919px) 100vw, 1958px"
+              srcset="
+                https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f175e4f2d4cd20b4f8fc90_grid-background-p-500.avif  500w,
+                https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f175e4f2d4cd20b4f8fc90_grid-background-p-800.avif  800w,
+                https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f175e4f2d4cd20b4f8fc90_grid-background.avif       1780w
+              "
+              alt=""
+              class="intro-modal__bg"
+            />
+            <div class="intro-modal__content">
+              <div class="intro-modal__content-inner">
+                <h2 class="intro-modal__heading xl__r">
+                  Pla<span class="xl__r-z">c</span>e-Base<span class="xl__r-z"
+                    >d</span
+                  >
+                  action map
+                </h2>
+                <p class="intro-modal__paragraph s__sb">
+                  Spotlighting place-based strategies in practice in the United
+                  States
+                </p>
+              </div>
+              <div class="intro-modal__content-inner is-alt">
+                <p class="intro-modal__paragraph">
+                  From economic mobility to climate resilience, leaders and
+                  communities across America are investing in generational
+                  change. Filter and explore initiatives across the country to
+                  learn more about their work. For more information or to submit
+                  your initiative to be featured here,
+                  <a
+                    href="https://nationswell.typeform.com/to/CDUVuB6p"
+                    target="_blank"
+                    class="intro-modal__link"
+                    >get in touch</a
+                  >.
+                </p>
+                <div data-modal-button="close" class="intro-modal__button">
+                  <a
+                    data-w-id="11db8f53-6314-6169-b90c-95355da45f7e"
+                    href="#"
+                    class="btn-light w-inline-block"
+                    ><div class="overflow-hidden">
+                      <div class="nav__text">get started</div>
+                      <div class="nav__text _2">get started</div>
+                    </div>
+                    <div class="overflow-hidden">
+                      <img
+                        src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/66966406b76908dc913f0e2b_right-arrow.svg"
+                        loading="lazy"
+                        width="16"
+                        alt="Arrow right"
+                        class="assessment__arrow"
+                      /><img
+                        src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/66966406b76908dc913f0e2b_right-arrow.svg"
+                        loading="lazy"
+                        width="16"
+                        data-w-id="11db8f53-6314-6169-b90c-95355da45f86"
+                        alt="Arrow right"
+                        class="assessment__arrow _2"
+                      /></div
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="Close Modal"
+              data-modal-button="close"
+              class="intro-modal__close"
             >
-              <input
-                type="submit"
-                data-wait="Please wait..."
-                class="d-hide__dt w-button"
-                value="Submit"
-              /><label for="Focus-Areas">Focus Areas</label
-              ><select
-                id="Focus-Areas"
-                name="Focus-Areas"
-                data-name="Focus Areas"
-                multiple=""
-                class="map-select w-select"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewBox="0 0 25 25"
+                fill="none"
               >
-                <option value="">Select one...</option>
-                <option value="First">First choice</option>
-                <option value="Second">Second choice</option>
-                <option value="Third">Third choice</option></select
-              ><label for="Support-Types">Support Types</label
-              ><select
-                id="Support-Types"
-                name="Support-Types"
-                data-name="Support Types"
-                multiple=""
-                class="map-select w-select"
-              >
-                <option value="">Select one...</option>
-                <option value="First">First choice</option>
-                <option value="Second">Second choice</option>
-                <option value="Third">Third choice</option></select
-              ><label class="w-checkbox"
-                ><input
-                  type="checkbox"
-                  name="Status"
-                  id="Status"
-                  data-name="Status"
-                  class="w-checkbox-input"
-                  checked=""
-                /><span class="w-form-label" for="Status"
-                  >All Statuses</span
-                ></label
-              >
-            </form>
-            <div class="w-form-done">
-              <div>Thank you! Your submission has been received!</div>
-            </div>
-            <div class="w-form-fail">
-              <div>Oops! Something went wrong while submitting the form.</div>
-            </div>
+                <g clip-path="url(#clip0_7507_10969)">
+                  <path
+                    d="M7.08984 17.6181L12.3325 12.3755M12.3325 12.3755L17.5751 7.13281M12.3325 12.3755L7.08984 7.13281M12.3325 12.3755L17.5751 17.6181"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
-        <div id="map" class="map-container"></div>
+        <div data-lenis-prevent="true" class="map-filters__sidebar">
+          <div class="map-filters__header">
+            <h1 class="map-filters__h1 label__b">Place-based action map</h1>
+          </div>
+          <div data-drawer-element="not-active" class="map-filters__drawer">
+            <button
+              aria-label="Close Filters"
+              data-drawer-button="close"
+              class="map-filters_drawer-close"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100%"
+                viewBox="0 0 25 25"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_7507_10969)">
+                  <path
+                    d="M7.08984 17.6181L12.3325 12.3755M12.3325 12.3755L17.5751 7.13281M12.3325 12.3755L7.08984 7.13281M12.3325 12.3755L17.5751 17.6181"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+            <div class="map-filters__dot-explainer">
+              <div class="max-15ch">
+                <p class="map-filters__p label__i">
+                  Dot represents one or more project(s)
+                </p>
+              </div>
+              <img
+                src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f032a05985cf49f9f2d75c_arrow.svg"
+                loading="lazy"
+                alt=""
+                class="map-filters__scribble-arrow"
+              />
+              <div class="map-filters__pin-dot"></div>
+            </div>
+            <div class="filter-form_block w-form">
+              <div class="filter-form__field-wrapper">
+                <div class="filter-form__label-wrapper">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    viewBox="0 0 21 21"
+                    fill="none"
+                    aria-hidden="true"
+                    class="label-wrapper_svg"
+                  >
+                    <path
+                      d="M3.44531 5.25391H18.4453"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M6.78125 10.2539H15.1146"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M10.1094 15.2539H11.776"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path></svg
+                  ><span class="label-wrapper_label label__b"
+                    >Filter Projects</span
+                  >
+                </div>
+                <div
+                  id="focus-areas-dropdown-trigger"
+                  class="filter-form__button"
+                >
+                  <span class="label-wrapper_label label__r">Focus Areas</span
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100%"
+                    viewBox="0 0 17 17"
+                    fill="none"
+                    class="label-wrapper_svg"
+                  >
+                    <path
+                      d="M6.94531 12.7539L10.9453 8.75391L6.94531 4.75391"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <form
+                id="wf-form-Filter-Form"
+                name="wf-form-Filter-Form"
+                data-name="Filter Form"
+                method="get"
+                class="filter-form_form"
+                data-wf-page-id="68dfbdc996d8d8898d743d66"
+                data-wf-element-id="0e991016-928a-f5a1-02b3-65fec8226917"
+              >
+                <div class="filter-form__field-wrapper hidden">
+                  <div class="filter-form__label-wrapper">
+                    <label class="w-checkbox filter-form__toggle-checkbox"
+                      ><div
+                        class="w-checkbox-input w-checkbox-input--inputType-custom filter-form__toggle"
+                      ></div>
+                      <input
+                        type="checkbox"
+                        name="Filter-Projects-Checkbox"
+                        id="Filter-Projects-Checkbox"
+                        data-name="Filter Projects Checkbox"
+                        style="opacity: 0; position: absolute; z-index: -1"
+                      /><span
+                        class="label-wrapper_label label__r w-form-label"
+                        for="Filter-Projects-Checkbox"
+                        >hide completed (old)</span
+                      ></label
+                    >
+                  </div>
+                </div>
+                <div class="filter-form__field-wrapper">
+                  <div class="filter-form__label-wrapper">
+                    <label class="w-checkbox filter-form__toggle-checkbox"
+                      ><div
+                        class="w-checkbox-input w-checkbox-input--inputType-custom filter-form__toggle w--redirected-checked"
+                      ></div>
+                      <input
+                        type="checkbox"
+                        name="Status"
+                        id="Status"
+                        data-name="Status"
+                        style="opacity: 0; position: absolute; z-index: -1"
+                        checked=""
+                      /><span
+                        class="label-wrapper_label label__r w-form-label"
+                        for="Status"
+                        >Hide Completed</span
+                      ></label
+                    >
+                  </div>
+                </div>
+                <div aria-hidden="true" class="filter-form__spacer"></div>
+                <div class="filter-form__field-wrapper">
+                  <div class="filter-form__label-wrapper">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="100%"
+                      viewBox="0 0 21 21"
+                      fill="none"
+                      aria-hidden="true"
+                      class="label-wrapper_svg"
+                    >
+                      <path
+                        d="M3.44531 11.0898C6.44531 4.42318 15.4453 4.42318 18.4453 11.0898"
+                        stroke="currentColor"
+                        stroke-width="0.833333"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M10.9453 14.418C9.56456 14.418 8.44531 13.2987 8.44531 11.918C8.44531 10.5372 9.56456 9.41797 10.9453 9.41797C12.3261 9.41797 13.4453 10.5372 13.4453 11.918C13.4453 13.2987 12.3261 14.418 10.9453 14.418Z"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        stroke-width="0.833333"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path></svg
+                    ><span class="label-wrapper_label label__b"
+                      >View Data As</span
+                    >
+                  </div>
+                  <div class="filter-form__radio-group">
+                    <label class="filter-form__radio-input w-radio"
+                      ><div
+                        class="w-form-formradioinput w-form-formradioinput--inputType-custom filter-form__radio-button w-radio-input w--redirected-checked"
+                      ></div>
+                      <input
+                        type="radio"
+                        name="Data-Viewer"
+                        id="view-data-map"
+                        data-name="Data Viewer"
+                        style="opacity: 0; position: absolute; z-index: -1"
+                        checked=""
+                        value="Map"
+                      /><span
+                        class="label-wrapper_label label__r w-form-label"
+                        for="view-data-map"
+                        >Map</span
+                      ></label
+                    ><label class="filter-form__radio-input w-radio"
+                      ><div
+                        class="w-form-formradioinput w-form-formradioinput--inputType-custom filter-form__radio-button w-radio-input"
+                      ></div>
+                      <input
+                        type="radio"
+                        name="Data-Viewer"
+                        id="table"
+                        data-name="Data Viewer"
+                        style="opacity: 0; position: absolute; z-index: -1"
+                        value="table"
+                      /><span
+                        class="label-wrapper_label label__r w-form-label"
+                        for="table"
+                        >table</span
+                      ></label
+                    >
+                  </div>
+                </div>
+                <div class="filter-form__field-wrapper">
+                  <div class="filter-form__label-wrapper">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="100%"
+                      viewBox="0 0 21 21"
+                      fill="none"
+                      aria-hidden="true"
+                      class="label-wrapper_svg"
+                    >
+                      <path
+                        d="M5.94531 16.4805H15.9453"
+                        stroke="currentColor"
+                        stroke-width="0.999609"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M10.9479 4.01951V13.1515M10.9479 13.1515L13.8646 10.2348M10.9479 13.1515L8.03125 10.2348"
+                        stroke="currentColor"
+                        stroke-width="0.999609"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path></svg
+                    ><span class="label-wrapper_label label__b"
+                      >Download Data</span
+                    >
+                  </div>
+                  <button class="filter-form__button is-download">
+                    <span class="label-wrapper_label label__r">CSV</span>
+                  </button>
+                </div>
+                <div aria-hidden="true" class="filter-form__spacer"></div>
+                <input
+                  type="submit"
+                  data-wait="Please wait..."
+                  class="d-hide__dt w-button"
+                  value="Submit"
+                />
+              </form>
+              <div class="d-hide__dt w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+              </div>
+              <div class="d-hide__dt w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+              </div>
+            </div>
+            <div class="map-filters__info">
+              <img
+                src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg.avif"
+                loading="lazy"
+                sizes="(max-width: 2500px) 100vw, 2500px"
+                srcset="
+                  https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg-p-500.avif   500w,
+                  https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg-p-800.avif   800w,
+                  https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg-p-1080.avif 1080w,
+                  https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg-p-1600.avif 1600w,
+                  https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f14277eb83e39b7e5807e3_get-in-touch-bg.avif        2500w
+                "
+                alt="Park shot from above"
+                class="map-filters__info-bg"
+              />
+              <p class="map-filters__info-p">
+                For more information or to submit your initiative,
+                <a
+                  href="https://nationswell.typeform.com/to/CDUVuB6p"
+                  target="_blank"
+                  class="map-filters__info-link"
+                  >get in touch</a
+                >.
+              </p>
+            </div>
+          </div>
+          <button
+            aria-label="Open Filters"
+            data-drawer-button="open"
+            class="map-filters_drawer-open"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              viewBox="0 0 21 21"
+              fill="none"
+              class="map-filters_button-svg"
+            >
+              <path
+                d="M2.45703 10.5H8.36309"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M2.45703 16.6934H14.2691"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M12.3008 10.5H18.2068"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M18.2066 4.30664H6.39453"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M2.45703 4.30658C2.45703 5.56654 3.16576 6.27526 4.42572 6.27526C5.68568 6.27526 6.3944 5.56654 6.3944 4.30658C6.3944 3.04662 5.68568 2.33789 4.42572 2.33789C3.16576 2.33789 2.45703 3.04662 2.45703 4.30658Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M14.2695 16.6933C14.2695 17.9533 14.9783 18.662 16.2382 18.662C17.4982 18.662 18.2069 17.9534 18.2069 16.6934C18.2069 15.4333 17.4982 14.7246 16.2382 14.7246C14.9783 14.7246 14.2695 15.4333 14.2695 16.6933Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M8.39453 10.4999C8.39453 11.7599 9.10326 12.4686 10.3632 12.4686C11.6232 12.4686 12.3319 11.7599 12.3319 10.4999C12.3319 9.23998 11.6232 8.53125 10.3632 8.53125C9.10326 8.53125 8.39453 9.23998 8.39453 10.4999Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div data-map-fade-in="" class="map-controls">
+          <div class="map-legend">
+            <h2 class="label__i">Population Density</h2>
+            <p>People per km<sup>2</sup></p>
+            <div class="map-legend__gradient"></div>
+          </div>
+          <button data-modal-button="open" class="intro-modal__open">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              viewBox="0 0 8 11"
+              fill="none"
+              class="intro-modal__open-svg"
+            >
+              <path
+                d="M2.63916 7.696V5.204H3.82916C4.38916 5.204 4.79982 5.05933 5.06116 4.77C5.33182 4.47133 5.46716 4.10733 5.46716 3.678C5.46716 3.37 5.40649 3.104 5.28516 2.88C5.16382 2.64667 4.98649 2.46933 4.75316 2.348C4.51982 2.22667 4.24916 2.166 3.94116 2.166C3.60516 2.166 3.31582 2.236 3.07316 2.376C2.83982 2.516 2.65782 2.70267 2.52716 2.936C2.39649 3.16933 2.33116 3.44 2.33116 3.748H0.469156C0.469156 3.15067 0.60449 2.60467 0.875156 2.11C1.14582 1.61533 1.54249 1.22333 2.06516 0.933999C2.58782 0.635333 3.22716 0.485999 3.98316 0.485999C4.67382 0.485999 5.26649 0.621333 5.76116 0.891999C6.26516 1.15333 6.65249 1.51267 6.92316 1.97C7.19382 2.42733 7.32916 2.94533 7.32916 3.524V3.692C7.32916 4.26133 7.19382 4.77 6.92316 5.218C6.65249 5.666 6.25116 6.02067 5.71916 6.282C5.19649 6.534 4.55716 6.66933 3.80116 6.688L4.59916 5.96L4.57116 7.696H2.63916ZM2.48516 11V8.928H4.72516V11H2.48516Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div id="map" data-map-fade-in="" class="map-container"></div>
+        <div class="css-embed w-embed">
+          <style>
+            /* Link Underline */
+            .map-filters__info-link,
+            .intro-modal__link {
+              position: relative;
+              display: inline-block; /* ensures underline fits text width */
+            }
+
+            .map-filters__info-link::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: -0.125rem; /* distance below text */
+              width: 100%;
+              height: 1.5px;
+              background-color: #daf975;
+            }
+
+            .intro-modal__link::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: -0.125rem; /* distance below text */
+              width: 100%;
+              height: 1.5px;
+              background-color: #fbf9f4;
+            }
+
+            /* Animate Drawer on tablet and mobile */
+            @media (max-width: 767px) {
+              [data-drawer-element="active"] {
+                transform: translateY(0%);
+              }
+
+              [data-drawer-element="not-active"] {
+                transform: translateY(101%);
+              }
+            }
+
+            /* Animate Modal Opening */
+            .intro-modal__bg {
+              transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .intro-modal {
+              transition: all 0.4s;
+            }
+
+            .intro-modal__modal {
+              transition: all 0.4s;
+            }
+
+            [data-modal-element="active"] {
+              transform: translateY(0%);
+              opacity: 1;
+            }
+
+            [data-modal-element="active"] .intro-modal__bg {
+              transform: scale(1);
+            }
+
+            [data-modal-element="not-active"] {
+              transform: translateY(10%);
+              opacity: 0;
+            }
+
+            [data-modal-element="not-active"] .intro-modal__bg {
+              transform: scale(1.1);
+            }
+
+            .intro-modal:has([data-modal-element="active"]) {
+              opacity: 1;
+            }
+
+            .intro-modal:has([data-modal-element="active"])
+              .intro-modal__overlay,
+            .intro-modal:has([data-modal-element="active"])
+              .intro-modal__modal {
+              pointer-events: auto;
+              visibility: visible;
+            }
+
+            .intro-modal:has([data-modal-element="not-active"])
+              .intro-modal__overlay,
+            .intro-modal:has([data-modal-element="not-active"])
+              .intro-modal__modal {
+              pointer-events: none;
+              visibility: hidden;
+            }
+          </style>
+        </div>
       </div>
     </div>
     <script
@@ -731,16 +1269,28 @@
       type="text/javascript"
     ></script>
     <script
-      src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/js/webflow.schunk.b77a2a847245e0ab.js"
+      src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/js/webflow.schunk.d242de4dd500242f.js"
       type="text/javascript"
     ></script>
     <script
       src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/js/webflow.bac88054.9c8281ae191e5850.js"
       type="text/javascript"
     ></script>
+    <script
+      src="https://cdn.prod.website-files.com/gsap/3.13.0/gsap.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://cdn.prod.website-files.com/gsap/3.13.0/ScrollTrigger.min.js"
+      type="text/javascript"
+    ></script>
+    <script type="text/javascript">
+      gsap.registerPlugin(ScrollTrigger);
+    </script>
     <script src="https://unpkg.com/lenis@1.1.3/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+-->
 
     <script>
       //Smooth Scrolling Script
@@ -804,5 +1354,168 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <script type="module" src="./script.js"></script>
+
+    <!-- Page load animation -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const sidebar = ".map-filters__sidebar";
+        const map = "[data-map-fade-in]";
+
+        // Expose timeline variable (will be set depending on breakpoint)
+        let pageLoadTl = null;
+
+        // create a MatchMedia instance (GSAP 3.11)
+        const mm = gsap.matchMedia();
+
+        // Desktop & Tablet: min-width 768px
+        mm.add("(min-width: 768px)", (context) => {
+          // create timeline for page load animation
+          pageLoadTl = gsap.timeline({
+            defaults: {
+              duration: 1.2,
+              ease: "power2.inOut",
+            },
+            onComplete: () => {
+              gsap.set(sidebar, { overflow: "visible" });
+            },
+          });
+
+          // ensure sidebar doesn't overflow while animating
+          pageLoadTl
+            .set(sidebar, { overflow: "hidden" })
+            .from(sidebar, { maxWidth: "0rem" }, 0) // animate sidebar open
+            .from(map, { opacity: 0 }, 0); // animate map fade in (sync)
+
+          // return a cleanup function that will run when query no longer matches
+          return () => {
+            if (pageLoadTl) {
+              pageLoadTl.kill();
+              pageLoadTl = null;
+            }
+            // ensure sidebar overflow is sane after teardown
+            gsap.set(sidebar, { overflow: "visible" });
+          };
+        });
+
+        // Mobile: max-width 767px -> only animate map opacity
+        mm.add("(max-width: 767px)", (context) => {
+          pageLoadTl = gsap.timeline({
+            defaults: {
+              duration: 1.2,
+              ease: "power2.inOut",
+            },
+          });
+
+          pageLoadTl.from(map, { opacity: 0 });
+
+          return () => {
+            if (pageLoadTl) {
+              pageLoadTl.kill();
+              pageLoadTl = null;
+            }
+          };
+        });
+
+        // (optional) expose to window for debug/control
+        window.pageLoadTl = pageLoadTl;
+      });
+    </script>
+
+    <!-- Open/Close Filter Drawer on tablet and mobile viewports -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const MAX_TABLET = 991;
+
+        const drawerButtons = Array.from(
+          document.querySelectorAll("[data-drawer-button]")
+        );
+        const drawerElement = document.querySelector("[data-drawer-element]");
+
+        if (!drawerButtons.length || !drawerElement) return;
+
+        function onDrawerButtonClick(e) {
+          if (window.innerWidth > MAX_TABLET) return;
+
+          const btn = e.currentTarget;
+          const btnState = btn.dataset.drawerButton;
+          const elementState = drawerElement.dataset.drawerElement;
+
+          if (btnState === "open" && elementState !== "active") {
+            drawerElement.dataset.drawerElement = "active";
+          } else if (btnState === "close" && elementState !== "not-active") {
+            drawerElement.dataset.drawerElement = "not-active";
+          }
+        }
+
+        drawerButtons.forEach((btn) =>
+          btn.addEventListener("click", onDrawerButtonClick)
+        );
+      });
+    </script>
+
+    <!-- Modal Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function initModal() {
+          const modalButtons = Array.from(
+            document.querySelectorAll("[data-modal-button]")
+          );
+          const modalElement = document.querySelector("[data-modal-element]");
+
+          if (!modalButtons.length || !modalElement) return;
+
+          // Set modal active on page load
+          modalElement.dataset.modalElement = "active";
+
+          function openModal() {
+            if (modalElement.dataset.modalElement !== "active") {
+              modalElement.dataset.modalElement = "active";
+            }
+          }
+
+          function closeModal() {
+            if (modalElement.dataset.modalElement !== "not-active") {
+              modalElement.dataset.modalElement = "not-active";
+            }
+          }
+
+          function onModalButtonClick(e) {
+            if (e && typeof e.preventDefault === "function") e.preventDefault();
+
+            const btn = e.currentTarget;
+            const btnState = btn.dataset.modalButton; // "open" or "close"
+
+            if (btnState === "open") openModal();
+            else if (btnState === "close") closeModal();
+          }
+
+          // Close when clicking the overlay
+          function onOverlayClick(e) {
+            // Only trigger if click is directly on the modal element (the overlay)
+            if (e.target === modalElement) {
+              closeModal();
+            }
+          }
+
+          // Close on Escape key
+          function onKeyDown(e) {
+            if (
+              (e.key === "Escape" || e.key === "Esc") &&
+              modalElement.dataset.modalElement === "active"
+            ) {
+              closeModal();
+            }
+          }
+
+          modalButtons.forEach((btn) =>
+            btn.addEventListener("click", onModalButtonClick)
+          );
+          modalElement.addEventListener("click", onOverlayClick);
+          document.addEventListener("keydown", onKeyDown);
+        }
+
+        initModal();
+      });
+    </script>
   </body>
 </html>

@@ -44,7 +44,7 @@ export function Overlay({
     >
       ${!isMobile &&
       html`<svg
-        class="absolute top-2 right-2 cursor-pointer h-8 w-8"
+        class="absolute top-2 right-2 cursor-pointer h-12 w-12"
         onclick=${handleCloseOverlay}
         width="34"
         height="35"
@@ -354,7 +354,7 @@ function LocationSection({ place, titleClasses }) {
           <span>${place.populationSize}</span>
           <span
             class="block font-libre italic text-[14px] leading-[135%] text-vis-text-secondary"
-            >as of ${place.populationDataYear}</span
+            >population as of ${place.populationDataYear}</span
           >
         </div>
       </div>`}
