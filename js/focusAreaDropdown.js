@@ -14,7 +14,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
         </div>
         <span>${group.group}</span>
       </div>
-      <div class="mb-2">
+      <div>
         ${group.areas.map((area) => {
           // find out if any places are associated with this focus area
           const areaHasPlaces = placesData.some((place) => {
@@ -22,7 +22,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
           });
 
           return html`<div
-            class="rounded-md  flex flex-row items-center ${areaHasPlaces
+            class="rounded-md  flex flex-row items-start p-2 gap-2 ${areaHasPlaces
               ? "hover:bg-[#2148D1] cursor-pointer"
               : "opacity-40 cursor-not-allowed"}"
             onclick=${() => {
@@ -39,7 +39,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
               );
             }}
           >
-            <div class="ml-2 w-5 h-5 flex items-center justify-center shrink-0">
+            <div class="w-5 h-5 shrink-0">
               ${selectedAreas.includes(area)
                 ? html`<img
                     src="${REPO_URL}/assets/checkbox_checked.svg"
@@ -53,7 +53,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
                   />`}
             </div>
             <span
-              class="inline-block font-authentic text-[14px] leading-[155%] mb-0 p-2 pt-3 grow ${areaHasPlaces
+              class="inline-block font-authentic text-[14px] pt-[1.5px] mb-0 grow ${areaHasPlaces
                 ? "cursor-pointer"
                 : "cursor-not-allowed"} text-balance"
               >${area}</span

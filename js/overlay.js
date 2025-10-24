@@ -464,12 +464,12 @@ function GiniCoefficientSection({ gini, titleClasses }) {
       <span class="${titleClasses} text-vis-text-primary">gini coefficient</span
       ><img
         src="${REPO_URL}/assets/question_icon.svg"
-        class="cursor-pointer mb-4"
+        class="cursor-pointer mb-4 h-5 w-5"
         onmouseenter="${() => setShowTooltip(true)}"
         onmouseleave="${() => setShowTooltip(false)}"
       />
       <div
-        class="bg-[#0F100F] px-4 py-2 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 shadow-lg ${showTooltip
+        class="w-[140%] bg-[#0F100F] px-4 py-4 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 shadow-lg ${showTooltip
           ? ""
           : "hidden"}"
       >
@@ -482,7 +482,7 @@ function GiniCoefficientSection({ gini, titleClasses }) {
           has all the income).</span
         >
         <span
-          class="absolute top-0 left-[137px]"
+          class="absolute top-0 left-[212px] md:left-[216px]"
           style="transform: rotate(180deg) translate(0, 15px);"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
