@@ -306,14 +306,18 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
     const screenY = centerY + (relativeY - centerY) * zoom + pan.y;
 
     return { x: screenX, y: screenY };
-  } // Calculate marker details position dynamically
+  }
+
+  // Calculate marker details position dynamically
   function getMarkerDetailsPosition() {
-    if (!markerDetails || !mapContainerRef.current) return { x: 0, y: 0 };
+    if (!markerDetails || !mapContainerRef.current)
+      return { x: 0, y: 0, width: 448 };
 
     const screenPos = getScreenPosition(markerDetails.mapX, markerDetails.mapY);
     const containerRect = mapContainerRef.current.getBoundingClientRect();
 
-    const popupWidth = 448;
+    const defaultPopupWidth = 448;
+    const minPopupWidth = 300; // Minimum width to maintain readability
     const popupHeight = 318;
 
     // Calculate the actual marker radius in screen pixels
@@ -323,18 +327,40 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
     const spacing = 9; // Spacing between marker and popup
     const markerOffset = markerRadius + spacing;
 
-    // Try to position popup to the right of the marker
-    let finalX = screenPos.x + markerOffset;
+    // Calculate available space on both sides
+    const containerPadding = 16; // Add padding from container edges
+    const spaceOnRight =
+      containerRect.width - (screenPos.x + markerOffset) - containerPadding;
+    const spaceOnLeft = screenPos.x - markerOffset - containerPadding;
 
-    // If popup would go off the right edge, position it to the left
-    if (finalX + popupWidth > containerRect.width) {
-      finalX = screenPos.x - popupWidth - markerOffset;
+    let finalX;
+    let popupWidth = defaultPopupWidth;
+
+    // Determine which side has more space and position accordingly
+    if (spaceOnRight >= defaultPopupWidth) {
+      // Enough space on the right - position to the right
+      finalX = screenPos.x + markerOffset;
+    } else if (spaceOnLeft >= defaultPopupWidth) {
+      // Enough space on the left - position to the left
+      finalX = screenPos.x - defaultPopupWidth - markerOffset;
+    } else {
+      // Not enough space on either side with default width
+      // Choose the side with more space and adjust width
+      if (spaceOnRight >= spaceOnLeft) {
+        // Position to the right with adjusted width
+        popupWidth = Math.max(spaceOnRight, minPopupWidth);
+        finalX = screenPos.x + markerOffset;
+      } else {
+        // Position to the left with adjusted width
+        popupWidth = Math.max(spaceOnLeft, minPopupWidth);
+        finalX = screenPos.x - popupWidth - markerOffset;
+      }
     }
 
     // Center popup vertically relative to marker
     const finalY = screenPos.y - popupHeight / 2;
 
-    return { x: finalX, y: finalY };
+    return { x: finalX, y: finalY, width: popupWidth };
   }
 
   function handleMarkerClick(event, markerGroup) {
@@ -375,7 +401,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   return html`<div
     class="inner-map"
     ref=${mapContainerRef}
-    class="position-relative w-full h-full overflow-hidden ${isMobile
+    class="relative w-full h-full overflow-hidden ${isMobile
       ? "is-mobile"
       : ""}"
   >

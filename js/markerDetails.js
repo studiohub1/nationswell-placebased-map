@@ -12,16 +12,23 @@ export function MarkerDetails({
   // console.log("Rendering MarkerDetails with:", markerDetails);
   let markerDetailsPositionY = position ? position.y : 0;
   let markerDetailsPositionX = position ? position.x : 0;
+  let markerDetailsWidth = position ? position.width : 448; // Use dynamic width from position
 
   if (isMobile) {
     markerDetailsPositionX = null;
     markerDetailsPositionY = window.innerHeight / 2 - 200;
+    // On mobile, use 90% width as before
+    markerDetailsWidth = null;
   }
 
   return html`<div
-    className="marker-details absolute bg-white p-6 rounded-xl shadow-lg flex flex-col items-start gap-4 max-w-md z-[101] w-[90%] md:w-unset left-[5%] md:left-unset"
-    style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${isMobile &&
-    markerDetails.markerGroup.length > 2
+    className="marker-details absolute bg-white p-6 pr-2 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
+      ? "w-[90%] left-[5%]"
+      : ""} overflow-y-scroll"
+    style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${!isMobile &&
+    markerDetailsWidth
+      ? `width: ${markerDetailsWidth}px;`
+      : ""} ${isMobile && markerDetails.markerGroup.length > 2
       ? "height: 390px;"
       : ""}"
   >
@@ -42,7 +49,7 @@ export function MarkerDetails({
         stroke-linejoin="round"
       />
     </svg>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 ">
       <svg
         width="21"
         height="21"
@@ -71,7 +78,7 @@ export function MarkerDetails({
     </div>
     <div
       data-lenis-prevent
-      class="max-h-[550px] overflow-y-auto flex flex-col gap-6 w-full"
+      class="max-h-[550px] overflow-y-auto flex flex-col gap-6 w-full pr-4"
     >
       ${markerDetails.markerGroup &&
       markerDetails.markerGroup.length > 0 &&
