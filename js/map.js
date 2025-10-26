@@ -536,6 +536,8 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       partners=${partners}
       allFocusAreas=${allFocusAreas}
       handleCloseOverlay=${handleCloseOverlay}
+      totalPlaces=${places.length}
+      goToPlace=${(newPlaceId) => setOverlayPlaceId(newPlaceId)}
     />`}
   </div> `;
 }

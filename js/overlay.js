@@ -11,6 +11,8 @@ export function Overlay({
   partners,
   allFocusAreas,
   handleCloseOverlay,
+  totalPlaces,
+  goToPlace,
 }) {
   if (!place) {
     return null;
@@ -146,6 +148,11 @@ export function Overlay({
             />
           </div>
         </div>
+        <${PrevNextProjectSection}
+          currentPlaceId=${place.id}
+          totalPlaces=${totalPlaces}
+          goToPlace=${goToPlace}
+        />
       </div>
       <div class="md:hidden">
         <${DescriptionSection} place=${place} />
@@ -233,14 +240,6 @@ function PartnerSection({ place, partners, titleClasses }) {
               if (contentDiv) {
                 const contentWidth = contentDiv.scrollWidth;
                 const containerWidth = containerRef.clientWidth;
-
-                console.log(
-                  "Content width:",
-                  contentWidth,
-                  "Container width:",
-                  containerWidth
-                );
-
                 if (contentWidth > containerWidth) {
                   setAnimationDistance(contentWidth / 2); // Half because we duplicate content
                   setTimeout(() => {
@@ -643,5 +642,72 @@ function GiniCoefficientSection({ gini, titleClasses }) {
         </p>
       </div>
     </div>
+  </div>`;
+}
+
+function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
+  function goToPrevProject() {
+    goToPlace(currentPlaceId === 1 ? totalPlaces : currentPlaceId - 1);
+  }
+  function goToNextProject() {
+    goToPlace(currentPlaceId === totalPlaces ? 1 : currentPlaceId + 1);
+  }
+  return html`<div
+    class="uppercase bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-3 font-sora text-sm"
+  >
+    <button
+      class="flex flex-row items-center gap-4 hover:opacity-65 transition-opacity"
+      onclick="${() => goToPrevProject()}"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="none"
+        viewBox="0 0 16 16"
+      >
+        <path
+          stroke="#FBF9F4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M10 4 6 8l4 4"
+        />
+      </svg>
+      <span class="uppercase">Prev</span>
+    </button>
+    <p
+      class="border-x border-vis-text-inverted px-4 font-sora text-sm flex flex-row gap-1 items-center"
+    >
+      Project
+      <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
+        >${currentPlaceId}</span
+      >
+      of
+      <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
+        >${totalPlaces}</span
+      >
+    </p>
+    <button
+      class="flex flex-row items-center gap-4 hover:opacity-65 transition-opacity"
+      onclick="${() => goToNextProject()}"
+    >
+      <span class="uppercase">Next</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="none"
+        viewBox="0 0 16 16"
+      >
+        <path
+          stroke="#FBF9F4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="m6 12 4-4-4-4"
+        />
+      </svg>
+    </button>
   </div>`;
 }

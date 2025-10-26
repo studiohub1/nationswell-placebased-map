@@ -118,12 +118,6 @@ function positionDropdown(focusAreas, placesData) {
   let containerHeight = 388;
 
   if (isMobile) {
-    console.log(
-      "Mobile device detected, adjusting dropdown position",
-      triggerLeftX,
-      triggerTopY,
-      triggerBottomY
-    );
     containerLeft = triggerLeftX;
     containerTop = triggerBottomY;
     containerWidth = triggerRightX - triggerLeftX;
@@ -196,7 +190,8 @@ function renderContent(focusAreas, placesData) {
     // clear existing content before rendering
     containerElement.innerHTML = "";
 
-    // wait for async Vis to resolve before rendering
+    console.log("Rendering main content...", placesData);
+
     (async () => {
       renderComponent(
         html`<${Content} focusAreas=${focusAreas} placesData=${placesData} />`,
