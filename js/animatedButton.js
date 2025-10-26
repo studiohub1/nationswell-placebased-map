@@ -8,7 +8,7 @@ export function AnimatedButton({ onClickAction, text, type = "default" }) {
       ? "bg-black"
       : "bg-vis-main-blue"} ${type === "default"
       ? "w-full"
-      : ""} flex gap-x-6 flex-row justify-between px-4 py-2 mt-4 bg-cover bg-center"
+      : ""} flex gap-x-6 flex-row justify-between items-center px-4 py-2 mt-4 bg-cover bg-center"
     style="${type === "default"
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"

@@ -69,27 +69,36 @@ export function Overlay({
           ? "_mobile"
           : ""}.png');"
       >
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start justify-center">
           ${isMobile &&
           html`
-            <svg
-              class="cursor-pointer h-4 w-4 mb-4"
-              width="16"
-              height="16"
-              fill="none"
-              viewBox="0 0 16 16"
+            <div
+              class="flex flex-row items-center gap-2 mb-4"
               onclick=${handleCloseOverlay}
             >
-              <g>
-                <path
-                  stroke="#FBF9F4"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M10 4 6 8l4 4"
-                />
-              </g>
-            </svg>
+              <svg
+                class="cursor-pointer h-4 w-4 "
+                width="16"
+                height="16"
+                fill="none"
+                viewBox="0 0 16 16"
+              >
+                <g>
+                  <path
+                    stroke="#FBF9F4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M10 4 6 8l4 4"
+                  />
+                </g>
+              </svg>
+              <p
+                class="cursor-pointer mb-0 text-vis-text-inverted font-sora text-sm uppercase"
+              >
+                Back to map
+              </p>
+            </div>
           `}
           <p
             class="font-libre italic text-lg font-italic text-vis-text-inverted"
@@ -148,11 +157,13 @@ export function Overlay({
             />
           </div>
         </div>
-        <${PrevNextProjectSection}
-          currentPlaceId=${place.id}
-          totalPlaces=${totalPlaces}
-          goToPlace=${goToPlace}
-        />
+        ${!isMobile
+          ? html`<${PrevNextProjectSection}
+              currentPlaceId=${place.id}
+              totalPlaces=${totalPlaces}
+              goToPlace=${goToPlace}
+            />`
+          : null}
       </div>
       <div class="md:hidden">
         <${DescriptionSection} place=${place} />
@@ -189,6 +200,13 @@ export function Overlay({
           partners=${partners}
           titleClasses=${titleClasses}
         />
+        ${isMobile
+          ? html`<${PrevNextProjectSection}
+              currentPlaceId=${place.id}
+              totalPlaces=${totalPlaces}
+              goToPlace=${goToPlace}
+            />`
+          : null}
       </div>
     </div>
     <div
@@ -653,10 +671,10 @@ function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
     goToPlace(currentPlaceId === totalPlaces ? 1 : currentPlaceId + 1);
   }
   return html`<div
-    class="uppercase bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-3 font-sora text-sm"
+    class="uppercase bg-vis-main-blue md:bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-3 font-sora text-sm"
   >
     <button
-      class="flex flex-row items-center gap-4 hover:opacity-65 transition-opacity"
+      class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
       onclick="${() => goToPrevProject()}"
     >
       <svg
@@ -679,17 +697,17 @@ function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
     <p
       class="border-x border-vis-text-inverted px-4 font-sora text-sm flex flex-row gap-1 items-center"
     >
-      Project
+      ${isMobile ? null : html`Project`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
         >${currentPlaceId}</span
       >
-      of
+      ${isMobile ? html`/` : html`of`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
         >${totalPlaces}</span
       >
     </p>
     <button
-      class="flex flex-row items-center gap-4 hover:opacity-65 transition-opacity"
+      class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
       onclick="${() => goToNextProject()}"
     >
       <span class="uppercase">Next</span>
