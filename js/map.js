@@ -11,6 +11,7 @@ import { Marker } from "./marker.js";
 import { Overlay } from "./overlay.js";
 import { MarkerDetails } from "./markerDetails.js";
 import { FocusAreaGroupLegend } from "./focusAreas.js";
+import { closeFocusAreaDropdown } from "./focusAreaDropdown.js";
 
 export function Map({ usGeoData, places, partners, allFocusAreas }) {
   // console.log(
@@ -128,15 +129,6 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       setZoom(newZoom);
     } else {
       zoomToCenter(newZoom);
-    }
-  }
-
-  function closeFocusAreaDropdown() {
-    const containerElement = document.getElementById(
-      "focus-areas-dropdown-container"
-    );
-    if (containerElement) {
-      containerElement.style.display = "none";
     }
   }
 

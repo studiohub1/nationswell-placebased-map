@@ -90,7 +90,10 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
   return html`<div class="text-vis-text-inverted p-2 w-full">
     <p
       class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
-      onclick=${() => updateSelectedAreas([])}
+      onclick=${() => {
+        updateSelectedAreas([]);
+        closeFocusAreaDropdown();
+      }}
     >
       Clear all
     </p>
@@ -124,6 +127,7 @@ export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
       })
     );
     setNumActive(0);
+    closeFocusAreaDropdown();
   }
 
   if (numActive === null || numActive === 0) {
@@ -156,4 +160,13 @@ export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
       />
     </svg>
   </div>`;
+}
+
+export function closeFocusAreaDropdown() {
+  const containerElement = document.getElementById(
+    "focus-areas-dropdown-container"
+  );
+  if (containerElement) {
+    containerElement.style.display = "none";
+  }
 }
