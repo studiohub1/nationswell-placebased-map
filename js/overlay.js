@@ -63,63 +63,17 @@ export function Overlay({
         />
       </svg>`}
 
-      <div
-        class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
-        style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
-          ? "_mobile"
-          : ""}.png');"
-      >
-        <div class="flex flex-col items-start justify-center">
-          ${isMobile &&
-          html`
-            <div
-              class="flex flex-row items-center gap-2 mb-4"
-              onclick=${handleCloseOverlay}
-            >
-              <svg
-                class="cursor-pointer h-4 w-4 "
-                width="16"
-                height="16"
-                fill="none"
-                viewBox="0 0 16 16"
-              >
-                <g>
-                  <path
-                    stroke="#FBF9F4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M10 4 6 8l4 4"
-                  />
-                </g>
-              </svg>
-              <p
-                class="cursor-pointer mb-0 text-vis-text-inverted font-sora text-sm uppercase"
-              >
-                Back to map
-              </p>
-            </div>
-          `}
-          <p
-            class="font-libre italic text-lg font-italic text-vis-text-inverted"
-          >
-            ${place.startYear && place.startYear !== ""
-              ? html`<span>
-                  ${place.startYear}${" "}–${" "}
-                  ${place.endYear ? place.endYear : "present"}
-                </span>`
-              : null}
-          </p>
-          <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
-        </div>
-        ${place.projectLink &&
-        place.projectLink !== "" &&
-        html` <${AnimatedButton}
-          onClickAction=${() => window.open(place.projectLink, "_blank")}
-          text="${isMobile ? "See project website" : "Learn more"}"
-          type="black"
-        />`}
+      <div class="fixed top-0 z-[10] w-full md:hidden">
+        <${OverlayHeader}
+          place=${place}
+          handleCloseOverlay=${handleCloseOverlay}
+        />
       </div>
+      <${OverlayHeader}
+        place=${place}
+        handleCloseOverlay=${handleCloseOverlay}
+      />
+
       <div>
         <div class="grid-cols-5 hidden md:grid">
           <div class="col-span-2"><${DescriptionSection} place=${place} /></div>
@@ -213,6 +167,64 @@ export function Overlay({
       class="map-details-background absolute inset-0 bg-black opacity-50 backdrop-blur-md"
       onclick=${handleCloseOverlay}
     ></div>
+  </div>`;
+}
+
+function OverlayHeader({ place, handleCloseOverlay }) {
+  return html`<div
+    class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
+    style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
+      ? "_mobile"
+      : ""}.png');"
+  >
+    <div class="flex flex-col items-start justify-center">
+      ${isMobile &&
+      html`
+        <div
+          class="flex flex-row items-center gap-2 mb-4"
+          onclick=${handleCloseOverlay}
+        >
+          <svg
+            class="cursor-pointer h-4 w-4 "
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 16 16"
+          >
+            <g>
+              <path
+                stroke="#FBF9F4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M10 4 6 8l4 4"
+              />
+            </g>
+          </svg>
+          <p
+            class="cursor-pointer mb-0 text-vis-text-inverted font-sora text-sm uppercase"
+          >
+            Back to map
+          </p>
+        </div>
+      `}
+      <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
+        ${place.startYear && place.startYear !== ""
+          ? html`<span>
+              ${place.startYear}${" "}–${" "}
+              ${place.endYear ? place.endYear : "present"}
+            </span>`
+          : null}
+      </p>
+      <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
+    </div>
+    ${place.projectLink &&
+    place.projectLink !== "" &&
+    html` <${AnimatedButton}
+      onClickAction=${() => window.open(place.projectLink, "_blank")}
+      text="${isMobile ? "See project website" : "Learn more"}"
+      type="black"
+    />`}
   </div>`;
 }
 
