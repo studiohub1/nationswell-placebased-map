@@ -2,7 +2,10 @@ import { html, renderComponent, useEffect, useState } from "./js/preact-htm.js";
 import { Map } from "./js/map.js";
 import { isMobile, REPO_URL } from "./js/helper.js";
 import { getAllFocusAreaGroupsForProject } from "./js/focusAreas.js";
-import { FocusAreaDropdown } from "./js/focusAreaDropdown.js";
+import {
+  FocusAreaDropdown,
+  FocusAreaActiveIndicator,
+} from "./js/focusAreaDropdown.js";
 
 console.log("Script for place-based map loaded.");
 main();
@@ -175,6 +178,16 @@ function renderFocusAreasDropdown(focusAreas, placesData) {
       });
     }
   }
+
+  const activeFocusAreaIndicator = document.getElementById(
+    "focus_area_active_indicator"
+  );
+  if (activeFocusAreaIndicator) {
+    renderComponent(
+      html`<${FocusAreaActiveIndicator} numberOfActiveFocusAreas=${null} />`,
+      activeFocusAreaIndicator
+    );
+  }
 }
 
 function renderContent(focusAreas, placesData) {
@@ -248,6 +261,22 @@ function Content({ focusAreas, placesData }) {
     return () => {
       document.removeEventListener(
         "dropdown-focus-areas-changed",
+        handleFocusAreasChange
+      );
+    };
+  }, []);
+
+  // listen to change in focus area dropdown (indicator clear)
+  useEffect(() => {
+    const handleFocusAreasChange = (e) =>
+      setSelectedFocusAreas(e.detail.selectedFocusAreas);
+    document.addEventListener(
+      "dropdown-focus-areas-changed-external",
+      handleFocusAreasChange
+    );
+    return () => {
+      document.removeEventListener(
+        "dropdown-focus-areas-changed-external",
         handleFocusAreasChange
       );
     };

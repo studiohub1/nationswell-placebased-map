@@ -1,4 +1,4 @@
-import { html, useState } from "./preact-htm.js";
+import { html, useState, useEffect } from "./preact-htm.js";
 import { getFocusAreaGroupIcon } from "./focusAreas.js";
 import { REPO_URL } from "./helper.js";
 
@@ -13,6 +13,22 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
       })
     );
   }
+
+  useEffect(() => {
+    const handleFocusAreasChange = (e) => {
+      setSelectedAreas(e.detail.selectedFocusAreas);
+    };
+    document.addEventListener(
+      "dropdown-focus-areas-changed-external",
+      handleFocusAreasChange
+    );
+    return () => {
+      document.removeEventListener(
+        "dropdown-focus-areas-changed-external",
+        handleFocusAreasChange
+      );
+    };
+  }, []);
 
   const groupElements = focusAreas.map((group) => {
     return html` <div
@@ -79,5 +95,65 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
       Clear all
     </p>
     ${groupElements}
+  </div>`;
+}
+
+export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
+  const [numActive, setNumActive] = useState(numberOfActiveFocusAreas);
+
+  useEffect(() => {
+    const handleFocusAreasChange = (e) =>
+      setNumActive(e.detail.selectedFocusAreas.length);
+
+    document.addEventListener(
+      "dropdown-focus-areas-changed",
+      handleFocusAreasChange
+    );
+    return () => {
+      document.removeEventListener(
+        "dropdown-focus-areas-changed",
+        handleFocusAreasChange
+      );
+    };
+  }, []);
+
+  function clearFocusAreas() {
+    document.dispatchEvent(
+      new CustomEvent("dropdown-focus-areas-changed-external", {
+        detail: { selectedFocusAreas: [] },
+      })
+    );
+    setNumActive(0);
+  }
+
+  if (numActive === null || numActive === 0) {
+    return null;
+  }
+
+  return html`<div
+    class="flex items-center gap-[2px] rounded-[112px] bg-[#1F38A5] inline-block py-1 px-2"
+  >
+    <div
+      class="rounded-[999px] text-vis-text-primary text-sm font-sora leading-[100%] py-1 px-[6px] bg-[#E9FBAE]"
+    >
+      ${numActive}
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="cursor-pointer h-4 w-4 p-1 opacity-65 hover:opacity-100 transition"
+      onclick=${() => clearFocusAreas()}
+      width="9"
+      height="9"
+      fill="none"
+      viewBox="0 0 9 9"
+    >
+      <path
+        stroke="#FBF9F4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="m.75 7.74 3.495-3.495m0 0L7.74.75M4.245 4.245.75.75m3.495 3.495L7.74 7.74"
+      />
+    </svg>
   </div>`;
 }
