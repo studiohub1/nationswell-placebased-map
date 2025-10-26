@@ -5,6 +5,15 @@ import { REPO_URL } from "./helper.js";
 export function FocusAreaDropdown({ focusAreas, placesData }) {
   const [selectedAreas, setSelectedAreas] = useState([]);
 
+  function updateSelectedAreas(newAreas) {
+    setSelectedAreas(newAreas);
+    document.dispatchEvent(
+      new CustomEvent("dropdown-focus-areas-changed", {
+        detail: { selectedFocusAreas: newAreas },
+      })
+    );
+  }
+
   const groupElements = focusAreas.map((group) => {
     return html` <div
         class="font-libre w-full block border-b border-vis-surface-primary border-solid text-base italic leading-[135%] flex flex-row items-center p-2"
@@ -31,12 +40,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
               const newSelectedAreas = isChecked
                 ? selectedAreas.filter((a) => a !== area)
                 : [...selectedAreas, area];
-              setSelectedAreas(newSelectedAreas);
-              document.dispatchEvent(
-                new CustomEvent("dropdown-focus-areas-changed", {
-                  detail: { selectedFocusAreas: newSelectedAreas },
-                })
-              );
+              updateSelectedAreas(newSelectedAreas);
             }}
           >
             <div class="w-5 h-5 shrink-0">
@@ -64,6 +68,12 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
   });
 
   return html`<div class="text-vis-text-inverted p-2 w-full">
+    <p
+      class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
+      onclick=${() => updateSelectedAreas([])}
+    >
+      Clear all
+    </p>
     ${groupElements}
   </div>`;
 }
