@@ -57,10 +57,14 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
                   />`}
             </div>
             <span
-              class="inline-block font-authentic text-[14px] pt-[1.5px] mb-0 grow ${areaHasPlaces
+              class="inline-block font-authentic text-sm pt-[1.5px] mb-0 grow ${areaHasPlaces
                 ? "cursor-pointer"
                 : "cursor-not-allowed"} text-balance"
               >${area}</span
+            >
+            <span class="text-vis-text-inverted/65 text-sm"
+              >${placesData.filter((place) => place.focusAreas.includes(area))
+                .length}</span
             >
           </div>`;
         })}
