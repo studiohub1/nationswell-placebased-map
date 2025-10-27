@@ -421,7 +421,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
         })}
       </svg>
       <img
-        src="${REPO_URL}/data/population-density-layer-6x_adjusted_without_northern_line_compressed.png"
+        src="${REPO_URL}/data/population-density-layer-6x_adjusted_x0_5_compressed.png"
         class="map-overlay absolute top-0 left-0 w-full h-full object-contain block pointer-events-none opacity-90 object-contain "
         alt="Population density overlay"
         width="${width}"
