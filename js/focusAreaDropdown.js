@@ -88,20 +88,63 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
   });
 
   return html`<div
-    class="dropdown-inner text-vis-text-inverted pr-2 w-full h-full overflow-y-scroll"
-    data-lenis-prevent
-  >
-    <p
-      class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
-      onclick=${() => {
-        updateSelectedAreas([]);
-        closeFocusAreaDropdown();
-      }}
+      class="dropdown-inner text-vis-text-inverted pr-2 w-full h-full overflow-y-scroll relative"
+      data-lenis-prevent
     >
-      Clear all
-    </p>
-    ${groupElements}
-  </div>`;
+      <p
+        class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
+        onclick=${() => {
+          updateSelectedAreas([]);
+          closeFocusAreaDropdown();
+        }}
+      >
+        Clear all
+      </p>
+      ${groupElements}
+    </div>
+    <svg
+      fill="none"
+      viewBox="0 0 309 20"
+      class="absolute bottom-0 left-0 right-0"
+    >
+      <defs>
+        <filter
+          id="a"
+          width="320.531"
+          height="54.609"
+          x="-12"
+          y="0"
+          class="a"
+          color-interpolation-filters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          />
+          <feOffset dy="-8" />
+          <feGaussianBlur stdDeviation="6" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            values="0 0 0 0 0.0666667 0 0 0 0 0.192157 0 0 0 0 0.658824 0 0 0 1 0"
+          />
+          <feBlend
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_58_1028"
+          />
+          <feBlend
+            in="SourceGraphic"
+            in2="effect1_dropShadow_58_1028"
+            result="shape"
+          />
+        </filter>
+      </defs>
+      <g class="Rectangle 2530" filter="url(#a)">
+        <path fill="#D9D9D9" d="M0 20h296.531v30.609H0z" />
+      </g>
+    </svg> `;
 }
 
 export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {

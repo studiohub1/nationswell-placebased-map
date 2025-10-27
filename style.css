@@ -14,6 +14,7 @@
   background-size: cover;
   background-position: center;
   padding: 8px;
+  padding-bottom: 0px;
 }
 
 #focus-areas-dropdown-container .dropdown-inner::-webkit-scrollbar {
