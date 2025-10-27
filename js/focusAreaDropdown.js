@@ -87,7 +87,10 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
       </div>`;
   });
 
-  return html`<div class="text-vis-text-inverted p-2 w-full">
+  return html`<div
+    class="dropdown-inner text-vis-text-inverted pr-2 w-full h-full overflow-y-scroll"
+    data-lenis-prevent
+  >
     <p
       class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
       onclick=${() => {

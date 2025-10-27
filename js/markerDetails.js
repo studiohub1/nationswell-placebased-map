@@ -22,9 +22,9 @@ export function MarkerDetails({
   }
 
   return html`<div
-    className="marker-details absolute bg-white p-6 pr-2 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
+    className="marker-details absolute bg-white p-6 pr-3 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
       ? "w-[90%] left-[5%]"
-      : ""} overflow-y-scroll"
+      : ""} overflow-y-hidden"
     style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${!isMobile &&
     markerDetailsWidth
       ? `width: ${markerDetailsWidth}px;`
@@ -78,7 +78,7 @@ export function MarkerDetails({
     </div>
     <div
       data-lenis-prevent
-      class="max-h-[550px] overflow-y-auto flex flex-col gap-6 w-full pr-4"
+      class="marker-details-scroll max-h-[550px] overflow-y-auto flex flex-col gap-6 w-full pr-3"
     >
       ${markerDetails.markerGroup &&
       markerDetails.markerGroup.length > 0 &&
