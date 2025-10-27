@@ -22,7 +22,7 @@ export function MarkerDetails({
   }
 
   return html`<div
-    className="marker-details absolute bg-white p-6 pr-3 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
+    className="marker-details absolute bg-white p-6 pb-0 pr-3 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
       ? "w-[90%] left-[5%]"
       : ""} overflow-y-hidden"
     style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${!isMobile &&
@@ -49,6 +49,50 @@ export function MarkerDetails({
         stroke-linejoin="round"
       />
     </svg>
+    ${markerDetails.markerGroup.length > 2
+      ? html` <svg
+          fill="none"
+          viewBox="0 0 308 21"
+          class="absolute bottom-0 left-0 right-0"
+        >
+          <defs>
+            <filter
+              id="a_white"
+              width="319"
+              height="55"
+              x="-11.641"
+              y="0"
+              class="a"
+              color-interpolation-filters="sRGB"
+              filterUnits="userSpaceOnUse"
+            >
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feColorMatrix
+                in="SourceAlpha"
+                result="hardAlpha"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              />
+              <feOffset dy="-8" />
+              <feGaussianBlur stdDeviation="6" />
+              <feComposite in2="hardAlpha" operator="out" />
+              <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
+              <feBlend
+                in2="BackgroundImageFix"
+                result="effect1_dropShadow_60_1122"
+              />
+              <feBlend
+                in="SourceGraphic"
+                in2="effect1_dropShadow_60_1122"
+                result="shape"
+              />
+            </filter>
+          </defs>
+          <g filter="url(#a_white)">
+            <path fill="#fff" d="M.359 20h295v31h-295z" />
+          </g>
+        </svg>`
+      : null}
+
     <div class="flex items-center gap-2 ">
       <svg
         width="21"
@@ -83,12 +127,16 @@ export function MarkerDetails({
       ${markerDetails.markerGroup &&
       markerDetails.markerGroup.length > 0 &&
       markerDetails.markerGroup.map((marker, i) => {
-        return html` <${MarkerDetailsItem}
-          markerDetails=${marker}
-          viewProjectDetails=${viewProjectDetails}
-          showPreviewDescription=${markerDetails.markerGroup.length === 1 ||
-          (markerDetails.markerGroup.length > 1 && !isMobile)}
-        />`;
+        return html`<div
+          class="${i === markerDetails.markerGroup.length - 1 ? "pb-6" : ""}"
+        >
+          <${MarkerDetailsItem}
+            markerDetails=${marker}
+            viewProjectDetails=${viewProjectDetails}
+            showPreviewDescription=${markerDetails.markerGroup.length === 1 ||
+            (markerDetails.markerGroup.length > 1 && !isMobile)}
+          />
+        </div>`;
       })}
     </div>
   </div>`;
