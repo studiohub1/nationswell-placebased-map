@@ -256,6 +256,12 @@ function PartnerSection({ place, partners, titleClasses }) {
   const [containerRef, setContainerRef] = useState(null);
   const [animationDistance, setAnimationDistance] = useState(null);
 
+  // Reset animation state when place changes
+  useEffect(() => {
+    setIsScrolling(false);
+    setAnimationDistance(null);
+  }, [place.partners]);
+
   useEffect(() => {
     if (!containerRef) return;
 
@@ -293,7 +299,7 @@ function PartnerSection({ place, partners, titleClasses }) {
     return () => {
       observer.unobserve(containerRef);
     };
-  }, [containerRef]);
+  }, [containerRef, place.partners]);
 
   const partnersContent =
     place.partners && place.partners.length > 0
