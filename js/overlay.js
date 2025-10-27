@@ -269,21 +269,33 @@ function PartnerSection({ place, partners, titleClasses }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Small delay to ensure DOM is fully rendered
-            setTimeout(() => {
-              // Check if content overflows and needs scrolling
-              const contentDiv = containerRef.querySelector("div");
-              if (contentDiv) {
+            // Wait for all images to load before measuring
+            const contentDiv = containerRef.querySelector("div");
+            if (contentDiv) {
+              const images = contentDiv.querySelectorAll("img");
+              const imagePromises = Array.from(images).map((img) => {
+                if (img.complete) {
+                  return Promise.resolve();
+                }
+                return new Promise((resolve) => {
+                  img.addEventListener("load", resolve);
+                  img.addEventListener("error", resolve); // Handle errors gracefully
+                });
+              });
+
+              Promise.all(imagePromises).then(() => {
+                // Now measure after all images are loaded
                 const contentWidth = contentDiv.scrollWidth;
                 const containerWidth = containerRef.clientWidth;
+                const animationDistance = contentWidth + 32;
                 if (contentWidth > containerWidth) {
-                  setAnimationDistance(contentWidth / 2); // Half because we duplicate content
+                  setAnimationDistance(animationDistance);
                   setTimeout(() => {
                     setIsScrolling(true);
                   }, 800);
                 }
-              }
-            }, 100);
+              });
+            }
           } else {
             setIsScrolling(false);
           }

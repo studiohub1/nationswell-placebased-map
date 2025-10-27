@@ -135,7 +135,6 @@ function positionDropdown(focusAreas, placesData) {
 
     if (containerElement.style.display !== "block") {
       containerElement.style.display = "block";
-
       rotateFocusAreaTriggerCaret(true);
     } else {
       containerElement.style.display = "none";
