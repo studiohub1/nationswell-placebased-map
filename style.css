@@ -24,7 +24,14 @@
 #focus-areas-dropdown-container .dropdown-inner::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background-color: #fbf9f4;
-  /* -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); */
+}
+
+/* Firefox scrollbar styles */
+@supports not selector(::-webkit-scrollbar) {
+  #focus-areas-dropdown-container .dropdown-inner {
+    scrollbar-width: thin;
+    scrollbar-color: #fbf9f4 #2148d1;
+  }
 }
 
 .animated-button-wrapper:hover {
@@ -49,5 +56,12 @@
 .marker-details-scroll::-webkit-scrollbar-thumb {
   border-radius: 0px;
   background-color: #0f100f;
-  /* -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); */
+}
+
+/* Firefox scrollbar styles */
+@supports not selector(::-webkit-scrollbar) {
+  .marker-details-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #0f100f #d4d4d4;
+  }
 }
