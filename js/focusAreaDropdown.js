@@ -172,4 +172,18 @@ export function closeFocusAreaDropdown() {
   if (containerElement) {
     containerElement.style.display = "none";
   }
+
+  rotateFocusAreaTriggerCaret(false);
+}
+
+export function rotateFocusAreaTriggerCaret(isOpen) {
+  const triggerElementCaret = document.querySelector(
+    "#focus-areas-dropdown-trigger svg"
+  );
+  if (triggerElementCaret) {
+    triggerElementCaret.style.transition = "transform 0.3s ease";
+    triggerElementCaret.style.transform = isOpen
+      ? "rotate(90deg)"
+      : "rotate(0deg)";
+  }
 }

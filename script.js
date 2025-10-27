@@ -5,6 +5,7 @@ import { getAllFocusAreaGroupsForProject } from "./js/focusAreas.js";
 import {
   FocusAreaDropdown,
   FocusAreaActiveIndicator,
+  rotateFocusAreaTriggerCaret,
 } from "./js/focusAreaDropdown.js";
 
 console.log("Script for place-based map loaded.");
@@ -134,8 +135,11 @@ function positionDropdown(focusAreas, placesData) {
 
     if (containerElement.style.display !== "block") {
       containerElement.style.display = "block";
+
+      rotateFocusAreaTriggerCaret(true);
     } else {
       containerElement.style.display = "none";
+      rotateFocusAreaTriggerCaret(false);
     }
     renderComponent(
       html`<${FocusAreaDropdown}
