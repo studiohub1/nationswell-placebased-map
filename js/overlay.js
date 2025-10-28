@@ -11,7 +11,7 @@ export function Overlay({
   partners,
   allFocusAreas,
   handleCloseOverlay,
-  totalPlaces,
+  filteredPlaces,
   goToPlace,
 }) {
   if (!place) {
@@ -48,14 +48,14 @@ export function Overlay({
         <${OverlayHeader}
           place=${place}
           handleCloseOverlay=${handleCloseOverlay}
-          totalPlaces=${totalPlaces}
+          filteredPlaces=${filteredPlaces}
           goToPlace=${goToPlace}
         />
       </div>
       <${OverlayHeader}
         place=${place}
         handleCloseOverlay=${handleCloseOverlay}
-        totalPlaces=${totalPlaces}
+        filteredPlaces=${filteredPlaces}
         goToPlace=${goToPlace}
       />
 
@@ -135,7 +135,7 @@ export function Overlay({
         ${isMobile
           ? html`<${PrevNextProjectSection}
               currentPlaceId=${place.id}
-              totalPlaces=${totalPlaces}
+              filteredPlaces=${filteredPlaces}
               goToPlace=${goToPlace}
             />`
           : null}
@@ -148,7 +148,12 @@ export function Overlay({
   </div>`;
 }
 
-function OverlayHeader({ place, handleCloseOverlay, totalPlaces, goToPlace }) {
+function OverlayHeader({
+  place,
+  handleCloseOverlay,
+  filteredPlaces,
+  goToPlace,
+}) {
   // listen to scroll event to add shadow on mobile
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
@@ -188,7 +193,7 @@ function OverlayHeader({ place, handleCloseOverlay, totalPlaces, goToPlace }) {
       </p>
       <${PrevNextProjectSection}
         currentPlaceId=${place.id}
-        totalPlaces=${totalPlaces}
+        filteredPlaces=${filteredPlaces}
         goToPlace=${goToPlace}
       />
       <svg
@@ -737,7 +742,11 @@ function GiniCoefficientSection({ gini, titleClasses }) {
   </div>`;
 }
 
-function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
+function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
+  const currentIndex = filteredPlaces.findIndex(
+    (place) => place.id === currentPlaceId
+  );
+
   function scrollToTopOfOverlay() {
     const overlayContent = document.querySelector(".map-details-content");
     if (overlayContent) {
@@ -746,13 +755,21 @@ function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
   }
 
   function goToPrevProject() {
-    goToPlace(currentPlaceId === 1 ? totalPlaces : currentPlaceId - 1);
+    // find out previous place id within filteredPlaces where ids are not necessarily sequential
+    const prevIndex =
+      currentIndex === 0 ? filteredPlaces.length - 1 : currentIndex - 1;
+    goToPlace(filteredPlaces[prevIndex].id);
     scrollToTopOfOverlay();
   }
+
   function goToNextProject() {
-    goToPlace(currentPlaceId === totalPlaces ? 1 : currentPlaceId + 1);
+    // find out next place id within filteredPlaces where ids are not necessarily sequential
+    const nextIndex =
+      currentIndex === filteredPlaces.length - 1 ? 0 : currentIndex + 1;
+    goToPlace(filteredPlaces[nextIndex].id);
     scrollToTopOfOverlay();
   }
+
   return html`<div
     class="uppercase bg-vis-main-blue md:bg-transparent text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 md:py-0 font-sora text-sm"
     style="${isMobile
@@ -785,11 +802,11 @@ function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
     >
       ${isMobile ? null : html`Project`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
-        >${currentPlaceId}</span
+        >${currentIndex + 1}</span
       >
       ${isMobile ? html`/` : html`of`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
-        >${totalPlaces}</span
+        >${filteredPlaces.length}</span
       >
     </p>
     <button

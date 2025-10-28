@@ -372,7 +372,6 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   }
 
   function viewProjectDetails(placeId) {
-    console.log(`Viewing details for marker with id ${placeId}`);
     setShowOverlay(true);
     setOverlayPlaceId(placeId);
     setMarkerDetails(null);
@@ -528,7 +527,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       partners=${partners}
       allFocusAreas=${allFocusAreas}
       handleCloseOverlay=${handleCloseOverlay}
-      totalPlaces=${places.length}
+      filteredPlaces=${places}
       goToPlace=${(newPlaceId) => setOverlayPlaceId(newPlaceId)}
     />`}
   </div> `;
