@@ -718,14 +718,26 @@ function GiniCoefficientSection({ gini, titleClasses }) {
 }
 
 function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
+  function scrollToTopOfOverlay() {
+    const overlayContent = document.querySelector(".map-details-content");
+    if (overlayContent) {
+      overlayContent.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   function goToPrevProject() {
     goToPlace(currentPlaceId === 1 ? totalPlaces : currentPlaceId - 1);
+    scrollToTopOfOverlay();
   }
   function goToNextProject() {
     goToPlace(currentPlaceId === totalPlaces ? 1 : currentPlaceId + 1);
+    scrollToTopOfOverlay();
   }
   return html`<div
-    class="uppercase bg-vis-main-blue md:bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-3 font-sora text-sm"
+    class="uppercase bg-vis-main-blue md:bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 font-sora text-sm"
+    style="${isMobile
+      ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
+      : ""}"
   >
     <button
       class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
