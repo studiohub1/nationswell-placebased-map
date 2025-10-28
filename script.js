@@ -51,7 +51,7 @@ function main() {
         d["Project Preview Description"] &&
         d["Project Preview Description"] !== ""
           ? d["Project Preview Description"]
-          : "Placeholder MPN functions as both a network catalyst and a collaborative architect, enabling funders to come together, learn together, and act together. ";
+          : "No preview description available.";
       d["description"] =
         d["Project Description"] && d["Project Description"] !== ""
           ? d["Project Description"]

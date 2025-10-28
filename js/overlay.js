@@ -171,9 +171,26 @@ export function Overlay({
 }
 
 function OverlayHeader({ place, handleCloseOverlay }) {
+  // listen to scroll event to add shadow on mobile
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const overlayContent = document.querySelector(".map-details-content");
+    if (!overlayContent) return;
+
+    function handleScroll() {
+      setScrollY(overlayContent.scrollTop);
+    }
+    overlayContent.addEventListener("scroll", handleScroll);
+    return () => {
+      overlayContent.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return html`<div
-    class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center"
-    style="background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
+    class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center transition-shadow duration-300"
+    style="${isMobile && scrollY > 0
+      ? "box-shadow: 0 -4px 30px 4px rgba(0, 0, 0, 0.16);"
+      : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
       ? "_mobile"
       : ""}.png');"
   >
@@ -181,7 +198,7 @@ function OverlayHeader({ place, handleCloseOverlay }) {
       ${isMobile &&
       html`
         <div
-          class="flex flex-row items-center gap-2 mb-4"
+          class="flex flex-row items-center gap-2 mb-6"
           onclick=${handleCloseOverlay}
         >
           <svg
@@ -218,13 +235,13 @@ function OverlayHeader({ place, handleCloseOverlay }) {
       </p>
       <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
     </div>
-    ${place.projectLink &&
-    place.projectLink !== "" &&
-    html` <${AnimatedButton}
-      onClickAction=${() => window.open(place.projectLink, "_blank")}
-      text="${isMobile ? "See project website" : "Learn more"}"
-      type="black"
-    />`}
+    ${place.projectLink && place.projectLink !== "" && !isMobile
+      ? html` <${AnimatedButton}
+          onClickAction=${() => window.open(place.projectLink, "_blank")}
+          text="Learn more"
+          type="black"
+        />`
+      : null}
   </div>`;
 }
 
@@ -233,6 +250,13 @@ function DescriptionSection({ place }) {
     class="p-6 text-vis-text-primary text-[16px] leading-[155%] font-authentic"
   >
     ${place.description}
+    ${place.projectLink && place.projectLink !== "" && isMobile
+      ? html` <${AnimatedButton}
+          onClickAction=${() => window.open(place.projectLink, "_blank")}
+          text="Learn more"
+          type="black"
+        />`
+      : null}
   </div>`;
 }
 
