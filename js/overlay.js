@@ -44,34 +44,19 @@ export function Overlay({
       class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
       data-lenis-prevent
     >
-      ${!isMobile &&
-      html`<svg
-        class="absolute top-2 right-2 cursor-pointer h-12 w-12"
-        onclick=${handleCloseOverlay}
-        width="34"
-        height="35"
-        viewBox="0 0 34 35"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M12.7574 13.56L17 17.8027M17 17.8027L21.2426 22.0453M17 17.8027L21.2426 13.56M17 17.8027L12.7574 22.0453"
-          stroke="lightgray"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>`}
-
       <div class="fixed top-0 z-[10] w-full md:hidden">
         <${OverlayHeader}
           place=${place}
           handleCloseOverlay=${handleCloseOverlay}
+          totalPlaces=${totalPlaces}
+          goToPlace=${goToPlace}
         />
       </div>
       <${OverlayHeader}
         place=${place}
         handleCloseOverlay=${handleCloseOverlay}
+        totalPlaces=${totalPlaces}
+        goToPlace=${goToPlace}
       />
 
       <div>
@@ -111,13 +96,6 @@ export function Overlay({
             />
           </div>
         </div>
-        ${!isMobile
-          ? html`<${PrevNextProjectSection}
-              currentPlaceId=${place.id}
-              totalPlaces=${totalPlaces}
-              goToPlace=${goToPlace}
-            />`
-          : null}
       </div>
       <div class="md:hidden">
         <${DescriptionSection} place=${place} />
@@ -170,7 +148,7 @@ export function Overlay({
   </div>`;
 }
 
-function OverlayHeader({ place, handleCloseOverlay }) {
+function OverlayHeader({ place, handleCloseOverlay, totalPlaces, goToPlace }) {
   // listen to scroll event to add shadow on mobile
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
@@ -187,14 +165,49 @@ function OverlayHeader({ place, handleCloseOverlay }) {
   }, []);
 
   return html`<div
-    class="flex flex-col md:flex-row items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] pb-6 bg-cover bg-center transition-shadow duration-300"
+    class="flex flex-col md:flex-col items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] md:pt-4 pb-6 bg-cover bg-center transition-shadow duration-300"
     style="${isMobile && scrollY > 0
       ? "box-shadow: 0 -4px 30px 4px rgba(0, 0, 0, 0.16);"
       : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
       ? "_mobile"
       : ""}.png');"
   >
-    <div class="flex flex-col items-start justify-center">
+    ${!isMobile &&
+    html`<div class="flex flex-row items-end justify-between gap-4 mb-3 w-full">
+      <p
+        class="font-libre italic text-lg font-italic text-vis-text-inverted ${!isMobile
+          ? "mt-[14px]"
+          : ""}"
+      >
+        ${place.startYear && place.startYear !== ""
+          ? html`<span>
+              ${place.startYear}${" "}–${" "}
+              ${place.endYear ? place.endYear : "present"}
+            </span>`
+          : null}
+      </p>
+      <${PrevNextProjectSection}
+        currentPlaceId=${place.id}
+        totalPlaces=${totalPlaces}
+        goToPlace=${goToPlace}
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 12 12"
+        class="cursor-pointer h-6 w-6 p-1 mr-[-4px] md:hover:opacity-65 transition-opacity"
+        onclick=${handleCloseOverlay}
+      >
+        <path
+          stroke="#FBF9F4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="m.75 11.235 5.243-5.242m0 0L11.235.75M5.993 5.993.75.75m5.243 5.243 5.242 5.242"
+        />
+      </svg>
+    </div>`}
+    <div class="flex flex-col items-start justify-center w-full">
       ${isMobile &&
       html`
         <div
@@ -225,23 +238,30 @@ function OverlayHeader({ place, handleCloseOverlay }) {
           </p>
         </div>
       `}
-      <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
+      ${isMobile &&
+      html`<p
+        class="font-libre italic text-lg font-italic text-vis-text-inverted"
+      >
         ${place.startYear && place.startYear !== ""
           ? html`<span>
               ${place.startYear}${" "}–${" "}
               ${place.endYear ? place.endYear : "present"}
             </span>`
           : null}
-      </p>
-      <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
+      </p>`}
+      <div class="flex flex-row items-start justify-between w-full">
+        <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
+        ${place.projectLink && place.projectLink !== "" && !isMobile
+          ? html`<div class="mt-[-8px]">
+              <${AnimatedButton}
+                onClickAction=${() => window.open(place.projectLink, "_blank")}
+                text="Learn more"
+                type="black"
+              />
+            </div>`
+          : null}
+      </div>
     </div>
-    ${place.projectLink && place.projectLink !== "" && !isMobile
-      ? html` <${AnimatedButton}
-          onClickAction=${() => window.open(place.projectLink, "_blank")}
-          text="Learn more"
-          type="black"
-        />`
-      : null}
   </div>`;
 }
 
@@ -734,7 +754,7 @@ function PrevNextProjectSection({ currentPlaceId, totalPlaces, goToPlace }) {
     scrollToTopOfOverlay();
   }
   return html`<div
-    class="uppercase bg-vis-main-blue md:bg-[#16308C] text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 font-sora text-sm"
+    class="uppercase bg-vis-main-blue md:bg-transparent text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 md:py-0 font-sora text-sm"
     style="${isMobile
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"
