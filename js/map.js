@@ -43,7 +43,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   const [showMarkerDetails, setShowMarkerDetails] = useState(false);
   const [markerDetails, setMarkerDetails] = useState(null);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [overlayPlaceId, setOverlayPlaceId] = useState(null);
+  const [overlayPlaceName, setOverlayPlaceName] = useState(null);
 
   if (!usGeoData) {
     return html`<div>Loading US Geo data...</div>`;
@@ -74,6 +74,22 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       }
       groupedPlaces[key].push(place);
     });
+
+  // prep the places array so it merges places that have the same project name
+  const mergedPlaces = {};
+  places.forEach((place) => {
+    const key = place.name.trim().toLowerCase();
+    if (!mergedPlaces[key]) {
+      mergedPlaces[key] = {
+        ...place,
+        mergedIds: [place.id],
+        mergedLocation: [`${place.city}, ${place.state}`],
+      };
+    } else {
+      mergedPlaces[key].mergedIds.push(place.id);
+      mergedPlaces[key].mergedLocation.push(`${place.city}, ${place.state}`);
+    }
+  });
 
   // dimensions
   const width = 975;
@@ -371,9 +387,9 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
     });
   }
 
-  function viewProjectDetails(placeId) {
+  function viewProjectDetails(placeName) {
     setShowOverlay(true);
-    setOverlayPlaceId(placeId);
+    setOverlayPlaceName(placeName);
     setMarkerDetails(null);
     setShowMarkerDetails(false);
   }
@@ -523,12 +539,14 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
     <${FocusAreaGroupLegend} allFocusAreas=${allFocusAreas} />
     ${showOverlay &&
     html`<${Overlay}
-      place=${places.filter((p) => p.id === overlayPlaceId)[0]}
+      place=${overlayPlaceName
+        ? mergedPlaces[overlayPlaceName.trim().toLowerCase()]
+        : null}
       partners=${partners}
       allFocusAreas=${allFocusAreas}
       handleCloseOverlay=${handleCloseOverlay}
-      filteredPlaces=${places}
-      goToPlace=${(newPlaceId) => setOverlayPlaceId(newPlaceId)}
+      filteredPlaces=${mergedPlaces}
+      goToPlace=${(newPlaceName) => setOverlayPlaceName(newPlaceName)}
     />`}
   </div> `;
 }

@@ -44,6 +44,7 @@ function main() {
       d["lon"] = +d["Longitude"];
       d["gini"] = +d["Gini Coefficient"];
       d["name"] = d["Project Name"];
+      d["nameCleaned"] = d["Project Name"].trim().toLowerCase();
       d["startYear"] =
         d["Start Year"] && d["Start Year"] !== "" ? d["Start Year"] : null;
       d["endYear"] = d["End Year"];

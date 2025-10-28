@@ -179,11 +179,7 @@ function OverlayHeader({
   >
     ${!isMobile &&
     html`<div class="flex flex-row items-end justify-between gap-4 mb-3 w-full">
-      <p
-        class="font-libre italic text-lg font-italic text-vis-text-inverted ${!isMobile
-          ? "mt-[14px]"
-          : ""}"
-      >
+      <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
         ${place.startYear && place.startYear !== ""
           ? html`<span>
               ${place.startYear}${" "}–${" "}
@@ -489,7 +485,7 @@ function LocationSection({ place, titleClasses }) {
               d="M10.23 9.667a.833.833 0 1 0 0-1.667.833.833 0 0 0 0 1.667Z"
             />
           </g></svg
-        ><span>${place.city}, ${place.state}</span>
+        ><span>${place.mergedLocation.join(" & ")}</span>
       </div>
       <div class="flex flex-row space-x-1">
         <svg
@@ -743,9 +739,18 @@ function GiniCoefficientSection({ gini, titleClasses }) {
 }
 
 function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
-  const currentIndex = filteredPlaces.findIndex(
+  // filteredPlaces is expected to be an object keyed by nameCleaned; convert to an array safely
+  const placesArray =
+    filteredPlaces && typeof filteredPlaces === "object"
+      ? Object.values(filteredPlaces)
+      : [];
+
+  let currentIndex = placesArray.findIndex(
     (place) => place.id === currentPlaceId
   );
+  if (currentIndex === -1) {
+    currentIndex = 0;
+  }
 
   function scrollToTopOfOverlay() {
     const overlayContent = document.querySelector(".map-details-content");
@@ -755,19 +760,25 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
   }
 
   function goToPrevProject() {
-    // find out previous place id within filteredPlaces where ids are not necessarily sequential
+    if (placesArray.length === 0) return;
     const prevIndex =
-      currentIndex === 0 ? filteredPlaces.length - 1 : currentIndex - 1;
-    goToPlace(filteredPlaces[prevIndex].id);
-    scrollToTopOfOverlay();
+      currentIndex === 0 ? placesArray.length - 1 : currentIndex - 1;
+    const prevPlace = placesArray[prevIndex];
+    if (prevPlace) {
+      goToPlace(prevPlace.nameCleaned);
+      scrollToTopOfOverlay();
+    }
   }
 
   function goToNextProject() {
-    // find out next place id within filteredPlaces where ids are not necessarily sequential
+    if (placesArray.length === 0) return;
     const nextIndex =
-      currentIndex === filteredPlaces.length - 1 ? 0 : currentIndex + 1;
-    goToPlace(filteredPlaces[nextIndex].id);
-    scrollToTopOfOverlay();
+      currentIndex === placesArray.length - 1 ? 0 : currentIndex + 1;
+    const nextPlace = placesArray[nextIndex];
+    if (nextPlace) {
+      goToPlace(nextPlace.nameCleaned);
+      scrollToTopOfOverlay();
+    }
   }
 
   return html`<div
@@ -776,7 +787,7 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"
   >
-    ${filteredPlaces.length > 1
+    ${placesArray.length > 1
       ? html`<button
           class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
           onclick="${() => goToPrevProject()}"
@@ -808,10 +819,10 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
       >
       ${isMobile ? html`/` : html`of`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
-        >${filteredPlaces.length}</span
+        >${placesArray.length}</span
       >
     </p>
-    ${filteredPlaces.length > 1
+    ${placesArray.length > 1
       ? html`<button
           class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
           onclick="${() => goToNextProject()}"

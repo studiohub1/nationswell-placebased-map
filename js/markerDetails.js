@@ -181,7 +181,7 @@ function MarkerDetailsItem({
       ${markerDetails.previewDescription || ""}
     </p>`}
     <${AnimatedButton}
-      onClickAction=${() => viewProjectDetails(markerDetails.id)}
+      onClickAction=${() => viewProjectDetails(markerDetails.nameCleaned)}
       text="View project details"
       type="default"
     />
