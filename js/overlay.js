@@ -18,7 +18,7 @@ export function Overlay({
     return null;
   }
 
-  console.log("Rendering Overlay for place:", place);
+  // console.log("Rendering Overlay for place:", place);
 
   // get random value between 1 and 6 for state shape image
   const randomAreaImage = Math.floor(Math.random() * 6) + 1;
@@ -776,27 +776,29 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"
   >
-    <button
-      class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
-      onclick="${() => goToPrevProject()}"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="none"
-        viewBox="0 0 16 16"
-      >
-        <path
-          stroke="#FBF9F4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M10 4 6 8l4 4"
-        />
-      </svg>
-      <span class="uppercase">Prev</span>
-    </button>
+    ${filteredPlaces.length > 1
+      ? html`<button
+          class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
+          onclick="${() => goToPrevProject()}"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 16 16"
+          >
+            <path
+              stroke="#FBF9F4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M10 4 6 8l4 4"
+            />
+          </svg>
+          <span class="uppercase">Prev</span>
+        </button>`
+      : null}
     <p
       class="border-x border-vis-text-inverted px-4 font-sora text-sm flex flex-row gap-1 items-center"
     >
@@ -809,26 +811,28 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
         >${filteredPlaces.length}</span
       >
     </p>
-    <button
-      class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
-      onclick="${() => goToNextProject()}"
-    >
-      <span class="uppercase">Next</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="none"
-        viewBox="0 0 16 16"
-      >
-        <path
-          stroke="#FBF9F4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="m6 12 4-4-4-4"
-        />
-      </svg>
-    </button>
+    ${filteredPlaces.length > 1
+      ? html`<button
+          class="flex flex-row items-center gap-4 md:hover:opacity-65 transition-opacity"
+          onclick="${() => goToNextProject()}"
+        >
+          <span class="uppercase">Next</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 16 16"
+          >
+            <path
+              stroke="#FBF9F4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="m6 12 4-4-4-4"
+            />
+          </svg>
+        </button>`
+      : null}
   </div>`;
 }
