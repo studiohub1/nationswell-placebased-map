@@ -201,17 +201,15 @@ export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
     closeFocusAreaDropdown();
   }
 
-  if (numActive === null || numActive === 0) {
-    return null;
-  }
-
   return html` <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     width="55"
     height="26"
     viewBox="0 0 55 26"
-    class="cursor-pointer"
+    class="cursor-pointer ${numActive === 0 || numActive === null
+      ? "opacity-0"
+      : ""}"
     onclick=${() => clearFocusAreas()}
   >
     <defs>
