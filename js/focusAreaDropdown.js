@@ -205,35 +205,71 @@ export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
     return null;
   }
 
-  return html`<div
-    class="flex items-center gap-[2px] rounded-[112px] bg-[#1F38A5] inline-block py-1 px-2"
+  return html` <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    width="55"
+    height="26"
+    viewBox="0 0 55 26"
+    class="cursor-pointer"
+    onclick=${() => clearFocusAreas()}
   >
-    <div
-      class="rounded-[999px] text-vis-text-primary text-sm font-sora leading-[100%] py-1 px-[6px] bg-[#E9FBAE]"
-    >
-      ${numActive}
-    </div>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="cursor-pointer h-4 w-4 p-1 opacity-65 hover:opacity-100 transition"
-      onclick=${() => clearFocusAreas()}
-      width="9"
-      height="9"
-      fill="none"
-      viewBox="0 0 9 9"
-    >
-      <path
-        stroke="#FBF9F4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
-        d="m.75 7.74 3.495-3.495m0 0L7.74.75M4.245 4.245.75.75m3.495 3.495L7.74 7.74"
+    <defs>
+      <clipPath id="tag__a" transform="translate(12 12)">
+        <path
+          d="M0 13C0 5.82 5.82 0 13 0h29c7.18 0 13 5.82 13 13s-5.82 13-13 13H13C5.82 26 0 20.18 0 13Z"
+        />
+      </clipPath>
+      <clipPath id="tag__b">
+        <rect width="16" height="16" fill="#fff" transform="translate(35 5)" />
+      </clipPath>
+    </defs>
+    <foreignObject width="79" height="50" x="-12" y="-12">
+      <div
+        xmlns="http://www.w3.org/1999/xhtml"
+        clip-path="url(#tag__a)"
+        style="backdrop-filter:blur(6px);height:100%;width:100%"
       />
-    </svg>
-  </div>`;
+    </foreignObject>
+    <g data-figma-bg-blur-radius="12">
+      <path
+        fill="#1F38A5"
+        d="M0 13C0 5.82 5.82 0 13 0h29c7.18 0 13 5.82 13 13s-5.82 13-13 13H13C5.82 26 0 20.18 0 13Z"
+      />
+      <rect width="27" height="18" x="4" y="4" fill="#E9FBAE" rx="9" />
+      <text
+        x="17"
+        y="18"
+        fill="#0F100F"
+        font-family="Sora, sans-serif"
+        font-size="14"
+        text-anchor="middle"
+      >
+        ${numActive}
+      </text>
+      <g clip-path="url(#tag__b)" opacity=".65">
+        <path
+          class="hover:stroke-white transition-stroke"
+          stroke="#FBF9F4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="m39.508 16.496 3.495-3.495m0 0 3.495-3.495M43.003 13l-3.495-3.495M43.003 13l3.495 3.495"
+        />
+      </g>
+    </g>
+  </svg>`;
 }
 
 export function closeFocusAreaDropdown() {
+  // scroll back to top of dropdown before closing dropdown
+  const dropdownInnerElement = document.querySelector(
+    "#focus-areas-dropdown-container .dropdown-inner"
+  );
+  if (dropdownInnerElement) {
+    dropdownInnerElement.scrollTo({ top: 0 });
+  }
+
   const containerElement = document.getElementById(
     "focus-areas-dropdown-container"
   );
