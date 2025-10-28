@@ -35,7 +35,7 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
         class="font-libre w-full block border-b border-vis-surface-primary border-solid text-base italic leading-[135%] flex flex-row items-center p-2"
       >
         <div class="h-[18px] w-[18px] inline-block align-middle mr-[10px]">
-          ${getFocusAreaGroupIcon(group.group, "#FBF9F4")}
+          ${getFocusAreaGroupIcon(group.group, "#E9FBAE")}
         </div>
         <span>${group.group}</span>
       </div>
@@ -91,15 +91,40 @@ export function FocusAreaDropdown({ focusAreas, placesData }) {
       class="dropdown-inner text-vis-text-inverted pr-2 w-full h-full overflow-y-scroll relative"
       data-lenis-prevent
     >
-      <p
-        class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
-        onclick=${() => {
-          updateSelectedAreas([]);
-          closeFocusAreaDropdown();
-        }}
-      >
-        Clear all
-      </p>
+      <div class="flex justify-between items-center w-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="cursor-pointer h-6 w-6 p-1 opacity-65 md:hover:opacity-100 transition-opacity"
+          fill="none"
+          viewBox="0 0 16 16"
+          onclick=${() => {
+            closeFocusAreaDropdown();
+          }}
+        >
+          <g clip-path="url(#a_close)">
+            <path
+              stroke="#FBF9F4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="m4.508 11.496 3.495-3.495m0 0 3.495-3.495M8.003 8 4.508 4.506M8.003 8l3.495 3.495"
+            />
+          </g>
+          <defs>
+            <clipPath id="a_close">
+              <path fill="#fff" d="M0 0h16v16H0z" />
+            </clipPath>
+          </defs>
+        </svg>
+        <p
+          class="cursor-pointer text-vis-text-inverted/65 hover:text-vis-text-inverted/90 transition text-right text-sm"
+          onclick=${() => {
+            updateSelectedAreas([]);
+          }}
+        >
+          Clear all
+        </p>
+      </div>
       ${groupElements}
     </div>
     <svg
