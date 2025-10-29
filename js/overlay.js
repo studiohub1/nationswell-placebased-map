@@ -3,7 +3,7 @@ import {
   getFocusAreaGroupIcon,
   getFocusAreaGroupFromArea,
 } from "./focusAreas.js";
-import { isMobile, REPO_URL } from "./helper.js";
+import { isMobile, isTabletPortrait, REPO_URL } from "./helper.js";
 import { AnimatedButton } from "./animatedButton.js";
 
 export function Overlay({
@@ -44,7 +44,7 @@ export function Overlay({
       class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
       data-lenis-prevent
     >
-      <div class="fixed top-0 z-[10] w-full md:hidden">
+      <div class="fixed top-0 z-[10] w-full lg:hidden">
         <${OverlayHeader}
           place=${place}
           handleCloseOverlay=${handleCloseOverlay}
@@ -59,8 +59,9 @@ export function Overlay({
         goToPlace=${goToPlace}
       />
 
-      <div>
-        <div class="grid-cols-5 hidden md:grid">
+      <!-- Desktop Layout -->
+      <div class="overlay-content-desktop hidden min-[1200px]:block">
+        <div class="grid-cols-5 grid">
           <div class="col-span-2"><${DescriptionSection} place=${place} /></div>
           <div class="col-span-1 ">
             <${LocationSection} place=${place} titleClasses=${titleClasses} />
@@ -78,7 +79,7 @@ export function Overlay({
               />`
             : null}
         </div>
-        <div class="grid grid-cols-5 hidden md:grid">
+        <div class="grid grid-cols-5 grid">
           <div class="col-span-2">
             <${HightlightSection} place=${place} titleClasses=${titleClasses} />
           </div>
@@ -97,7 +98,56 @@ export function Overlay({
           </div>
         </div>
       </div>
-      <div class="md:hidden">
+
+      <!-- Tablet Layout -->
+      <div class="overlay-content-tablet hidden md:block min-[1200px]:hidden">
+        <div class="grid-cols-2 grid">
+          <div class="col-span-1">
+            <${DescriptionSection} place=${place} />
+          </div>
+          <div class="col-span-1">
+            <${HightlightSection} place=${place} titleClasses=${titleClasses} />
+          </div>
+        </div>
+        <div class="grid-cols-2 grid">
+          <div class="col-span-1">
+            <div
+              class="bg-cover bg-center bg-no-repeat w-full h-full"
+              style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-left:-1px; margin-right: -1px;"
+            ></div>
+          </div>
+
+          <div class="col-span-1 flex flex-col">
+            <${LocationSection} place=${place} titleClasses=${titleClasses} />
+            <${GiniCoefficientSection}
+              gini=${place.gini}
+              titleClasses=${titleClasses}
+            />
+          </div>
+        </div>
+        <${FocusAreaSection}
+          place=${place}
+          allFocusAreas=${allFocusAreas}
+          titleClasses=${titleClasses}
+        />
+        <${PartnerSection}
+          place=${place}
+          partners=${partners}
+          titleClasses=${titleClasses}
+        />
+        ${window.innerWidth <= 992
+          ? html`
+              <${PrevNextProjectSection}
+                currentPlaceId=${place.id}
+                filteredPlaces=${filteredPlaces}
+                goToPlace=${goToPlace}
+              />
+            `
+          : null}
+      </div>
+
+      <!-- Mobile Layout -->
+      <div class="overlay-content-mobile md:hidden">
         <${DescriptionSection} place=${place} />
         <${HightlightSection} place=${place} titleClasses=${titleClasses} />
         <div
@@ -171,7 +221,7 @@ function OverlayHeader({
 
   return html`<div
     class="flex flex-col md:flex-col items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] md:pt-4 pb-6 bg-cover bg-center transition-shadow duration-300"
-    style="${isMobile && scrollY > 0
+    style="${(isMobile || isTabletPortrait) && scrollY > 0
       ? "box-shadow: 0 -4px 30px 4px rgba(0, 0, 0, 0.16);"
       : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
       ? "_mobile"
@@ -782,7 +832,7 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
   }
 
   return html`<div
-    class="uppercase bg-vis-main-blue md:bg-transparent text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 md:py-0 font-sora text-sm"
+    class="uppercase bg-vis-main-blue md:bg-transparent text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 lg:py-0 font-sora text-sm"
     style="${isMobile
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"
