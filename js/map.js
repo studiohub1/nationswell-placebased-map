@@ -14,18 +14,18 @@ import { FocusAreaGroupLegend } from "./focusAreas.js";
 import { closeFocusAreaDropdown } from "./focusAreaDropdown.js";
 
 export function Map({ usGeoData, places, partners, allFocusAreas }) {
-  console.log(
-    "Rendering Map with usGeoData:",
-    usGeoData,
-    "and placesData:",
-    places,
-    "and partnersData:",
-    partners,
-    "and allFocusAreas:",
-    allFocusAreas,
-    " isMobile:",
-    isMobile()
-  );
+  // console.log(
+  //   "Rendering Map with usGeoData:",
+  //   usGeoData,
+  //   "and placesData:",
+  //   places,
+  //   "and partnersData:",
+  //   partners,
+  //   "and allFocusAreas:",
+  //   allFocusAreas,
+  //   " isMobile:",
+  //   isMobile()
+  // );
 
   // map state
   const ZOOM_STEP = 0.3;

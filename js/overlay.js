@@ -233,12 +233,10 @@ function OverlayHeader({
     ${!isMobile() &&
     html`<div class="flex flex-row items-end justify-between gap-4 mb-3 w-full">
       <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
-        ${place.startYear && place.startYear !== ""
-          ? html`<span>
-              ${place.startYear}${" "}–${" "}
-              ${place.endYear ? place.endYear : "present"}
-            </span>`
-          : null}
+        <span style="${!place.startYear ? "opacity: 0;" : "opacity: 1;"}">
+          ${place.startYear ? place.startYear : "2000"}${" "}–${" "}
+          ${place.endYear ? place.endYear : "present"}
+        </span>
       </p>
       <${PrevNextProjectSection}
         currentPlaceId=${place.id}
