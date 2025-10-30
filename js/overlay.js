@@ -225,7 +225,7 @@ function OverlayHeader({
   return html`<div
     class="flex flex-col md:flex-col items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] md:pt-4 pb-6 bg-cover bg-center transition-shadow duration-300"
     style="${(isMobile || isTabletPortrait) && scrollY > 0
-      ? "box-shadow: 0 -4px 30px 4px rgba(0, 0, 0, 0.16);"
+      ? "box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.75);"
       : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
       ? "_mobile"
       : ""}.png');"
@@ -604,7 +604,7 @@ function LocationSection({ place, titleClasses }) {
   </div>`;
 }
 
-function GiniCoefficientSection({ gini, titleClasses, prefix = "mobile_" }) {
+function GiniCoefficientSection({ gini, titleClasses, prefix = "mobile" }) {
   if (!gini) {
     return null;
   }
