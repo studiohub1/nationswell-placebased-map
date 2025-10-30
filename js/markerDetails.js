@@ -14,7 +14,7 @@ export function MarkerDetails({
   let markerDetailsPositionX = position ? position.x : 0;
   let markerDetailsWidth = position ? position.width : 448; // Use dynamic width from position
 
-  if (isMobile) {
+  if (isMobile()) {
     markerDetailsPositionX = null;
     markerDetailsPositionY = window.innerHeight / 2 - 200;
     // On mobile, use 90% width as before
@@ -22,13 +22,13 @@ export function MarkerDetails({
   }
 
   return html`<div
-    className="marker-details absolute bg-white p-6 pb-0 pr-3 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile
+    className="marker-details absolute bg-white p-6 pb-0 pr-3 rounded-xl shadow-lg flex flex-col items-start gap-4 z-[101] ${isMobile()
       ? "w-[90%] left-[5%]"
       : ""} overflow-y-hidden"
-    style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${!isMobile &&
+    style="top: ${markerDetailsPositionY}px; left: ${markerDetailsPositionX}px; ${!isMobile() &&
     markerDetailsWidth
       ? `width: ${markerDetailsWidth}px;`
-      : ""} ${isMobile && markerDetails.markerGroup.length > 2
+      : ""} ${isMobile() && markerDetails.markerGroup.length > 2
       ? "height: 390px;"
       : ""}"
   >
@@ -134,7 +134,7 @@ export function MarkerDetails({
             markerDetails=${marker}
             viewProjectDetails=${viewProjectDetails}
             showPreviewDescription=${markerDetails.markerGroup.length === 1 ||
-            (markerDetails.markerGroup.length > 1 && !isMobile)}
+            (markerDetails.markerGroup.length > 1 && !isMobile())}
           />
         </div>`;
       })}

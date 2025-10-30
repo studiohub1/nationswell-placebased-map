@@ -1,4 +1,4 @@
-import { html, useState, useRef } from "./preact-htm.js";
+import { html, useState, useRef, useEffect } from "./preact-htm.js";
 import {
   stateMapping,
   latLonToScreen,
@@ -14,20 +14,22 @@ import { FocusAreaGroupLegend } from "./focusAreas.js";
 import { closeFocusAreaDropdown } from "./focusAreaDropdown.js";
 
 export function Map({ usGeoData, places, partners, allFocusAreas }) {
-  // console.log(
-  //   "Rendering Map with usGeoData:",
-  //   usGeoData,
-  //   "and placesData:",
-  //   places,
-  //   "and partnersData:",
-  //   partners,
-  //   "and allFocusAreas:",
-  //   allFocusAreas
-  // );
+  console.log(
+    "Rendering Map with usGeoData:",
+    usGeoData,
+    "and placesData:",
+    places,
+    "and partnersData:",
+    partners,
+    "and allFocusAreas:",
+    allFocusAreas,
+    " isMobile:",
+    isMobile()
+  );
 
   // map state
   const ZOOM_STEP = 0.3;
-  const MIN_ZOOM = isMobile ? 1 : 0.9;
+  const MIN_ZOOM = isMobile() ? 1 : 0.9;
   const MAX_ZOOM = 5;
 
   const [zoom, setZoom] = useState(MIN_ZOOM);
@@ -90,6 +92,22 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       mergedPlaces[key].mergedLocation.push(`${place.city}, ${place.state}`);
     }
   });
+
+  // on window resize, rerender component and reset to defaults
+  useEffect(() => {
+    const handleResize = () => {
+      setZoom(MIN_ZOOM);
+      setPan({ x: 0, y: 0 });
+      setShowMarkerDetails(false);
+      setMarkerDetails(null);
+      setShowOverlay(false);
+      setOverlayPlaceName(null);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // dimensions
   const width = 975;
@@ -408,7 +426,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   return html`<div
     class="inner-map"
     ref=${mapContainerRef}
-    class="relative w-full h-full overflow-hidden ${isMobile
+    class="relative w-full h-full overflow-hidden ${isMobile()
       ? "is-mobile"
       : ""}"
   >
@@ -479,7 +497,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
               markerGroup=${placesGroup}
               x=${x}
               y=${y}
-              zoom=${isMobile ? zoom / 2 : zoom}
+              zoom=${isMobile() ? zoom / 2 : zoom}
               pan=${pan}
               handleMarkerClick=${handleMarkerClick}
               height=${height}

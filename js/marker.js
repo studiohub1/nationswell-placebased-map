@@ -159,7 +159,7 @@ export function Marker({
           stroke-width="2"
         />
         <circle cx=${x} cy=${y} r="${14 / 2}" class="fill-white" />
-        ${!isMobile &&
+        ${!isMobile() &&
         !isTouchDevice &&
         html` <g
           class="tooltip-layer"

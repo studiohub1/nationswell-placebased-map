@@ -72,7 +72,7 @@ export function Overlay({
               : "col-span-2"} bg-cover bg-center bg-no-repeat"
             style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
           ></div>
-          ${!isMobile && place.gini && place.gini !== 0
+          ${!isMobile() && place.gini && place.gini !== 0
             ? html` <${GiniCoefficientSection}
                 gini=${place.gini}
                 titleClasses=${titleClasses}
@@ -156,7 +156,7 @@ export function Overlay({
           class="bg-cover bg-center bg-no-repeat w-[102%] h-[218px] ml-[-2px] overflow-hidden"
           style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}');"
         ></div>
-        ${isMobile && place.gini && place.gini !== 0
+        ${isMobile() && place.gini && place.gini !== 0
           ? html` <div class="grid grid-cols-2">
               <div class="col-span-1">
                 <${LocationSection}
@@ -185,7 +185,7 @@ export function Overlay({
           partners=${partners}
           titleClasses=${titleClasses}
         />
-        ${isMobile
+        ${isMobile()
           ? html`<${PrevNextProjectSection}
               currentPlaceId=${place.id}
               filteredPlaces=${filteredPlaces}
@@ -224,13 +224,13 @@ function OverlayHeader({
 
   return html`<div
     class="flex flex-col md:flex-col items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] md:pt-4 pb-6 bg-cover bg-center transition-shadow duration-300"
-    style="${(isMobile || isTabletPortrait) && scrollY > 0
+    style="${(isMobile() || isTabletPortrait) && scrollY > 0
       ? "box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.75);"
-      : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile
+      : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile()
       ? "_mobile"
       : ""}.png');"
   >
-    ${!isMobile &&
+    ${!isMobile() &&
     html`<div class="flex flex-row items-end justify-between gap-4 mb-3 w-full">
       <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
         ${place.startYear && place.startYear !== ""
@@ -262,7 +262,7 @@ function OverlayHeader({
       </svg>
     </div>`}
     <div class="flex flex-col items-start justify-center w-full">
-      ${isMobile &&
+      ${isMobile() &&
       html`
         <div
           class="flex flex-row items-center gap-2 mb-6"
@@ -292,7 +292,7 @@ function OverlayHeader({
           </p>
         </div>
       `}
-      ${isMobile &&
+      ${isMobile() &&
       html`<p
         class="font-libre italic text-lg font-italic text-vis-text-inverted"
       >
@@ -305,7 +305,7 @@ function OverlayHeader({
       </p>`}
       <div class="flex flex-row items-start justify-between w-full">
         <p class="text-vis-text-inverted text-[32px]">${place.name}</p>
-        ${place.projectLink && place.projectLink !== "" && !isMobile
+        ${place.projectLink && place.projectLink !== "" && !isMobile()
           ? html`<div class="mt-[-8px]">
               <${AnimatedButton}
                 onClickAction=${() => window.open(place.projectLink, "_blank")}
@@ -324,7 +324,7 @@ function DescriptionSection({ place }) {
     class="p-6 text-vis-text-primary text-[16px] leading-[155%] font-authentic"
   >
     ${place.description}
-    ${place.projectLink && place.projectLink !== "" && isMobile
+    ${place.projectLink && place.projectLink !== "" && isMobile()
       ? html` <${AnimatedButton}
           onClickAction=${() => window.open(place.projectLink, "_blank")}
           text="Learn more"
@@ -836,7 +836,7 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
 
   return html`<div
     class="uppercase bg-vis-main-blue md:bg-transparent text-vis-text-inverted flex flex-row items-center justify-center gap-4 py-6 lg:py-0 font-sora text-sm"
-    style="${isMobile
+    style="${isMobile()
       ? `background-image: url('${REPO_URL}/assets/gradient_texture_blue_button.png');`
       : ""}"
   >
@@ -866,11 +866,11 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
     <p
       class="border-x border-vis-text-inverted px-4 font-sora text-sm flex flex-row gap-1 items-center"
     >
-      ${isMobile ? null : html`Project`}
+      ${isMobile() ? null : html`Project`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
         >${currentIndex + 1}</span
       >
-      ${isMobile ? html`/` : html`of`}
+      ${isMobile() ? html`/` : html`of`}
       <span class="bg-[#2C54DF] px-3 py-[2px] rounded-[112px]"
         >${placesArray.length}</span
       >

@@ -119,7 +119,7 @@ function positionDropdown(focusAreas, placesData) {
   let containerWidth = 311;
   let containerHeight = 388;
 
-  if (isMobile) {
+  if (isMobile()) {
     containerLeft = triggerLeftX;
     containerTop = triggerBottomY;
     containerWidth = triggerRightX - triggerLeftX;
@@ -231,7 +231,6 @@ function Content({ focusAreas, placesData }) {
         d["partnerName"] = d["Funder Name"];
         d["partnerLink"] = d["Partner Link"];
       });
-      // console.log("Loaded partner data:", data);
       setPartnersData(data);
     });
   }, []);
@@ -278,6 +277,18 @@ function Content({ focusAreas, placesData }) {
         "dropdown-focus-areas-changed-external",
         handleFocusAreasChange
       );
+    };
+  }, []);
+
+  // on window resize, rerender component to reflect any changes
+  useEffect(() => {
+    const handleResize = () => {
+      // trigger a state change to force rerender
+      setUsGeoData((prev) => prev);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
