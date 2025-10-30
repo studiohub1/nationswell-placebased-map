@@ -41,7 +41,7 @@ export function Overlay({
   const titleClasses = "font-sora text-sm uppercase mb-4 font-bold";
   return html`<div class="map-details-overlay fixed inset-0 z-[10001]">
     <div
-      class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
+      class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-[10%] md:left-1/2 md:transform md:-translate-x-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
       data-lenis-prevent
     >
       <div class="fixed top-0 z-[10] w-full lg:hidden">
@@ -232,7 +232,9 @@ function OverlayHeader({
   >
     ${!isMobile() &&
     html`<div class="flex flex-row items-end justify-between gap-4 mb-3 w-full">
-      <p class="font-libre italic text-lg font-italic text-vis-text-inverted">
+      <p
+        class="font-libre italic text-lg font-italic text-vis-text-inverted w-[130px]"
+      >
         <span style="${!place.startYear ? "opacity: 0;" : "opacity: 1;"}">
           ${place.startYear ? place.startYear : "2000"}${" "}–${" "}
           ${place.endYear ? place.endYear : "present"}
