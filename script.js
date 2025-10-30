@@ -123,7 +123,7 @@ function positionDropdown(focusAreas, placesData) {
     containerLeft = triggerLeftX;
     containerTop = triggerBottomY;
     containerWidth = triggerRightX - triggerLeftX;
-    containerHeight = 340;
+    containerHeight = 265;
   }
   const containerElement = document.getElementById(
     "focus-areas-dropdown-container"
