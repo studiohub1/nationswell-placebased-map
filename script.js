@@ -151,10 +151,14 @@ function positionDropdown(focusAreas, placesData) {
       if (isViewDataAsMapSelected) {
         containerElement.style.display = "block";
         rotateFocusAreaTriggerCaret(true);
+        triggerElement.style.cursor = "pointer";
+      } else {
+        triggerElement.style.cursor = "auto";
       }
     } else {
       containerElement.style.display = "none";
       rotateFocusAreaTriggerCaret(false);
+      triggerElement.style.cursor = "pointer";
     }
     renderComponent(
       html`<${FocusAreaDropdown}
