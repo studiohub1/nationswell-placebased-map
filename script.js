@@ -6,6 +6,7 @@ import {
   FocusAreaDropdown,
   FocusAreaActiveIndicator,
   rotateFocusAreaTriggerCaret,
+  closeFocusAreaDropdown,
 } from "./js/focusAreaDropdown.js";
 
 console.log("Script for place-based map loaded.");
@@ -151,15 +152,23 @@ function positionDropdown(focusAreas, placesData) {
       if (isViewDataAsMapSelected) {
         containerElement.style.display = "block";
         rotateFocusAreaTriggerCaret(true);
-        triggerElement.style.cursor = "pointer";
       } else {
-        triggerElement.style.cursor = "auto";
+        containerElement.style.display = "none";
+        rotateFocusAreaTriggerCaret(false);
       }
     } else {
       containerElement.style.display = "none";
       rotateFocusAreaTriggerCaret(false);
-      triggerElement.style.cursor = "pointer";
     }
+
+    const mapFiltersSidebar = document.querySelector(".map-filters__sidebar");
+    if (mapFiltersSidebar) {
+      mapFiltersSidebar.addEventListener("click", (e) => {
+        if (e.target.id === "focus-areas-dropdown-trigger") return; // do not close if the trigger itself is clicked
+        closeFocusAreaDropdown();
+      });
+    }
+
     renderComponent(
       html`<${FocusAreaDropdown}
         focusAreas=${focusAreas}
