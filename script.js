@@ -135,8 +135,23 @@ function positionDropdown(focusAreas, placesData) {
     containerElement.style.height = `${containerHeight}px`;
 
     if (containerElement.style.display !== "block") {
-      containerElement.style.display = "block";
-      rotateFocusAreaTriggerCaret(true);
+      // check whether the first label element in the div with the class "filter-form__radio-group" has a div that has the class "w--redirected-checked"
+      let isViewDataAsMapSelected = false;
+      const firstLabel = document.querySelector(
+        ".filter-form__radio-group label:first-child"
+      );
+      if (firstLabel) {
+        const checkedDiv = firstLabel.querySelector(".w--redirected-checked");
+        if (checkedDiv) {
+          // If it does, add a class to the container element
+          isViewDataAsMapSelected = true;
+        }
+      }
+
+      if (isViewDataAsMapSelected) {
+        containerElement.style.display = "block";
+        rotateFocusAreaTriggerCaret(true);
+      }
     } else {
       containerElement.style.display = "none";
       rotateFocusAreaTriggerCaret(false);
