@@ -76,6 +76,7 @@ export function Overlay({
             ? html` <${GiniCoefficientSection}
                 gini=${place.gini}
                 titleClasses=${titleClasses}
+                prefix="desktop"
               />`
             : null}
         </div>
@@ -122,6 +123,7 @@ export function Overlay({
             <${GiniCoefficientSection}
               gini=${place.gini}
               titleClasses=${titleClasses}
+              prefix="tablet"
             />
           </div>
         </div>
@@ -166,6 +168,7 @@ export function Overlay({
                 <${GiniCoefficientSection}
                   gini=${place.gini}
                   titleClasses=${titleClasses}
+                  prefix="mobile"
                 />
               </div>
             </div>`
@@ -601,7 +604,7 @@ function LocationSection({ place, titleClasses }) {
   </div>`;
 }
 
-function GiniCoefficientSection({ gini, titleClasses }) {
+function GiniCoefficientSection({ gini, titleClasses, prefix = "mobile_" }) {
   if (!gini) {
     return null;
   }
@@ -614,7 +617,7 @@ function GiniCoefficientSection({ gini, titleClasses }) {
 
   // get width and height of the image
   useEffect(() => {
-    const giniEllipse = document.getElementById("gini-ellipse");
+    const giniEllipse = document.getElementById(prefix + "-gini-ellipse");
     if (giniEllipse) {
       const handleLoad = () => {
         setWidth(giniEllipse.naturalWidth || giniEllipse.width);
@@ -633,7 +636,7 @@ function GiniCoefficientSection({ gini, titleClasses }) {
 
   // Intersection Observer for animations
   useEffect(() => {
-    const giniContainer = document.getElementById("gini-container");
+    const giniContainer = document.getElementById(prefix + "-gini-container");
     if (!giniContainer) return;
 
     const observer = new IntersectionObserver(
@@ -730,11 +733,11 @@ function GiniCoefficientSection({ gini, titleClasses }) {
         </span>
       </div>
     </div>
-    <div class="relative" id="gini-container">
+    <div class="relative" id="${prefix}-gini-container">
       <img
         src="${REPO_URL}/assets/gini_coefficient_ellipse.png"
         alt="Gini Coefficient Chart"
-        id="gini-ellipse"
+        id="${prefix}-gini-ellipse"
       />
       ${width && height
         ? html`<svg
