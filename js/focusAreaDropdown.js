@@ -226,7 +226,7 @@ export function FocusAreaActiveIndicator({ numberOfActiveFocusAreas }) {
       <div
         xmlns="http://www.w3.org/1999/xhtml"
         clip-path="url(#tag__a)"
-        style="backdrop-filter:blur(6px);height:100%;width:100%"
+        style="height:100%;width:100%"
       />
     </foreignObject>
     <g data-figma-bg-blur-radius="12">
