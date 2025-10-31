@@ -711,7 +711,7 @@ function GiniCoefficientSection({ gini, titleClasses, prefix = "mobile" }) {
         onmouseleave="${() => setShowTooltip(false)}"
       />
       <div
-        class="w-[140%] bg-[#0F100F] px-4 py-4 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 shadow-lg ${showTooltip
+        class="w-[140%] bg-[#0F100F] px-4 py-4 absolute top-[30px] right-0 font-authentic text-base leading-[155%] text-vis-text-inverted text-transform-none z-10 shadow-lg pointer-events-none ${showTooltip
           ? ""
           : "hidden"}"
       >
