@@ -111,6 +111,13 @@ function positionDropdown(focusAreas, placesData) {
   const triggerElement = document.getElementById(
     "focus-areas-dropdown-trigger"
   );
+  const containerElement = document.getElementById(
+    "focus-areas-dropdown-container"
+  );
+  const firstLabel = document.querySelector(
+    ".filter-form__radio-group label:first-child"
+  );
+
   const triggerRightX = triggerElement.getBoundingClientRect().right;
   const triggerLeftX = triggerElement.getBoundingClientRect().left;
   const triggerTopY = triggerElement.getBoundingClientRect().top;
@@ -127,9 +134,7 @@ function positionDropdown(focusAreas, placesData) {
     containerWidth = triggerRightX - triggerLeftX;
     containerHeight = 265;
   }
-  const containerElement = document.getElementById(
-    "focus-areas-dropdown-container"
-  );
+
   if (containerElement) {
     containerElement.style.top = `${containerTop}px`;
     containerElement.style.left = `${containerLeft}px`;
@@ -139,9 +144,7 @@ function positionDropdown(focusAreas, placesData) {
     if (containerElement.style.display !== "block") {
       // check whether the first label element in the div with the class "filter-form__radio-group" has a div that has the class "w--redirected-checked"
       let isViewDataAsMapSelected = false;
-      const firstLabel = document.querySelector(
-        ".filter-form__radio-group label:first-child"
-      );
+
       if (firstLabel) {
         const checkedDiv = firstLabel.querySelector(".w--redirected-checked");
         if (checkedDiv) {
@@ -214,6 +217,34 @@ function renderFocusAreasDropdown(focusAreas, placesData) {
       html`<${FocusAreaActiveIndicator} numberOfActiveFocusAreas=${null} />`,
       activeFocusAreaIndicator
     );
+  }
+
+  function updatePointerEventsForFocusAreaDropdownTrigger(enable) {
+    const triggerElement = document.getElementById(
+      "focus-areas-dropdown-trigger"
+    );
+    if (triggerElement) {
+      triggerElement.style.pointerEvents = enable ? "auto" : "none";
+      triggerElement.style.cursor = enable ? "pointer" : "auto";
+    }
+  }
+
+  const firstLabel = document.querySelector(
+    ".filter-form__radio-group label:first-child"
+  );
+  if (firstLabel) {
+    firstLabel.addEventListener("click", () => {
+      console.log("clicked first label");
+      updatePointerEventsForFocusAreaDropdownTrigger(true);
+    });
+  }
+  const secondLabel = document.querySelector(
+    ".filter-form__radio-group label:nth-child(2)"
+  );
+  if (secondLabel) {
+    secondLabel.addEventListener("click", () => {
+      updatePointerEventsForFocusAreaDropdownTrigger(false);
+    });
   }
 }
 
