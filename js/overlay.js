@@ -224,7 +224,7 @@ function OverlayHeader({
 
   return html`<div
     class="flex flex-col md:flex-col items-start md:items-end justify-between bg-blue-600 px-6 pt-[33px] md:pt-4 pb-6 bg-cover bg-center transition-shadow duration-300"
-    style="${(isMobile() || isTabletPortrait) && scrollY > 0
+    style="${(isMobile() || isTabletPortrait()) && scrollY > 0
       ? "box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.75);"
       : ""} background-image: url('${REPO_URL}/assets/gradient_texture_blue_overlay_header${isMobile()
       ? "_mobile"
@@ -819,7 +819,10 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
     const prevPlace = placesArray[prevIndex];
     if (prevPlace) {
       goToPlace(prevPlace.nameCleaned);
-      scrollToTopOfOverlay();
+      // Delay scroll to ensure new content is rendered
+      setTimeout(() => {
+        scrollToTopOfOverlay();
+      }, 0);
     }
   }
 
@@ -830,7 +833,10 @@ function PrevNextProjectSection({ currentPlaceId, filteredPlaces, goToPlace }) {
     const nextPlace = placesArray[nextIndex];
     if (nextPlace) {
       goToPlace(nextPlace.nameCleaned);
-      scrollToTopOfOverlay();
+      // Delay scroll to ensure new content is rendered
+      setTimeout(() => {
+        scrollToTopOfOverlay();
+      }, 0);
     }
   }
 

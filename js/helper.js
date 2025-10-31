@@ -85,5 +85,7 @@ export function isMobile() {
 
 export const isTouchDevice =
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
-export const isTabletPortrait =
-  window.innerWidth >= 768 && window.innerWidth <= 1200;
+
+export function isTabletPortrait() {
+  return window.innerWidth >= 768 && window.innerWidth <= 1200;
+}
