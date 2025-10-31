@@ -40,7 +40,9 @@ function main() {
     placesData.forEach((d, i) => {
       d["id"] = i + 1;
       d["approved"] =
-        d["Approval?"] && d["Approval?"].trim() === "Approved" ? true : false;
+        d["Approval Status"] && d["Approval Status"].trim() === "Approved"
+          ? true
+          : false;
       d["lat"] = +d["Latitude"];
       d["lon"] = +d["Longitude"];
       d["gini"] = +d["Gini Coefficient"];
@@ -65,27 +67,26 @@ function main() {
       d["city"] = d["City"];
       d["state"] = d["State"];
       d["focusAreas"] =
-        d["Focus Area(s) (Dropdown)"] && d["Focus Area(s) (Dropdown)"] !== ""
-          ? d["Focus Area(s) (Dropdown)"].split(",").map((f) => f.trim())
+        d["Focus Areas"] && d["Focus Areas"] !== ""
+          ? d["Focus Areas"].split(",").map((f) => f.trim())
           : [];
       d["areaType"] =
         d["Area Type"] && d["Area Type"] !== "" ? d["Area Type"] : null;
-
       d["populationSize"] =
-        d["Population Size (City)"] && d["Population Size (City)"] !== ""
-          ? d["Population Size (City)"]
+        d["Population Size"] && d["Population Size"] !== ""
+          ? d["Population Size"]
           : null;
       d["populationDataYear"] =
         d["Population Data Year"] && d["Population Data Year"] !== ""
           ? d["Population Data Year"]
           : null;
       d["projectLink"] =
-        d["Project Link (URL)"] && d["Project Link (URL)"] !== ""
-          ? d["Project Link (URL)"]
+        d["Learn More Link"] && d["Learn More Link"] !== ""
+          ? d["Learn More Link"]
           : null;
       d["partners"] =
-        d["Partner(s) "] && d["Partner(s) "] !== ""
-          ? d["Partner(s) "].split(",").map((p) => p.trim())
+        d["Partners"] && d["Partners"] !== ""
+          ? d["Partners"].split(",").map((p) => p.trim())
           : [];
 
       d["status"] = d["Status"] && d["Status"] !== "" ? d["Status"] : null;
