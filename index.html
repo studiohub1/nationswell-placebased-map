@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Thu Oct 30 2025 14:29:55 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Fri Oct 31 2025 12:41:55 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="nationswell-placebased-staging.webflow.io"
   data-wf-page="68dfbdc996d8d8898d743d66"
@@ -31,7 +31,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/css/nationswell-placebased-staging.webflow.shared.813d1aff3.min.css"
+      href="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/css/nationswell-placebased-staging.webflow.shared.31e47ac89.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -737,7 +737,11 @@
       <div class="w-layout-hflex map-filters__container overflow-hidden">
         <div data-modal-wrapper="" class="intro-modal">
           <div data-modal-button="close" class="intro-modal__overlay"></div>
-          <div data-modal-element="not-active" class="intro-modal__modal">
+          <div
+            data-lenis-prevent="true"
+            data-modal-element="not-active"
+            class="intro-modal__modal"
+          >
             <img
               src="https://cdn.prod.website-files.com/66966406b76908dc913f0db6/68f175e4f2d4cd20b4f8fc90_grid-background.avif"
               loading="lazy"
@@ -961,6 +965,7 @@
                   </div>
                 </div>
                 <div
+                  id="toggle-hide-completed-projects"
                   data-w-id="1d6ef0a8-9e61-f9fb-56b3-643c6c558246"
                   class="filter-form__field-wrapper"
                 >
@@ -1300,10 +1305,12 @@
               pointer-events: none;
               visibility: hidden;
             }
+
             @media screen and (min-width: 992px) and (max-height: 780px) {
-              .intro-modal {
+              .intro-modal__content {
                 overflow-y: auto !important;
               }
+
               .intro-modal__close {
                 display: block !important;
               }

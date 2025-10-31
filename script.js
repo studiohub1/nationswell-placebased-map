@@ -227,6 +227,14 @@ function renderFocusAreasDropdown(focusAreas, placesData) {
       triggerElement.style.pointerEvents = enable ? "auto" : "none";
       triggerElement.style.cursor = enable ? "pointer" : "auto";
     }
+
+    const toggleCheckbox = document.querySelector(
+      "#toggle-hide-completed-projects .filter-form__toggle-checkbox"
+    ); // for "hide completed" toggle
+    if (toggleCheckbox) {
+      toggleCheckbox.style.pointerEvents = enable ? "auto" : "none";
+      toggleCheckbox.style.cursor = enable ? "pointer" : "auto";
+    }
   }
 
   const firstLabel = document.querySelector(
@@ -234,7 +242,6 @@ function renderFocusAreasDropdown(focusAreas, placesData) {
   );
   if (firstLabel) {
     firstLabel.addEventListener("click", () => {
-      console.log("clicked first label");
       updatePointerEventsForFocusAreaDropdownTrigger(true);
     });
   }
