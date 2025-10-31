@@ -168,7 +168,11 @@ function positionDropdown(focusAreas, placesData) {
     const mapFiltersSidebar = document.querySelector(".map-filters__sidebar");
     if (mapFiltersSidebar) {
       mapFiltersSidebar.addEventListener("click", (e) => {
-        if (e.target.id === "focus-areas-dropdown-trigger") return; // do not close if the trigger itself is clicked
+        // do not close if the trigger itself is clicked
+        if (e.target.id === "focus-areas-dropdown-trigger") return;
+        // also do not close if any element within the trigger element is clicked
+        if (triggerElement.contains(e.target)) return;
+
         closeFocusAreaDropdown();
       });
     }
