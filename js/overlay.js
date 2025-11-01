@@ -717,9 +717,8 @@ function GiniCoefficientSection({ gini, titleClasses, prefix = "mobile" }) {
       >
         <span
           >The Gini coefficient measures inequality on a scale ranging
-          from${" "}
-          <span class="font-bold">0%</span>
-          (complete equality: everyone has the same income) to${" "}
+          from${" "} <span class="font-bold">0%</span>${" "} (complete equality:
+          everyone has the same income) to${" "}
           <span class="font-bold">100%</span> (complete inequality: one person
           has all the income).</span
         >
