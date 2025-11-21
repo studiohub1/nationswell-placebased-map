@@ -19,8 +19,8 @@ function main() {
       // "./data/focusAreasData.csv"
     ),
     d3.csv(
-      REPO_URL + "/data/places.csv"
-      // "./data/places.csv"
+      REPO_URL + "/data/nationswell_placebased_projects.csv"
+      // "./data/nationswell_placebased_projects.csv"
     ),
   ]).then(([focusAreaData, placesData]) => {
     // process focus area data
