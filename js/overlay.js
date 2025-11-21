@@ -39,6 +39,8 @@ export function Overlay({
   }
 
   const titleClasses = "font-sora text-sm uppercase mb-4 font-bold";
+  const isSingleLocation =
+    place.mergedLocation && place.mergedLocation.length === 1;
   return html`<div class="map-details-overlay fixed inset-0 z-[10001]">
     <div
       class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-[10%] md:left-1/2 md:transform md:-translate-x-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
@@ -63,13 +65,23 @@ export function Overlay({
       <div class="overlay-content-desktop hidden min-[1200px]:block">
         <div class="grid-cols-5 grid">
           <div class="col-span-2"><${DescriptionSection} place=${place} /></div>
-          <div class="col-span-2">
+          <div class="${isSingleLocation ? "col-span-1" : "col-span-2"}">
             <${LocationSection} place=${place} titleClasses=${titleClasses} />
           </div>
           <div
-            class="col-span-1 bg-cover bg-center bg-no-repeat"
+            class="${(place.gini && place.gini !== 0 && isSingleLocation) ||
+            !isSingleLocation
+              ? "col-span-1"
+              : "col-span-2"} bg-cover bg-center bg-no-repeat"
             style="background-image: url('${REPO_URL}/assets/areaImages/${areaImageName}'); margin-top: -1px; margin-bottom: -1px;"
           ></div>
+          ${!isMobile() && place.gini && place.gini !== 0 && isSingleLocation
+            ? html` <${GiniCoefficientSection}
+                gini=${place.gini}
+                titleClasses=${titleClasses}
+                prefix="desktop"
+              />`
+            : null}
         </div>
         <div class="grid grid-cols-5 grid">
           <div class="col-span-2">
@@ -111,6 +123,11 @@ export function Overlay({
 
           <div class="col-span-1 flex flex-col">
             <${LocationSection} place=${place} titleClasses=${titleClasses} />
+            <${GiniCoefficientSection}
+              gini=${place.gini}
+              titleClasses=${titleClasses}
+              prefix="tablet"
+            />
           </div>
         </div>
         <${FocusAreaSection}
@@ -144,10 +161,17 @@ export function Overlay({
         ></div>
         ${isMobile() && place.gini && place.gini !== 0
           ? html` <div class="grid grid-cols-2">
-              <div class="col-span-2">
+              <div class="col-span-1">
                 <${LocationSection}
                   place=${place}
                   titleClasses=${titleClasses}
+                />
+              </div>
+              <div class="col-span-1">
+                <${GiniCoefficientSection}
+                  gini=${place.gini}
+                  titleClasses=${titleClasses}
+                  prefix="mobile"
                 />
               </div>
             </div>`
