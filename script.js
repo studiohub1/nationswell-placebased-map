@@ -39,10 +39,10 @@ function main() {
     // preprocess places data as needed
     placesData.forEach((d, i) => {
       d["id"] = i + 1;
-      d["approved"] =
-        d["Approval Status"] && d["Approval Status"].trim() === "Approved"
-          ? true
-          : false;
+      // d["approved"] =
+      //   d["Approval Status"] && d["Approval Status"].trim() === "Approved"
+      //     ? true
+      //     : false;
       d["lat"] = +d["Latitude"];
       d["lon"] = +d["Longitude"];
       d["gini"] = +d["Gini Coefficient"];
@@ -97,7 +97,7 @@ function main() {
           ? getAllFocusAreaGroupsForProject(d["focusAreas"], focusAreaData)
           : [];
     });
-    placesData = placesData.filter((p) => p["name"] !== "" && p["approved"]);
+    // placesData = placesData.filter((p) => p["name"] !== "" && p["approved"]);
 
     // render focus areas dropdown within Webflow container
     renderFocusAreasDropdown(groupedDataArray, placesData);
