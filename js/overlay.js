@@ -408,7 +408,7 @@ function PartnerSection({ place, partners, titleClasses }) {
                   setAnimationDistance(animationDistance);
                   // Calculate duration based on distance to maintain consistent speed
                   // Speed: 50 pixels per second (adjust this value to change overall speed)
-                  const pixelsPerSecond = 50;
+                  const pixelsPerSecond = 35;
                   const duration = animationDistance / pixelsPerSecond;
                   setAnimationDuration(duration);
                   setTimeout(() => {
