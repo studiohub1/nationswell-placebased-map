@@ -369,11 +369,13 @@ function PartnerSection({ place, partners, titleClasses }) {
   const [isScrolling, setIsScrolling] = useState(false);
   const [containerRef, setContainerRef] = useState(null);
   const [animationDistance, setAnimationDistance] = useState(null);
+  const [animationDuration, setAnimationDuration] = useState(null);
 
   // Reset animation state when place changes
   useEffect(() => {
     setIsScrolling(false);
     setAnimationDistance(null);
+    setAnimationDuration(null);
   }, [place.partners]);
 
   useEffect(() => {
@@ -404,6 +406,11 @@ function PartnerSection({ place, partners, titleClasses }) {
                 const animationDistance = contentWidth + 32;
                 if (contentWidth > containerWidth) {
                   setAnimationDistance(animationDistance);
+                  // Calculate duration based on distance to maintain consistent speed
+                  // Speed: 50 pixels per second (adjust this value to change overall speed)
+                  const pixelsPerSecond = 50;
+                  const duration = animationDistance / pixelsPerSecond;
+                  setAnimationDuration(duration);
                   setTimeout(() => {
                     setIsScrolling(true);
                   }, 800);
@@ -426,6 +433,12 @@ function PartnerSection({ place, partners, titleClasses }) {
       observer.unobserve(containerRef);
     };
   }, [containerRef, place.partners]);
+
+  console.log(
+    "Rendering PartnerSection for place:",
+    animationDistance,
+    animationDuration
+  );
 
   const partnersContent =
     place.partners && place.partners.length > 0
@@ -476,7 +489,7 @@ function PartnerSection({ place, partners, titleClasses }) {
         : null}
     </div>
 
-    ${animationDistance
+    ${animationDistance && animationDuration
       ? html`<style>
           @keyframes partnerScroll {
             0% {
@@ -488,7 +501,7 @@ function PartnerSection({ place, partners, titleClasses }) {
           }
 
           .partners-scroll-content {
-            animation: partnerScroll 25s linear infinite;
+            animation: partnerScroll ${animationDuration}s linear infinite;
             width: fit-content;
           }
         </style>`
