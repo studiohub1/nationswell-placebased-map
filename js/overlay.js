@@ -40,7 +40,7 @@ export function Overlay({
 
   const titleClasses = "font-sora text-sm uppercase mb-4 font-bold";
   const isSingleLocation =
-    place.mergedLocation && place.mergedLocation.length === 1;
+    place.mergedLocation && place.mergedLocation.length === 1 ? true : false;
   return html`<div class="map-details-overlay fixed inset-0 z-[10001]">
     <div
       class="map-details-content absolute bg-white md:rounded-lg md:shadow-lg top-0 left-0 md:top-[10%] md:left-1/2 md:transform md:-translate-x-1/2 z-[11] w-[100%] md:w-[90%] max-w-[1200px] max-h-[100%] md:max-h-[90%] xl:max-h-[80%] xl:w-[80%] overflow-y-auto overflow-x-hidden"
@@ -66,7 +66,11 @@ export function Overlay({
         <div class="grid-cols-5 grid">
           <div class="col-span-2"><${DescriptionSection} place=${place} /></div>
           <div class="${isSingleLocation ? "col-span-1" : "col-span-2"}">
-            <${LocationSection} place=${place} titleClasses=${titleClasses} />
+            <${LocationSection}
+              place=${place}
+              titleClasses=${titleClasses}
+              isSingleLocation=${isSingleLocation}
+            />
           </div>
           <div
             class="${(place.gini && place.gini !== 0 && isSingleLocation) ||
@@ -122,7 +126,11 @@ export function Overlay({
           </div>
 
           <div class="col-span-1 flex flex-col">
-            <${LocationSection} place=${place} titleClasses=${titleClasses} />
+            <${LocationSection}
+              place=${place}
+              titleClasses=${titleClasses}
+              isSingleLocation=${isSingleLocation}
+            />
             <${GiniCoefficientSection}
               gini=${place.gini}
               titleClasses=${titleClasses}
@@ -165,6 +173,7 @@ export function Overlay({
                 <${LocationSection}
                   place=${place}
                   titleClasses=${titleClasses}
+                  isSingleLocation=${isSingleLocation}
                 />
               </div>
               <div class="col-span-1">
@@ -176,7 +185,11 @@ export function Overlay({
               </div>
             </div>`
           : html`<div class="p-2 bg-vis-surface-primary-tonal">
-              <${LocationSection} place=${place} titleClasses=${titleClasses} />
+              <${LocationSection}
+                place=${place}
+                titleClasses=${titleClasses}
+                isSingleLocation=${isSingleLocation}
+              />
             </div>`}
         <${FocusAreaSection}
           place=${place}
@@ -512,7 +525,7 @@ function FocusAreaSection({ place, allFocusAreas, titleClasses }) {
   </div>`;
 }
 
-function LocationSection({ place, titleClasses }) {
+function LocationSection({ place, titleClasses, isSingleLocation }) {
   let mergedLocationString = "";
   if (place.mergedLocation && place.mergedLocation.length === 1) {
     mergedLocationString = place.mergedLocation[0];
@@ -552,6 +565,68 @@ function LocationSection({ place, titleClasses }) {
           </g></svg
         ><span>${mergedLocationString}</span>
       </div>
+      ${place.areaType && isSingleLocation
+        ? html` <div class="flex flex-row space-x-1">
+            <svg
+              width="21"
+              height="21"
+              fill="none"
+              viewBox="0 0 21 21"
+              class="shrink-0"
+            >
+              <g>
+                <path
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.25"
+                  d="M6.064 8.008 6.073 8m3.323.008L9.405 8m-3.341 3.342.009-.01m3.323.01.009-.01m-3.341 3.343.009-.009m3.323.009.009-.009M12.73 18h-9.5a.5.5 0 0 1-.5-.5V5.167a.5.5 0 0 1 .5-.5h4.5V3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5V8m0 10h4.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-4.5m0 10v-3.333m0-6.667v3.333m0 3.334v-3.334m0 3.334h1.667m-1.667-3.334h1.667"
+                />
+              </g>
+            </svg>
+            <span>${place.areaType}</span>
+          </div>`
+        : null}
+      ${place.populationSize && place.populationSize && isSingleLocation
+        ? html` <div class="flex flex-row space-x-1">
+            <svg
+              width="21"
+              height="21"
+              fill="none"
+              viewBox="0 0 21 21"
+              class="shrink-0"
+            >
+              <defs>
+                <clipPath id="a" class="a">
+                  <path fill="#fff" d="M.23.5h20v20h-20z" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#a)">
+                <path
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.25"
+                  d="M6.064 15.5v-.833a4.167 4.167 0 1 1 8.334 0v.833m-13.334 0v-.834a2.5 2.5 0 0 1 2.5-2.5M19.396 15.5v-.834a2.5 2.5 0 0 0-2.5-2.5"
+                />
+                <path
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.25"
+                  d="M10.23 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm-6.667 1.667a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Zm13.334 0a1.667 1.667 0 1 0 0-3.333 1.667 1.667 0 0 0 0 3.333Z"
+                />
+              </g>
+            </svg>
+            <div>
+              <span>${place.populationSize}</span>
+              <span
+                class="block font-libre italic text-[14px] leading-[135%] text-vis-text-secondary"
+                >population as of ${place.populationDataYear}</span
+              >
+            </div>
+          </div>`
+        : null}
     </div>
   </div>`;
 }
