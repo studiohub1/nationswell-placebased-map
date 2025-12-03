@@ -109,6 +109,24 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
     };
   }, []);
 
+  // add event listener for checkbox with id "Status" (hide completed projects toggle)
+  useEffect(() => {
+    const statusCheckbox = document.getElementById("Status");
+    if (statusCheckbox) {
+      const handleStatusChange = (e) => {
+        setShowMarkerDetails(false);
+        setMarkerDetails(null);
+        setShowOverlay(false);
+        setOverlayPlaceName(null);
+      };
+
+      statusCheckbox.addEventListener("change", handleStatusChange);
+      return () => {
+        statusCheckbox.removeEventListener("change", handleStatusChange);
+      };
+    }
+  }, []);
+
   // dimensions
   const width = 975;
   const height = 610;

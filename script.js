@@ -326,7 +326,7 @@ function Content({ focusAreas, placesData }) {
     });
   }, []);
 
-  // add event listener for checkbox with id "Status"
+  // add event listener for checkbox with id "Status" (hide completed projects toggle)
   useEffect(() => {
     const statusCheckbox = document.getElementById("Status");
     if (statusCheckbox) {
