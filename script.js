@@ -104,7 +104,27 @@ function main() {
 
     // render main content
     renderContent(focusAreaData, placesData);
+
+    // show or hide "hide completed projects" toggle based on whether any completed projects exist
+    handleCompletedProjectsToggle(placesData);
   });
+}
+
+// show or hide "hide completed projects" toggle based on whether any completed projects exist
+function handleCompletedProjectsToggle(placesData) {
+  const completedProjects = placesData.filter(
+    (p) => p["status"] === "Completed"
+  );
+  const toggleContainer = document.getElementById(
+    "toggle-hide-completed-projects"
+  );
+  if (toggleContainer) {
+    if (completedProjects.length > 0) {
+      toggleContainer.style.display = "block";
+    } else {
+      toggleContainer.style.display = "none";
+    }
+  }
 }
 
 function positionDropdown(focusAreas, placesData) {
