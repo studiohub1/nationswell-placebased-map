@@ -66,7 +66,7 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
   });
 
   // markers - group places by lat and lon to handle same-location cases, group together when markers would overlap
-  const groupedPlaces = {};
+  let groupedPlaces = {};
   places
     .filter((p) => p.lat !== 0 && p.lon !== 0)
     .forEach((place) => {
@@ -77,10 +77,22 @@ export function Map({ usGeoData, places, partners, allFocusAreas }) {
       groupedPlaces[key].push(place);
     });
 
+  // sort groupedPlaces by number of places ascending (for better marker rendering order and less overlap of number labels)
+  groupedPlaces = Object.keys(groupedPlaces)
+    .sort((a, b) => groupedPlaces[a].length - groupedPlaces[b].length)
+    .reduce((acc, key) => {
+      acc[key] = groupedPlaces[key];
+      return acc;
+    }, {});
+
   // prep the places array so it merges places that have the same project name
-  const mergedPlaces = {};
+  let mergedPlaces = {};
   places.forEach((place) => {
     const key = place.name.trim().toLowerCase();
+    if (!key) {
+      // console.warn("Skipping place with empty name:", place);
+      return;
+    }
     if (!mergedPlaces[key]) {
       mergedPlaces[key] = {
         ...place,
