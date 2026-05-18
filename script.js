@@ -9,7 +9,7 @@ import {
   closeFocusAreaDropdown,
 } from "./js/focusAreaDropdown.js";
 
-console.log("Script for place-based map loaded.");
+console.log("Studio Hub Script for place-based map loaded.");
 main();
 
 function main() {
