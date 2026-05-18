@@ -1,5 +1,5 @@
 export const REPO_URL =
-  "https://raw.githubusercontent.com/memarostudio/nationswell-placebased-map/refs/heads/main";
+  "https://raw.githubusercontent.com/studiohub1/nationswell-placebased-map/refs/heads/main";
 
 // mapping from state name to state short id
 export const stateMapping = {
